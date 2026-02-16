@@ -1,16 +1,19 @@
 """
 API views for Smart-Travel-Planner backend.
 """
+import json
 import re
 
-import json
-
+import requests
 from django.contrib.auth import authenticate, get_user_model, login
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
+
+from .services.amadeus import AmadeusError, search_flights
+from .models import City
 
 User = get_user_model()
 
@@ -209,4 +212,163 @@ def signup_api(request):
             },
         },
         status=201,
+    )
+
+
+@csrf_exempt
+@require_http_methods(['POST'])
+def flight_search_api(request):
+    """
+    Search for flights via Amadeus API. Accepts JSON body with:
+    - departure_airport_code (or origin): 3-letter IATA code
+    - destination_airport_code (or destination): 3-letter IATA code
+    - travel_date: YYYY-MM-DD
+    - number_of_passengers (or adults): integer 1-9
+
+    Returns simplified list of flights. API key/secret never exposed.
+    """
+    try:
+        body = json.loads(request.body.decode('utf-8'))
+    except (json.JSONDecodeError, ValueError):
+        return JsonResponse(
+            {'success': False, 'message': 'Invalid JSON body.'},
+            status=400,
+        )
+
+    origin = (
+        body.get('departure_airport_code') or body.get('origin') or ''
+    ).strip().upper()
+    destination = (
+        body.get('destination_airport_code') or body.get('destination') or ''
+    ).strip().upper()
+    travel_date = (
+        body.get('travel_date') or body.get('departure_date') or ''
+    ).strip()
+    adults_raw = body.get('number_of_passengers') or body.get('adults') or body.get('passengers')
+    adults = 1
+    if adults_raw is not None:
+        try:
+            adults = int(adults_raw)
+        except (TypeError, ValueError):
+            adults = 1
+
+    if not origin:
+        return JsonResponse(
+            {'success': False, 'message': 'Departure airport code is required.'},
+            status=400,
+        )
+    if not destination:
+        return JsonResponse(
+            {'success': False, 'message': 'Destination airport code is required.'},
+            status=400,
+        )
+    if not travel_date:
+        return JsonResponse(
+            {'success': False, 'message': 'Travel date is required (YYYY-MM-DD).'},
+            status=400,
+        )
+
+    try:
+        flights = search_flights(
+            origin=origin,
+            destination=destination,
+            departure_date=travel_date,
+            adults=adults,
+        )
+    except AmadeusError as e:
+        status = e.status_code if e.status_code else 502
+        return JsonResponse(
+            {'success': False, 'message': e.message},
+            status=status,
+        )
+    except requests.RequestException as e:
+        return JsonResponse(
+            {'success': False, 'message': f'Flight search service unavailable: {str(e)}'},
+            status=503,
+        )
+
+    return JsonResponse(
+        {
+            'success': True,
+            'flights': flights,
+            'count': len(flights),
+        },
+        status=200,
+    )
+
+
+@require_http_methods(['GET'])
+def city_search_api(request):
+    """
+    Search for cities/airports by name or IATA code.
+    
+    Query Parameters:
+    - query: Search string (min 2 characters)
+    - limit: Maximum results to return (default: 10, max: 50)
+    
+    Returns JSON with list of matching cities containing:
+    - name: City name
+    - iata_code: 3-letter IATA airport code
+    - airport_name: Full airport name
+    - country: Country name
+    - country_code: 2-letter country code
+    - display_name: Formatted display string
+    - full_display: Full formatted display with airport and country
+    """
+    query = request.GET.get('query', '').strip()
+    limit = request.GET.get('limit', '10')
+    
+    # Validate limit
+    try:
+        limit = int(limit)
+        if limit < 1:
+            limit = 10
+        elif limit > 50:
+            limit = 50
+    except ValueError:
+        limit = 10
+    
+    # Require at least 2 characters for search
+    if len(query) < 2:
+        return JsonResponse(
+            {
+                'success': True,
+                'results': [],
+                'count': 0,
+                'message': 'Query must be at least 2 characters'
+            },
+            status=200
+        )
+    
+    # Search by name or IATA code (case-insensitive)
+    from django.db.models import Q
+    
+    cities = City.objects.filter(
+        Q(is_active=True) &
+        (Q(name__icontains=query) | 
+         Q(iata_code__iexact=query) |
+         Q(airport_name__icontains=query) |
+         Q(country__icontains=query))
+    ).order_by('name', 'iata_code')[:limit]
+    
+    results = []
+    for city in cities:
+        results.append({
+            'id': city.id,
+            'name': city.name,
+            'iata_code': city.iata_code,
+            'airport_name': city.airport_name,
+            'country': city.country,
+            'country_code': city.country_code,
+            'display_name': city.display_name,
+            'full_display': city.full_display,
+        })
+    
+    return JsonResponse(
+        {
+            'success': True,
+            'results': results,
+            'count': len(results),
+        },
+        status=200
     )

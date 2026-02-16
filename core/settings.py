@@ -151,3 +151,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Amadeus API (stored in .env - never exposed to frontend)
+AMADEUS_API_KEY = env('AMADEUS_API_KEY', default='')
+AMADEUS_API_SECRET = env('AMADEUS_API_SECRET', default='')

@@ -20,6 +20,29 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env()
 environ.Env.read_env(BASE_DIR / '.env')
 
+# Cloudinary Configuration
+# Get these from your Cloudinary Dashboard: https://console.cloudinary.com
+CLOUDINARY_CLOUD_NAME = env('CLOUDINARY_CLOUD_NAME', default='drpi30orb')
+CLOUDINARY_API_KEY = env('CLOUDINARY_API_KEY', default='896978247751483')
+CLOUDINARY_API_SECRET = env('CLOUDINARY_API_SECRET', default='ZawwGBG9xRZwtqnY542imwdSDdo')
+
+# Import and configure cloudinary AFTER setting the config values
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+cloudinary.config(
+    cloud_name=CLOUDINARY_CLOUD_NAME,
+    api_key=CLOUDINARY_API_KEY,
+    api_secret=CLOUDINARY_API_SECRET,
+    secure=True
+)
+
+# Debug: Print Cloudinary config (remove in production)
+import sys
+print(f"Cloudinary Config - Cloud Name: {cloudinary.config().cloud_name}", file=sys.stderr)
+print(f"Cloudinary Config - API Key: {cloudinary.config().api_key[:6] if cloudinary.config().api_key else 'None'}...", file=sys.stderr)
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -38,8 +61,18 @@ CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:3000',
     'http://localhost:5173',
     'http://127.0.0.1:5173',
+    'http://localhost:5174',
+    'http://127.0.0.1:5174',
+    'http://localhost:5175',
+    'http://127.0.0.1:5175',
 ]
 CORS_ALLOW_CREDENTIALS = True
+
+# Session settings for cross-origin requests
+SESSION_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SECURE = False  # Set to True in production with HTTPS
+CSRF_COOKIE_SAMESITE = 'None'
+CSRF_COOKIE_SECURE = False  # Set to True in production with HTTPS
 
 
 # Application definition
@@ -52,6 +85,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'cloudinary',
+    'cloudinary_storage',
     'api',
 ]
 

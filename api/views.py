@@ -1397,7 +1397,7 @@ def car_detail_api(request, car_id):
 @csrf_exempt
 @require_http_methods(['POST'])
 def car_create_api(request):
-    """Create a new car (admin only)."""
+    """Create a new car (admin only). Supports JSON and multipart form data."""
     # Check if user is super admin
     is_auth, user = check_admin_auth(request)
     if not is_auth:
@@ -1405,63 +1405,171 @@ def car_create_api(request):
             {'success': False, 'message': 'Unauthorized. Super Admin access required.'},
             status=403
         )
-    
+
     try:
-        data = json.loads(request.body)
-        
-        # Required fields
-        required_fields = ['model', 'type', 'company', 'price_per_day', 'transmission', 'seats']
-        for field in required_fields:
-            if field not in data:
+        # If the request is coming from an HTML form (multipart/form-data),
+        # read fields from request.POST instead of assuming raw JSON.
+        if request.content_type and request.content_type.startswith('multipart/form-data'):
+            model = request.POST.get('model', '').strip()
+            company = request.POST.get('company', '').strip()
+            car_type = request.POST.get('type', '').strip()
+            price_per_day = request.POST.get('price_per_day', '').strip()
+            original_price = request.POST.get('original_price', '').strip()
+            transmission = request.POST.get('transmission', '').strip() or 'automatic'
+            seats = request.POST.get('seats', '').strip()
+            luggage_capacity = request.POST.get('luggage_capacity', '').strip() or '2'
+            fuel_type = request.POST.get('fuel_type', '').strip() or 'gasoline'
+            mileage = request.POST.get('mileage', '').strip() or 'Unlimited'
+            rating = request.POST.get('rating', '').strip()
+            review_count = request.POST.get('review_count', '').strip() or '0'
+            features_raw = request.POST.get('features', '').strip()
+            is_available_raw = request.POST.get('is_available', 'true').strip().lower()
+
+            # Basic required-field validation
+            missing_fields = []
+            if not model:
+                missing_fields.append('model')
+            if not company:
+                missing_fields.append('company')
+            if not car_type:
+                missing_fields.append('type')
+            if not price_per_day:
+                missing_fields.append('price_per_day')
+            if not transmission:
+                missing_fields.append('transmission')
+            if not seats:
+                missing_fields.append('seats')
+
+            if missing_fields:
                 return JsonResponse(
-                    {'success': False, 'message': f'{field} is required'},
-                    status=400
+                    {
+                        'success': False,
+                        'message': f"Missing required fields: {', '.join(missing_fields)}",
+                    },
+                    status=400,
                 )
-        
-        # Validate car type
-        valid_types = [choice[0] for choice in Car.CAR_TYPES]
-        if data['type'] not in valid_types:
-            return JsonResponse(
-                {'success': False, 'message': f'Invalid car type. Valid types: {", ".join(valid_types)}'},
-                status=400
-            )
-        
-        # Validate transmission
-        valid_transmissions = [choice[0] for choice in Car.TRANSMISSION_TYPES]
-        if data['transmission'] not in valid_transmissions:
-            return JsonResponse(
-                {'success': False, 'message': f'Invalid transmission. Valid types: {", ".join(valid_transmissions)}'},
-                status=400
-            )
-        
-        # Validate fuel type if provided
-        if 'fuel_type' in data:
+
+            # Validate choices
+            valid_types = [choice[0] for choice in Car.CAR_TYPES]
+            if car_type not in valid_types:
+                return JsonResponse(
+                    {
+                        'success': False,
+                        'message': f'Invalid car type. Valid types: {", ".join(valid_types)}',
+                    },
+                    status=400,
+                )
+
+            valid_transmissions = [choice[0] for choice in Car.TRANSMISSION_TYPES]
+            if transmission not in valid_transmissions:
+                return JsonResponse(
+                    {
+                        'success': False,
+                        'message': f'Invalid transmission. Valid types: {", ".join(valid_transmissions)}',
+                    },
+                    status=400,
+                )
+
             valid_fuel_types = [choice[0] for choice in Car.FUEL_TYPES]
-            if data['fuel_type'] not in valid_fuel_types:
+            if fuel_type not in valid_fuel_types:
                 return JsonResponse(
-                    {'success': False, 'message': f'Invalid fuel type. Valid types: {", ".join(valid_fuel_types)}'},
+                    {
+                        'success': False,
+                        'message': f'Invalid fuel type. Valid types: {", ".join(valid_fuel_types)}',
+                    },
+                    status=400,
+                )
+
+            # Parse features (either JSON array or comma-separated string)
+            features = []
+            if features_raw:
+                try:
+                    parsed = json.loads(features_raw)
+                    if isinstance(parsed, list):
+                        features = parsed
+                except json.JSONDecodeError:
+                    features = [item.strip() for item in features_raw.split(',') if item.strip()]
+
+            # Boolean conversion
+            is_available = is_available_raw in ('true', '1', 'yes', 'on')
+
+            # Optional image URL coming from the form (we ignore uploaded file here)
+            car_image_url = request.POST.get('car_image_url', '').strip()
+
+            car = Car.objects.create(
+                model=model,
+                type=car_type,
+                company=company,
+                price_per_day=price_per_day,
+                original_price=original_price or None,
+                car_image_url=car_image_url,
+                transmission=transmission,
+                seats=seats,
+                luggage_capacity=luggage_capacity,
+                fuel_type=fuel_type,
+                mileage=mileage,
+                rating=rating or None,
+                review_count=review_count,
+                features=features,
+                is_available=is_available,
+            )
+
+        else:
+            # Original JSON-based API (e.g., Postman / programmatic clients)
+            data = json.loads(request.body.decode('utf-8'))
+
+            # Required fields
+            required_fields = ['model', 'type', 'company', 'price_per_day', 'transmission', 'seats']
+            for field in required_fields:
+                if field not in data:
+                    return JsonResponse(
+                        {'success': False, 'message': f'{field} is required'},
+                        status=400
+                    )
+
+            # Validate car type
+            valid_types = [choice[0] for choice in Car.CAR_TYPES]
+            if data['type'] not in valid_types:
+                return JsonResponse(
+                    {'success': False, 'message': f'Invalid car type. Valid types: {", ".join(valid_types)}'},
                     status=400
                 )
-        
-        # Create car
-        car = Car.objects.create(
-            model=data['model'],
-            type=data['type'],
-            company=data['company'],
-            price_per_day=data['price_per_day'],
-            original_price=data.get('original_price'),
-            car_image_url=data.get('car_image_url', ''),
-            transmission=data['transmission'],
-            seats=data['seats'],
-            luggage_capacity=data.get('luggage_capacity', 2),
-            fuel_type=data.get('fuel_type', 'gasoline'),
-            mileage=data.get('mileage', 'Unlimited'),
-            rating=data.get('rating'),
-            review_count=data.get('review_count', 0),
-            features=data.get('features', []),
-            is_available=data.get('is_available', True),
-        )
-        
+
+            # Validate transmission
+            valid_transmissions = [choice[0] for choice in Car.TRANSMISSION_TYPES]
+            if data['transmission'] not in valid_transmissions:
+                return JsonResponse(
+                    {'success': False, 'message': f'Invalid transmission. Valid types: {", ".join(valid_transmissions)}'},
+                    status=400
+                )
+
+            # Validate fuel type if provided
+            if 'fuel_type' in data:
+                valid_fuel_types = [choice[0] for choice in Car.FUEL_TYPES]
+                if data['fuel_type'] not in valid_fuel_types:
+                    return JsonResponse(
+                        {'success': False, 'message': f'Invalid fuel type. Valid types: {", ".join(valid_fuel_types)}'},
+                        status=400
+                    )
+
+            car = Car.objects.create(
+                model=data['model'],
+                type=data['type'],
+                company=data['company'],
+                price_per_day=data['price_per_day'],
+                original_price=data.get('original_price'),
+                car_image_url=data.get('car_image_url', ''),
+                transmission=data['transmission'],
+                seats=data['seats'],
+                luggage_capacity=data.get('luggage_capacity', 2),
+                fuel_type=data.get('fuel_type', 'gasoline'),
+                mileage=data.get('mileage', 'Unlimited'),
+                rating=data.get('rating'),
+                review_count=data.get('review_count', 0),
+                features=data.get('features', []),
+                is_available=data.get('is_available', True),
+            )
+
         return JsonResponse(
             {
                 'success': True,
@@ -1470,7 +1578,7 @@ def car_create_api(request):
             },
             status=201
         )
-        
+
     except json.JSONDecodeError:
         return JsonResponse(
             {'success': False, 'message': 'Invalid JSON data'},
@@ -1486,7 +1594,7 @@ def car_create_api(request):
 @csrf_exempt
 @require_http_methods(['POST'])
 def car_update_api(request, car_id):
-    """Update an existing car (admin only)."""
+    """Update an existing car (admin only). Supports JSON and multipart form data."""
     # Check if user is super admin
     is_auth, user = check_admin_auth(request)
     if not is_auth:
@@ -1494,24 +1602,105 @@ def car_update_api(request, car_id):
             {'success': False, 'message': 'Unauthorized. Super Admin access required.'},
             status=403
         )
-    
+
     try:
         car = Car.objects.get(id=car_id)
-        data = json.loads(request.body)
-        
-        # Update fields if provided
-        updatable_fields = [
-            'model', 'type', 'company', 'price_per_day', 'original_price',
-            'car_image_url', 'transmission', 'seats', 'luggage_capacity',
-            'fuel_type', 'mileage', 'rating', 'review_count', 'features', 'is_available'
-        ]
-        
-        for field in updatable_fields:
-            if field in data:
-                setattr(car, field, data[field])
-        
+
+        if request.content_type and request.content_type.startswith('multipart/form-data'):
+            # Read updates from form data
+            if 'model' in request.POST:
+                car.model = request.POST.get('model', car.model).strip()
+            if 'company' in request.POST:
+                car.company = request.POST.get('company', car.company).strip()
+            if 'type' in request.POST:
+                car_type = request.POST.get('type', car.type).strip()
+                valid_types = [choice[0] for choice in Car.CAR_TYPES]
+                if car_type in valid_types:
+                    car.type = car_type
+                else:
+                    return JsonResponse(
+                        {
+                            'success': False,
+                            'message': f'Invalid car type. Valid types: {", ".join(valid_types)}',
+                        },
+                        status=400,
+                    )
+            if 'price_per_day' in request.POST:
+                car.price_per_day = request.POST.get('price_per_day', car.price_per_day)
+            if 'original_price' in request.POST:
+                original_price = request.POST.get('original_price', '')
+                car.original_price = original_price or None
+            if 'transmission' in request.POST:
+                transmission = request.POST.get('transmission', car.transmission).strip()
+                valid_transmissions = [choice[0] for choice in Car.TRANSMISSION_TYPES]
+                if transmission in valid_transmissions:
+                    car.transmission = transmission
+                else:
+                    return JsonResponse(
+                        {
+                            'success': False,
+                            'message': f'Invalid transmission. Valid types: {", ".join(valid_transmissions)}',
+                        },
+                        status=400,
+                    )
+            if 'seats' in request.POST:
+                car.seats = request.POST.get('seats', car.seats)
+            if 'luggage_capacity' in request.POST:
+                car.luggage_capacity = request.POST.get('luggage_capacity', car.luggage_capacity)
+            if 'fuel_type' in request.POST:
+                fuel_type = request.POST.get('fuel_type', car.fuel_type).strip()
+                valid_fuel_types = [choice[0] for choice in Car.FUEL_TYPES]
+                if fuel_type in valid_fuel_types:
+                    car.fuel_type = fuel_type
+                else:
+                    return JsonResponse(
+                        {
+                            'success': False,
+                            'message': f'Invalid fuel type. Valid types: {", ".join(valid_fuel_types)}',
+                        },
+                        status=400,
+                    )
+            if 'mileage' in request.POST:
+                car.mileage = request.POST.get('mileage', car.mileage)
+            if 'rating' in request.POST:
+                rating = request.POST.get('rating', '').strip()
+                car.rating = rating or None
+            if 'review_count' in request.POST:
+                car.review_count = request.POST.get('review_count', car.review_count)
+            if 'features' in request.POST:
+                features_raw = request.POST.get('features', '').strip()
+                features = []
+                if features_raw:
+                    try:
+                        parsed = json.loads(features_raw)
+                        if isinstance(parsed, list):
+                            features = parsed
+                    except json.JSONDecodeError:
+                        features = [item.strip() for item in features_raw.split(',') if item.strip()]
+                car.features = features
+            if 'car_image_url' in request.POST:
+                car.car_image_url = request.POST.get('car_image_url', car.car_image_url).strip()
+            if 'is_available' in request.POST:
+                is_available_raw = request.POST.get('is_available', str(car.is_available)).strip().lower()
+                car.is_available = is_available_raw in ('true', '1', 'yes', 'on')
+
+        else:
+            # Original JSON-based API
+            data = json.loads(request.body.decode('utf-8'))
+
+            # Update fields if provided
+            updatable_fields = [
+                'model', 'type', 'company', 'price_per_day', 'original_price',
+                'car_image_url', 'transmission', 'seats', 'luggage_capacity',
+                'fuel_type', 'mileage', 'rating', 'review_count', 'features', 'is_available'
+            ]
+
+            for field in updatable_fields:
+                if field in data:
+                    setattr(car, field, data[field])
+
         car.save()
-        
+
         return JsonResponse(
             {
                 'success': True,
@@ -1519,7 +1708,7 @@ def car_update_api(request, car_id):
             },
             status=200
         )
-        
+
     except Car.DoesNotExist:
         return JsonResponse(
             {'success': False, 'message': 'Car not found'},

@@ -14,7 +14,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
 from .services.amadeus import AmadeusError, search_flights
-from .models import City, Hotel, Room
+from .models import City, Hotel, Room, Car, Package
 
 User = get_user_model()
 
@@ -1208,3 +1208,1286 @@ def hotel_admin_list_api(request):
         },
         status=200
     )
+
+
+# === Car API Endpoints ===
+
+
+@csrf_exempt
+@require_http_methods(['GET'])
+def car_list_api(request):
+    """List all available cars with filtering options."""
+    try:
+        # Get query parameters
+        car_type = request.GET.get('type')
+        min_price = request.GET.get('min_price')
+        max_price = request.GET.get('max_price')
+        company = request.GET.get('company')
+        
+        # Base query - only available cars
+        cars = Car.objects.filter(is_available=True)
+        
+        # Apply filters
+        if car_type:
+            cars = cars.filter(type=car_type)
+        
+        if company:
+            cars = cars.filter(company=company)
+        
+        if min_price:
+            cars = cars.filter(price_per_day__gte=min_price)
+        
+        if max_price:
+            cars = cars.filter(price_per_day__lte=max_price)
+        
+        # Sorting options
+        sort_by = request.GET.get('sort_by', 'price')
+        if sort_by == 'price_high':
+            cars = cars.order_by('-price_per_day')
+        elif sort_by == 'rating':
+            cars = cars.order_by('-rating')
+        else:
+            cars = cars.order_by('price_per_day')
+        
+        # Prepare results
+        results = []
+        for car in cars:
+            results.append({
+                'id': car.id,
+                'model': car.model,
+                'type': car.type,
+                'type_display': car.get_type_display(),
+                'company': car.company,
+                'price_per_day': float(car.price_per_day),
+                'original_price': float(car.original_price) if car.original_price else None,
+                'discount_percentage': car.discount_percentage,
+                'car_image_url': car.car_image_url,
+                'transmission': car.transmission,
+                'seats': car.seats,
+                'luggage_capacity': car.luggage_capacity,
+                'fuel_type': car.fuel_type,
+                'mileage': car.mileage,
+                'rating': float(car.rating) if car.rating else None,
+                'review_count': car.review_count,
+                'features': car.features,
+                'created_at': car.created_at.isoformat(),
+                'updated_at': car.updated_at.isoformat(),
+            })
+        
+        return JsonResponse(
+            {
+                'success': True,
+                'cars': results,
+                'count': len(results),
+            },
+            status=200
+        )
+    
+    except Exception as e:
+        return JsonResponse(
+            {'success': False, 'message': str(e)},
+            status=400
+        )
+
+
+@csrf_exempt
+@require_http_methods(['GET'])
+def car_admin_list_api(request):
+    """
+    Get all cars for admin management (Super Admin only).
+    Includes both available and unavailable cars.
+    """
+    # Check if user is super admin
+    is_auth, user = check_admin_auth(request)
+    if not is_auth:
+        return JsonResponse(
+            {'success': False, 'message': 'Unauthorized. Super Admin access required.'},
+            status=403
+        )
+    
+    cars = Car.objects.all().order_by('-created_at')
+    
+    results = []
+    for car in cars:
+        results.append({
+            'id': car.id,
+            'model': car.model,
+            'type': car.type,
+            'type_display': car.get_type_display(),
+            'company': car.company,
+            'price_per_day': float(car.price_per_day),
+            'original_price': float(car.original_price) if car.original_price else None,
+            'discount_percentage': car.discount_percentage,
+            'car_image_url': car.car_image_url,
+            'transmission': car.transmission,
+            'seats': car.seats,
+            'luggage_capacity': car.luggage_capacity,
+            'fuel_type': car.fuel_type,
+            'mileage': car.mileage,
+            'rating': float(car.rating) if car.rating else None,
+            'review_count': car.review_count,
+            'features': car.features,
+            'is_available': car.is_available,
+            'created_at': car.created_at.isoformat(),
+            'updated_at': car.updated_at.isoformat(),
+        })
+    
+    return JsonResponse(
+        {
+            'success': True,
+            'cars': results,
+            'count': len(results),
+        },
+        status=200
+    )
+
+
+@csrf_exempt
+@require_http_methods(['GET'])
+def car_detail_api(request, car_id):
+    """Get specific car details by ID."""
+    try:
+        car = Car.objects.get(id=car_id, is_available=True)
+        
+        car_data = {
+            'id': car.id,
+            'model': car.model,
+            'type': car.type,
+            'type_display': car.get_type_display(),
+            'company': car.company,
+            'price_per_day': float(car.price_per_day),
+            'original_price': float(car.original_price) if car.original_price else None,
+            'discount_percentage': car.discount_percentage,
+            'car_image_url': car.car_image_url,
+            'transmission': car.transmission,
+            'transmission_display': car.get_transmission_display(),
+            'seats': car.seats,
+            'luggage_capacity': car.luggage_capacity,
+            'fuel_type': car.fuel_type,
+            'fuel_type_display': car.get_fuel_type_display(),
+            'mileage': car.mileage,
+            'rating': float(car.rating) if car.rating else None,
+            'review_count': car.review_count,
+            'features': car.features,
+            'is_available': car.is_available,
+            'created_at': car.created_at.isoformat(),
+            'updated_at': car.updated_at.isoformat(),
+        }
+        
+        return JsonResponse(
+            {
+                'success': True,
+                'car': car_data,
+            },
+            status=200
+        )
+        
+    except Car.DoesNotExist:
+        return JsonResponse(
+            {'success': False, 'message': 'Car not found'},
+            status=404
+        )
+    except Exception as e:
+        return JsonResponse(
+            {'success': False, 'message': str(e)},
+            status=400
+        )
+
+
+@csrf_exempt
+@require_http_methods(['POST'])
+def car_create_api(request):
+    """Create a new car (admin only)."""
+    # Check if user is super admin
+    is_auth, user = check_admin_auth(request)
+    if not is_auth:
+        return JsonResponse(
+            {'success': False, 'message': 'Unauthorized. Super Admin access required.'},
+            status=403
+        )
+    
+    try:
+        data = json.loads(request.body)
+        
+        # Required fields
+        required_fields = ['model', 'type', 'company', 'price_per_day', 'transmission', 'seats']
+        for field in required_fields:
+            if field not in data:
+                return JsonResponse(
+                    {'success': False, 'message': f'{field} is required'},
+                    status=400
+                )
+        
+        # Validate car type
+        valid_types = [choice[0] for choice in Car.CAR_TYPES]
+        if data['type'] not in valid_types:
+            return JsonResponse(
+                {'success': False, 'message': f'Invalid car type. Valid types: {", ".join(valid_types)}'},
+                status=400
+            )
+        
+        # Validate transmission
+        valid_transmissions = [choice[0] for choice in Car.TRANSMISSION_TYPES]
+        if data['transmission'] not in valid_transmissions:
+            return JsonResponse(
+                {'success': False, 'message': f'Invalid transmission. Valid types: {", ".join(valid_transmissions)}'},
+                status=400
+            )
+        
+        # Validate fuel type if provided
+        if 'fuel_type' in data:
+            valid_fuel_types = [choice[0] for choice in Car.FUEL_TYPES]
+            if data['fuel_type'] not in valid_fuel_types:
+                return JsonResponse(
+                    {'success': False, 'message': f'Invalid fuel type. Valid types: {", ".join(valid_fuel_types)}'},
+                    status=400
+                )
+        
+        # Create car
+        car = Car.objects.create(
+            model=data['model'],
+            type=data['type'],
+            company=data['company'],
+            price_per_day=data['price_per_day'],
+            original_price=data.get('original_price'),
+            car_image_url=data.get('car_image_url', ''),
+            transmission=data['transmission'],
+            seats=data['seats'],
+            luggage_capacity=data.get('luggage_capacity', 2),
+            fuel_type=data.get('fuel_type', 'gasoline'),
+            mileage=data.get('mileage', 'Unlimited'),
+            rating=data.get('rating'),
+            review_count=data.get('review_count', 0),
+            features=data.get('features', []),
+            is_available=data.get('is_available', True),
+        )
+        
+        return JsonResponse(
+            {
+                'success': True,
+                'message': 'Car created successfully',
+                'car_id': car.id,
+            },
+            status=201
+        )
+        
+    except json.JSONDecodeError:
+        return JsonResponse(
+            {'success': False, 'message': 'Invalid JSON data'},
+            status=400
+        )
+    except Exception as e:
+        return JsonResponse(
+            {'success': False, 'message': str(e)},
+            status=400
+        )
+
+
+@csrf_exempt
+@require_http_methods(['POST'])
+def car_update_api(request, car_id):
+    """Update an existing car (admin only)."""
+    # Check if user is super admin
+    is_auth, user = check_admin_auth(request)
+    if not is_auth:
+        return JsonResponse(
+            {'success': False, 'message': 'Unauthorized. Super Admin access required.'},
+            status=403
+        )
+    
+    try:
+        car = Car.objects.get(id=car_id)
+        data = json.loads(request.body)
+        
+        # Update fields if provided
+        updatable_fields = [
+            'model', 'type', 'company', 'price_per_day', 'original_price',
+            'car_image_url', 'transmission', 'seats', 'luggage_capacity',
+            'fuel_type', 'mileage', 'rating', 'review_count', 'features', 'is_available'
+        ]
+        
+        for field in updatable_fields:
+            if field in data:
+                setattr(car, field, data[field])
+        
+        car.save()
+        
+        return JsonResponse(
+            {
+                'success': True,
+                'message': 'Car updated successfully',
+            },
+            status=200
+        )
+        
+    except Car.DoesNotExist:
+        return JsonResponse(
+            {'success': False, 'message': 'Car not found'},
+            status=404
+        )
+    except json.JSONDecodeError:
+        return JsonResponse(
+            {'success': False, 'message': 'Invalid JSON data'},
+            status=400
+        )
+    except Exception as e:
+        return JsonResponse(
+            {'success': False, 'message': str(e)},
+            status=400
+        )
+
+
+@csrf_exempt
+@require_http_methods(['DELETE'])
+def car_delete_api(request, car_id):
+    """Delete a car (admin only)."""
+    # Check if user is super admin
+    is_auth, user = check_admin_auth(request)
+    if not is_auth:
+        return JsonResponse(
+            {'success': False, 'message': 'Unauthorized. Super Admin access required.'},
+            status=403
+        )
+    
+    try:
+        car = Car.objects.get(id=car_id)
+        car.delete()
+        
+        return JsonResponse(
+            {
+                'success': True,
+                'message': 'Car deleted successfully',
+            },
+            status=200
+        )
+    
+    except Car.DoesNotExist:
+        return JsonResponse(
+            {'success': False, 'message': 'Car not found'},
+            status=404
+        )
+    except Exception as e:
+        return JsonResponse(
+            {'success': False, 'message': str(e)},
+            status=400
+        )
+
+
+
+
+# === Package API Endpoints ===
+
+
+@csrf_exempt
+@require_http_methods(['GET'])
+def package_admin_list_api(request):
+    """
+    Get all packages for admin management (Super Admin only).
+    Includes both active and inactive packages.
+    """
+    # Check if user is super admin
+    is_auth, user = check_admin_auth(request)
+    if not is_auth:
+        return JsonResponse(
+            {'success': False, 'message': 'Unauthorized. Super Admin access required.'},
+            status=403
+        )
+    
+    packages = Package.objects.all().order_by('-created_at')
+    
+    results = []
+    for package in packages:
+        results.append({
+            'id': package.id,
+            'title': package.title,
+            'destination': package.destination,
+            'description': package.description,
+            'hotel': {
+                'name': package.hotel_name,
+                'location': package.hotel_location,
+                'image': package.hotel_image_url,
+                'stars': package.hotel_stars,
+                'rating': float(package.hotel_rating),
+                'reviewCount': package.hotel_review_count,
+            },
+            'flight': {
+                'airline': package.airline,
+                'departure': {
+                    'code': package.departure_airport,
+                    'time': package.departure_time,
+                },
+                'arrival': {
+                    'code': package.arrival_airport,
+                    'time': package.arrival_time,
+                },
+                'duration': package.flight_duration,
+                'stops': package.flight_stops,
+            },
+            'price': float(package.price_per_person),
+            'originalPrice': float(package.original_price) if package.original_price else None,
+            'pricePer': 'person',
+            'nights': package.nights,
+            'highlights': package.highlights,
+            'packageType': package.get_package_type_display(),
+            'includes': package.includes,
+            'discount_percentage': package.discount_percentage,
+            'is_featured': package.is_featured,
+            'is_popular': package.is_popular,
+            'is_active': package.is_active,
+            'status': package.status,
+            'created_at': package.created_at.isoformat(),
+            'updated_at': package.updated_at.isoformat(),
+        })
+    
+    return JsonResponse(
+        {
+            'success': True,
+            'packages': results,
+            'count': len(results),
+        },
+        status=200
+    )
+
+
+@csrf_exempt
+@require_http_methods(['GET'])
+def package_list_api(request):
+        """List all available packages with filtering options."""
+        try:
+            # Get query parameters
+            destination = request.GET.get('destination')
+            package_type = request.GET.get('type')
+            min_price = request.GET.get('min_price')
+            max_price = request.GET.get('max_price')
+            
+            # Base query - only active packages
+            packages = Package.objects.filter(is_active=True, status='active')
+            
+            # Apply filters
+            if destination:
+                packages = packages.filter(
+                    Q(destination__icontains=destination) | Q(title__icontains=destination)
+                )
+            
+            if package_type:
+                packages = packages.filter(package_type=package_type)
+            
+            if min_price:
+                packages = packages.filter(price_per_person__gte=min_price)
+            
+            if max_price:
+                packages = packages.filter(price_per_person__lte=max_price)
+            
+            # Sorting options
+            sort_by = request.GET.get('sort_by', 'popularity')
+            if sort_by == 'price_low':
+                packages = packages.order_by('price_per_person')
+            elif sort_by == 'price_high':
+                packages = packages.order_by('-price_per_person')
+            elif sort_by == 'rating':
+                packages = packages.order_by('-hotel_rating')
+            elif sort_by == 'nights':
+                packages = packages.order_by('-nights')
+            else:  # popularity
+                packages = packages.order_by('-bookings')
+            
+            # Prepare results
+            results = []
+            for package in packages:
+                results.append({
+                    'id': package.id,
+                    'title': package.title,
+                    'destination': package.destination,
+                    'description': package.description,
+                    'hotel': {
+                        'name': package.hotel_name,
+                        'location': package.hotel_location,
+                        'image': package.hotel_image_url,
+                        'stars': package.hotel_stars,
+                        'rating': float(package.hotel_rating),
+                        'reviewCount': package.hotel_review_count,
+                    },
+                    'flight': {
+                        'airline': package.airline,
+                        'departure': {
+                            'code': package.departure_airport,
+                            'time': package.departure_time,
+                        },
+                        'arrival': {
+                            'code': package.arrival_airport,
+                            'time': package.arrival_time,
+                        },
+                        'duration': package.flight_duration,
+                        'stops': package.flight_stops,
+                    },
+                    'price': float(package.price_per_person),
+                    'originalPrice': float(package.original_price) if package.original_price else None,
+                    'pricePer': 'person',
+                    'nights': package.nights,
+                    'highlights': package.highlights,
+                    'packageType': package.get_package_type_display(),
+                    'includes': package.includes,
+                    'discount_percentage': package.discount_percentage,
+                    'is_featured': package.is_featured,
+                    'is_popular': package.is_popular,
+                    'created_at': package.created_at.isoformat(),
+                    'updated_at': package.updated_at.isoformat(),
+                })
+            
+            return JsonResponse(
+                {
+                    'success': True,
+                    'packages': results,
+                    'count': len(results),
+                },
+                status=200
+            )
+        
+        except Exception as e:
+            return JsonResponse(
+                {'success': False, 'message': str(e)},
+                status=400
+            )
+    
+    
+
+
+@csrf_exempt
+@require_http_methods(['GET'])
+def package_detail_api(request, package_id):
+        """Get specific package details by ID."""
+        try:
+            package = Package.objects.get(id=package_id, is_active=True, status='active')
+            
+            package_data = {
+                'id': package.id,
+                'title': package.title,
+                'destination': package.destination,
+                'description': package.description,
+                'hotel': {
+                    'name': package.hotel_name,
+                    'location': package.hotel_location,
+                    'image': package.hotel_image_url,
+                    'stars': package.hotel_stars,
+                    'rating': float(package.hotel_rating),
+                    'reviewCount': package.hotel_review_count,
+                },
+                'flight': {
+                    'airline': package.airline,
+                    'departure': {
+                        'code': package.departure_airport,
+                        'time': package.departure_time,
+                    },
+                    'arrival': {
+                        'code': package.arrival_airport,
+                        'time': package.arrival_time,
+                    },
+                    'duration': package.flight_duration,
+                    'stops': package.flight_stops,
+                },
+                'price': float(package.price_per_person),
+                'originalPrice': float(package.original_price) if package.original_price else None,
+                'pricePer': 'person',
+                'nights': package.nights,
+                'highlights': package.highlights,
+                'packageType': package.get_package_type_display(),
+                'includes': package.includes,
+                'discount_percentage': package.discount_percentage,
+                'is_featured': package.is_featured,
+                'is_popular': package.is_popular,
+                'availability': package.availability,
+                'bookings': package.bookings,
+                'remaining_availability': package.remaining_availability,
+                'status': package.status,
+                'created_at': package.created_at.isoformat(),
+                'updated_at': package.updated_at.isoformat(),
+            }
+            
+            return JsonResponse(
+                {
+                    'success': True,
+                    'package': package_data,
+                },
+                status=200
+            )
+            
+        except Package.DoesNotExist:
+            return JsonResponse(
+                {'success': False, 'message': 'Package not found'},
+                status=404
+            )
+        except Exception as e:
+            return JsonResponse(
+                {'success': False, 'message': str(e)},
+                status=400
+            )
+    
+    
+
+
+@csrf_exempt
+@require_http_methods(['POST'])
+def package_create_api(request):
+        """Create a new package (admin only).
+            
+        Supports image upload to Cloudinary.
+        """
+        # Check if user is super admin
+        is_auth, user = check_admin_auth(request)
+        if not is_auth:
+            return JsonResponse(
+                {'success': False, 'message': 'Unauthorized. Super Admin access required.'},
+                status=403
+            )
+        
+        try:
+            # Handle multipart form data for file upload
+            if request.content_type.startswith('multipart/form-data'):
+                # Extract JSON data from form
+                title = request.POST.get('title', '').strip()
+                destination = request.POST.get('destination', '').strip()
+                hotel_name = request.POST.get('hotel_name', '').strip()
+                hotel_location = request.POST.get('hotel_location', '').strip()
+                airline = request.POST.get('airline', '').strip()
+                departure_airport = request.POST.get('departure_airport', '').strip()
+                arrival_airport = request.POST.get('arrival_airport', '').strip()
+                price_per_person = request.POST.get('price_per_person', '')
+                nights = request.POST.get('nights', '')
+                package_type = request.POST.get('package_type', '').strip()
+                    
+                # Required fields validation
+                required_fields = [
+                    (title, 'title'), (destination, 'destination'), (hotel_name, 'hotel_name'), 
+                    (hotel_location, 'hotel_location'), (airline, 'airline'), 
+                    (departure_airport, 'departure_airport'), (arrival_airport, 'arrival_airport'),
+                    (price_per_person, 'price_per_person'), (nights, 'nights'), (package_type, 'package_type')
+                ]
+                for field_value, field_name in required_fields:
+                    if not field_value:
+                        return JsonResponse(
+                            {'success': False, 'message': f'{field_name} is required'},
+                            status=400
+                        )
+                    
+                # Parse numeric fields
+                try:
+                    price_per_person = float(price_per_person)
+                    nights = int(nights)
+                except ValueError:
+                    return JsonResponse(
+                        {'success': False, 'message': 'Price per person must be a number and nights must be an integer'},
+                        status=400
+                    )
+                    
+                # Validate package type
+                valid_types = [choice[0] for choice in Package.PACKAGE_TYPES]
+                if package_type not in valid_types:
+                    return JsonResponse(
+                        {'success': False, 'message': f'Invalid package type. Valid types: {", ".join(valid_types)}'},
+                        status=400
+                    )
+                
+                # Validate field lengths to prevent database errors
+                if len(departure_airport) > 10:
+                    return JsonResponse(
+                        {'success': False, 'message': 'Departure airport code must be 10 characters or less'},
+                        status=400
+                    )
+                if len(arrival_airport) > 10:
+                    return JsonResponse(
+                        {'success': False, 'message': 'Arrival airport code must be 10 characters or less'},
+                        status=400
+                    )
+                    
+                # Handle image upload to Cloudinary
+                hotel_image_url = ''
+                if 'hotel_image' in request.FILES:
+                    try:
+                        # Import cloudinary here to ensure config is loaded
+                        import cloudinary.uploader
+                        upload_result = cloudinary.uploader.upload(
+                            request.FILES['hotel_image'],
+                            folder='packages/',
+                            resource_type='image'
+                        )
+                        hotel_image_url = upload_result.get('secure_url', '')
+                    except Exception as e:
+                        # Log the error but don't fail - create package without image
+                        import logging
+                        logger = logging.getLogger(__name__)
+                        logger.error(f'Cloudinary upload failed: {str(e)}')
+                        # Continue without image - package will be created without an image URL
+                        hotel_image_url = ''
+                    
+                # Get other optional fields
+                description = request.POST.get('description', '')
+                hotel_stars = request.POST.get('hotel_stars', '3')
+                hotel_rating = request.POST.get('hotel_rating', '0.00')
+                hotel_review_count = request.POST.get('hotel_review_count', '0')
+                flight_duration = request.POST.get('flight_duration', '')
+                flight_stops = request.POST.get('flight_stops', '0')
+                departure_time = request.POST.get('departure_time', '').strip()
+                arrival_time = request.POST.get('arrival_time', '').strip()
+                original_price = request.POST.get('original_price')
+                price_per_package = request.POST.get('price_per_package')
+                highlights = request.POST.get('highlights', '[]')
+                includes = request.POST.get('includes', '[]')
+                availability = request.POST.get('availability', '0')
+                bookings = request.POST.get('bookings', '0')
+                is_featured = request.POST.get('is_featured', 'false').lower() in ('true', '1', 'yes')
+                is_popular = request.POST.get('is_popular', 'false').lower() in ('true', '1', 'yes')
+                is_active = request.POST.get('is_active', 'true').lower() in ('true', '1', 'yes')
+                status = request.POST.get('status', 'active')
+                
+                # Validate time field lengths
+                if len(departure_time) > 10:
+                    return JsonResponse(
+                        {'success': False, 'message': 'Departure time must be 10 characters or less (e.g., 08:30)'},
+                        status=400
+                    )
+                if len(arrival_time) > 10:
+                    return JsonResponse(
+                        {'success': False, 'message': 'Arrival time must be 10 characters or less (e.g., 21:45)'},
+                        status=400
+                    )
+                    
+                # Validate status if provided
+                valid_statuses = ['draft', 'active', 'inactive', 'expired']
+                if status not in valid_statuses:
+                    return JsonResponse(
+                        {'success': False, 'message': f'Invalid status. Valid statuses: {", ".join(valid_statuses)}'},
+                        status=400
+                    )
+                    
+                # Convert numeric fields
+                try:
+                    hotel_stars = int(hotel_stars)
+                    if not 1 <= hotel_stars <= 5:
+                        raise ValueError('Stars must be between 1 and 5')
+                except ValueError:
+                    return JsonResponse(
+                        {'success': False, 'message': 'Hotel stars must be between 1 and 5'},
+                        status=400
+                    )
+                    
+                try:
+                    hotel_rating = float(hotel_rating)
+                    if not 0 <= hotel_rating <= 5:
+                        raise ValueError('Rating must be between 0 and 5')
+                except ValueError:
+                    return JsonResponse(
+                        {'success': False, 'message': 'Hotel rating must be between 0 and 5'},
+                        status=400
+                    )
+                    
+                try:
+                    hotel_review_count = int(hotel_review_count)
+                    if hotel_review_count < 0:
+                        raise ValueError('Review count must be non-negative')
+                except ValueError:
+                    return JsonResponse(
+                        {'success': False, 'message': 'Hotel review count must be a non-negative integer'},
+                        status=400
+                    )
+                    
+                try:
+                    flight_stops = int(flight_stops)
+                except ValueError:
+                    return JsonResponse(
+                        {'success': False, 'message': 'Flight stops must be an integer'},
+                        status=400
+                    )
+                    
+                try:
+                    availability = int(availability)
+                    bookings = int(bookings)
+                except ValueError:
+                    return JsonResponse(
+                        {'success': False, 'message': 'Availability and bookings must be integers'},
+                        status=400
+                    )
+                    
+                # Parse JSON arrays
+                import json
+                try:
+                    highlights = json.loads(highlights) if highlights.strip() else []
+                    if not isinstance(highlights, list):
+                        highlights = []
+                except json.JSONDecodeError:
+                    # Try parsing as comma-separated string
+                    highlights = [item.strip() for item in highlights.split(',') if item.strip()]
+                    
+                try:
+                    includes = json.loads(includes) if includes.strip() else []
+                    if not isinstance(includes, list):
+                        includes = []
+                except json.JSONDecodeError:
+                    # Try parsing as comma-separated string
+                    includes = [item.strip() for item in includes.split(',') if item.strip()]
+                    
+                # Create package
+                package = Package.objects.create(
+                    title=title,
+                    destination=destination,
+                    description=description,
+                    hotel_name=hotel_name,
+                    hotel_location=hotel_location,
+                    hotel_stars=hotel_stars,
+                    hotel_rating=hotel_rating,
+                    hotel_review_count=hotel_review_count,
+                    hotel_image_url=hotel_image_url,
+                    airline=airline,
+                    departure_airport=departure_airport,
+                    arrival_airport=arrival_airport,
+                    flight_duration=flight_duration,
+                    flight_stops=flight_stops,
+                    departure_time=departure_time,
+                    arrival_time=arrival_time,
+                    price_per_person=price_per_person,
+                    original_price=original_price,
+                    price_per_package=price_per_package,
+                    nights=nights,
+                    package_type=package_type,
+                    highlights=highlights,
+                    includes=includes,
+                    availability=availability,
+                    bookings=bookings,
+                    is_featured=is_featured,
+                    is_popular=is_popular,
+                    is_active=is_active,
+                    status=status,
+                )
+                    
+                return JsonResponse(
+                    {
+                        'success': True,
+                        'message': 'Package created successfully',
+                        'package_id': package.id,
+                    },
+                    status=201
+                )
+            else:
+                # Original JSON handling code for backward compatibility
+                data = json.loads(request.body)
+                    
+                # Required fields
+                required_fields = [
+                    'title', 'destination', 'hotel_name', 'hotel_location',
+                    'airline', 'departure_airport', 'arrival_airport',
+                    'price_per_person', 'nights', 'package_type'
+                ]
+                for field in required_fields:
+                    if field not in data:
+                        return JsonResponse(
+                            {'success': False, 'message': f'{field} is required'},
+                            status=400
+                        )
+                    
+                # Validate package type
+                valid_types = [choice[0] for choice in Package.PACKAGE_TYPES]
+                if data['package_type'] not in valid_types:
+                    return JsonResponse(
+                        {'success': False, 'message': f'Invalid package type. Valid types: {", ".join(valid_types)}'},
+                        status=400
+                    )
+                    
+                # Validate status if provided
+                valid_statuses = ['draft', 'active', 'inactive', 'expired']
+                if 'status' in data and data['status'] not in valid_statuses:
+                    return JsonResponse(
+                        {'success': False, 'message': f'Invalid status. Valid statuses: {", ".join(valid_statuses)}'},
+                        status=400
+                    )
+                    
+                # Create package
+                package = Package.objects.create(
+                    title=data['title'],
+                    destination=data['destination'],
+                    description=data.get('description', ''),
+                    hotel_name=data['hotel_name'],
+                    hotel_location=data['hotel_location'],
+                    hotel_stars=data.get('hotel_stars', 3),
+                    hotel_rating=data.get('hotel_rating', 0.00),
+                    hotel_review_count=data.get('hotel_review_count', 0),
+                    hotel_image_url=data.get('hotel_image_url', ''),
+                    airline=data['airline'],
+                    departure_airport=data['departure_airport'],
+                    arrival_airport=data['arrival_airport'],
+                    flight_duration=data.get('flight_duration', ''),
+                    flight_stops=data.get('flight_stops', 0),
+                    departure_time=data.get('departure_time', ''),
+                    arrival_time=data.get('arrival_time', ''),
+                    price_per_person=data['price_per_person'],
+                    original_price=data.get('original_price'),
+                    price_per_package=data.get('price_per_package'),
+                    nights=data['nights'],
+                    package_type=data['package_type'],
+                    highlights=data.get('highlights', []),
+                    includes=data.get('includes', []),
+                    availability=data.get('availability', 0),
+                    bookings=data.get('bookings', 0),
+                    is_featured=data.get('is_featured', False),
+                    is_popular=data.get('is_popular', False),
+                    is_active=data.get('is_active', True),
+                    status=data.get('status', 'active'),
+                )
+                    
+                return JsonResponse(
+                    {
+                        'success': True,
+                        'message': 'Package created successfully',
+                        'package_id': package.id,
+                    },
+                    status=201
+                )
+        except json.JSONDecodeError:
+            return JsonResponse(
+                {'success': False, 'message': 'Invalid JSON data'},
+                status=400
+            )
+        except Exception as e:
+            return JsonResponse(
+                {'success': False, 'message': str(e)},
+                status=400
+            )
+    
+    
+
+
+@csrf_exempt
+@require_http_methods(['POST'])
+def package_update_api(request, package_id):
+        """Update an existing package (admin only).
+            
+        Supports image upload to Cloudinary.
+        """
+        # Check if user is super admin
+        is_auth, user = check_admin_auth(request)
+        if not is_auth:
+            return JsonResponse(
+                {'success': False, 'message': 'Unauthorized. Super Admin access required.'},
+                status=403
+            )
+        
+        try:
+            package = Package.objects.get(id=package_id)
+                
+            # Handle multipart form data for file upload
+            if request.content_type.startswith('multipart/form-data'):
+                # Extract form data
+                title = request.POST.get('title', '').strip()
+                destination = request.POST.get('destination', '').strip()
+                hotel_name = request.POST.get('hotel_name', '').strip()
+                hotel_location = request.POST.get('hotel_location', '').strip()
+                airline = request.POST.get('airline', '').strip()
+                departure_airport = request.POST.get('departure_airport', '').strip()
+                arrival_airport = request.POST.get('arrival_airport', '').strip()
+                price_per_person = request.POST.get('price_per_person', '')
+                nights = request.POST.get('nights', '')
+                package_type = request.POST.get('package_type', '').strip()
+                    
+                # Handle image upload to Cloudinary
+                if 'hotel_image' in request.FILES:
+                    try:
+                        # Import cloudinary here to ensure config is loaded
+                        import cloudinary.uploader
+                        upload_result = cloudinary.uploader.upload(
+                            request.FILES['hotel_image'],
+                            folder='packages/',
+                            resource_type='image'
+                        )
+                        package.hotel_image_url = upload_result.get('secure_url', '')
+                    except Exception as e:
+                        # Log the error but don't fail - update package without new image
+                        import logging
+                        logger = logging.getLogger(__name__)
+                        logger.error(f'Cloudinary upload failed: {str(e)}')
+                        # Continue without updating image
+                    
+                # Update fields if provided
+                if title:
+                    package.title = title
+                if destination:
+                    package.destination = destination
+                if hotel_name:
+                    package.hotel_name = hotel_name
+                if hotel_location:
+                    package.hotel_location = hotel_location
+                if airline:
+                    package.airline = airline
+                if departure_airport:
+                    if len(departure_airport) > 10:
+                        return JsonResponse(
+                            {'success': False, 'message': 'Departure airport code must be 10 characters or less'},
+                            status=400
+                        )
+                    package.departure_airport = departure_airport
+                if arrival_airport:
+                    if len(arrival_airport) > 10:
+                        return JsonResponse(
+                            {'success': False, 'message': 'Arrival airport code must be 10 characters or less'},
+                            status=400
+                        )
+                    package.arrival_airport = arrival_airport
+                    
+                # Convert and update numeric fields
+                if price_per_person:
+                    try:
+                        package.price_per_person = float(price_per_person)
+                    except ValueError:
+                        return JsonResponse(
+                            {'success': False, 'message': 'Price per person must be a number'},
+                            status=400
+                        )
+                    
+                if nights:
+                    try:
+                        package.nights = int(nights)
+                    except ValueError:
+                        return JsonResponse(
+                            {'success': False, 'message': 'Nights must be an integer'},
+                            status=400
+                        )
+                    
+                if package_type:
+                    valid_types = [choice[0] for choice in Package.PACKAGE_TYPES]
+                    if package_type in valid_types:
+                        package.package_type = package_type
+                    else:
+                        return JsonResponse(
+                            {'success': False, 'message': f'Invalid package type. Valid types: {", ".join(valid_types)}'},
+                            status=400
+                        )
+                    
+                # Update other optional fields
+                if 'description' in request.POST:
+                    package.description = request.POST.get('description', '')
+                    
+                if 'hotel_stars' in request.POST:
+                    try:
+                        stars = int(request.POST.get('hotel_stars', str(package.hotel_stars)))
+                        if 1 <= stars <= 5:
+                            package.hotel_stars = stars
+                    except ValueError:
+                        pass
+                    
+                if 'hotel_rating' in request.POST:
+                    try:
+                        rating = float(request.POST.get('hotel_rating', str(package.hotel_rating)))
+                        if 0 <= rating <= 5:
+                            package.hotel_rating = rating
+                    except ValueError:
+                        pass
+                    
+                if 'hotel_review_count' in request.POST:
+                    try:
+                        review_count = int(request.POST.get('hotel_review_count', str(package.hotel_review_count)))
+                        if review_count >= 0:
+                            package.hotel_review_count = review_count
+                    except ValueError:
+                        pass
+                    
+                if 'flight_duration' in request.POST:
+                    package.flight_duration = request.POST.get('flight_duration', '')
+                    
+                if 'flight_stops' in request.POST:
+                    try:
+                        stops = int(request.POST.get('flight_stops', str(package.flight_stops)))
+                        package.flight_stops = stops
+                    except ValueError:
+                        pass
+                    
+                if 'departure_time' in request.POST:
+                    departure_time = request.POST.get('departure_time', '').strip()
+                    if len(departure_time) > 10:
+                        return JsonResponse(
+                            {'success': False, 'message': 'Departure time must be 10 characters or less (e.g., 08:30)'},
+                            status=400
+                        )
+                    package.departure_time = departure_time
+                    
+                if 'arrival_time' in request.POST:
+                    arrival_time = request.POST.get('arrival_time', '').strip()
+                    if len(arrival_time) > 10:
+                        return JsonResponse(
+                            {'success': False, 'message': 'Arrival time must be 10 characters or less (e.g., 21:45)'},
+                            status=400
+                        )
+                    package.arrival_time = arrival_time
+                    
+                if 'original_price' in request.POST:
+                    original_price = request.POST.get('original_price')
+                    if original_price:
+                        try:
+                            package.original_price = float(original_price)
+                        except ValueError:
+                            return JsonResponse(
+                                {'success': False, 'message': 'Original price must be a number'},
+                                status=400
+                            )
+                    else:
+                        package.original_price = None
+                    
+                if 'price_per_package' in request.POST:
+                    price_per_package = request.POST.get('price_per_package')
+                    if price_per_package:
+                        try:
+                            package.price_per_package = float(price_per_package)
+                        except ValueError:
+                            return JsonResponse(
+                                {'success': False, 'message': 'Price per package must be a number'},
+                                status=400
+                            )
+                    else:
+                        package.price_per_package = None
+                    
+                # Parse and update JSON arrays
+                if 'highlights' in request.POST:
+                    highlights = request.POST.get('highlights', '[]')
+                    import json
+                    try:
+                        parsed_highlights = json.loads(highlights) if highlights.strip() else []
+                        if isinstance(parsed_highlights, list):
+                            package.highlights = parsed_highlights
+                    except json.JSONDecodeError:
+                        # Try parsing as comma-separated string
+                        parsed_highlights = [item.strip() for item in highlights.split(',') if item.strip()]
+                        package.highlights = parsed_highlights
+                    
+                if 'includes' in request.POST:
+                    includes = request.POST.get('includes', '[]')
+                    import json
+                    try:
+                        parsed_includes = json.loads(includes) if includes.strip() else []
+                        if isinstance(parsed_includes, list):
+                            package.includes = parsed_includes
+                    except json.JSONDecodeError:
+                        # Try parsing as comma-separated string
+                        parsed_includes = [item.strip() for item in includes.split(',') if item.strip()]
+                        package.includes = parsed_includes
+                    
+                if 'availability' in request.POST:
+                    try:
+                        availability = int(request.POST.get('availability', str(package.availability)))
+                        package.availability = availability
+                    except ValueError:
+                        pass
+                    
+                if 'bookings' in request.POST:
+                    try:
+                        bookings = int(request.POST.get('bookings', str(package.bookings)))
+                        package.bookings = bookings
+                    except ValueError:
+                        pass
+                    
+                if 'is_featured' in request.POST:
+                    package.is_featured = request.POST.get('is_featured', str(package.is_featured)).lower() in ('true', '1', 'yes')
+                    
+                if 'is_popular' in request.POST:
+                    package.is_popular = request.POST.get('is_popular', str(package.is_popular)).lower() in ('true', '1', 'yes')
+                    
+                if 'is_active' in request.POST:
+                    package.is_active = request.POST.get('is_active', str(package.is_active)).lower() in ('true', '1', 'yes')
+                    
+                if 'status' in request.POST:
+                    status_val = request.POST.get('status', package.status)
+                    valid_statuses = ['draft', 'active', 'inactive', 'expired']
+                    if status_val in valid_statuses:
+                        package.status = status_val
+                    else:
+                        return JsonResponse(
+                            {'success': False, 'message': f'Invalid status. Valid statuses: {", ".join(valid_statuses)}'},
+                            status=400
+                        )
+                    
+                package.save()
+                    
+                return JsonResponse(
+                    {
+                        'success': True,
+                        'message': 'Package updated successfully',
+                    },
+                    status=200
+                )
+            else:
+                # Original JSON handling code for backward compatibility
+                data = json.loads(request.body)
+                    
+                # Update fields if provided
+                updatable_fields = [
+                    'title', 'destination', 'description', 'hotel_name', 'hotel_location',
+                    'hotel_stars', 'hotel_rating', 'hotel_review_count', 'hotel_image_url',
+                    'airline', 'departure_airport', 'arrival_airport', 'flight_duration',
+                    'flight_stops', 'departure_time', 'arrival_time', 'price_per_person',
+                    'original_price', 'price_per_package', 'nights', 'package_type',
+                    'highlights', 'includes', 'availability', 'bookings', 'is_featured',
+                    'is_popular', 'is_active', 'status'
+                ]
+                    
+                for field in updatable_fields:
+                    if field in data:
+                        setattr(package, field, data[field])
+                    
+                package.save()
+                    
+                return JsonResponse(
+                    {
+                        'success': True,
+                        'message': 'Package updated successfully',
+                    },
+                    status=200
+                )
+            
+        except Package.DoesNotExist:
+            return JsonResponse(
+                {'success': False, 'message': 'Package not found'},
+                status=404
+            )
+        except json.JSONDecodeError:
+            return JsonResponse(
+                {'success': False, 'message': 'Invalid JSON data'},
+                status=400
+            )
+        except Exception as e:
+            return JsonResponse(
+                {'success': False, 'message': str(e)},
+                status=400
+            )
+    
+    
+
+
+@csrf_exempt
+@require_http_methods(['DELETE'])
+def package_delete_api(request, package_id):
+        """Delete a package (admin only)."""
+        # Check if user is super admin
+        is_auth, user = check_admin_auth(request)
+        if not is_auth:
+            return JsonResponse(
+                {'success': False, 'message': 'Unauthorized. Super Admin access required.'},
+                status=403
+            )
+        
+        try:
+            package = Package.objects.get(id=package_id)
+            package.delete()
+            
+            return JsonResponse(
+                {
+                    'success': True,
+                    'message': 'Package deleted successfully',
+                },
+                status=200
+            )
+            
+        except Package.DoesNotExist:
+            return JsonResponse(
+                {'success': False, 'message': 'Package not found'},
+                status=404
+            )
+        except Exception as e:
+            return JsonResponse(
+                {'success': False, 'message': str(e)},
+                status=400
+            )

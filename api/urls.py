@@ -51,4 +51,7 @@ urlpatterns = [
     path('admin/packages/create/', views.package_create_api, name='package_create'),
     path('admin/packages/<int:package_id>/update/', views.package_update_api, name='package_update'),
     path('admin/packages/<int:package_id>/delete/', views.package_delete_api, name='package_delete'),
+    
+    # User Management APIs - Admin Only
+    path('admin/users/', views.admin_user_list_api, name='admin_user_list'),
 ]

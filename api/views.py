@@ -65,6 +65,52 @@ def _validate_signup_password(password: str) -> list[str]:
     return errors
 
 
+@require_http_methods(['GET'])
+def admin_user_list_api(request):
+    """
+    List users for the admin dashboard (Super Admin only).
+    
+    Returns a simplified list of users with fields needed by the React admin UI.
+    """
+    # Check if user is super admin
+    is_auth, user = check_admin_auth(request)
+    if not is_auth:
+        return JsonResponse(
+            {'success': False, 'message': 'Unauthorized. Super Admin access required.'},
+            status=403,
+        )
+
+    users_qs = User.objects.all().order_by('-date_joined')
+
+    results = []
+    for u in users_qs:
+        results.append(
+            {
+                'id': str(u.pk),
+                'email': getattr(u, 'email', '') or '',
+                'name': u.get_full_name() or u.get_username() or (u.email or ''),
+                # Map Django flags to our simple role model
+                'role': 'admin' if u.is_staff else 'traveler',
+                'status': 'active' if u.is_active else 'inactive',
+                'registrationDate': u.date_joined.isoformat() if getattr(u, 'date_joined', None) else '',
+                'lastLogin': u.last_login.isoformat() if getattr(u, 'last_login', None) else '',
+                # Placeholder booking/spend stats until booking model exists
+                'totalBookings': 0,
+                'totalSpent': 0,
+                'phone': getattr(u, 'phone', '') if hasattr(u, 'phone') else '',
+            }
+        )
+
+    return JsonResponse(
+        {
+            'success': True,
+            'users': results,
+            'count': len(results),
+        },
+        status=200,
+    )
+
+
 @csrf_exempt
 @require_http_methods(['POST'])
 def login_api(request):

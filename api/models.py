@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 
@@ -338,3 +339,175 @@ class Package(models.Model):
     def remaining_availability(self):
         """Calculate remaining available slots."""
         return max(0, self.availability - self.bookings)
+
+
+class ChatSession(models.Model):
+    """
+    Represents a logical AI conversation session for a user.
+    Groups together multiple chat messages and can be reused
+    across both the AI Chat and Itinerary features.
+    """
+
+    SESSION_TYPES = [
+        ('chat', 'AI Chat'),
+        ('itinerary', 'Itinerary'),
+    ]
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='chat_sessions',
+    )
+    session_type = models.CharField(
+        max_length=20,
+        choices=SESSION_TYPES,
+        default='chat',
+    )
+    title = models.CharField(max_length=255, blank=True)
+    is_active = models.BooleanField(default=True)
+    started_at = models.DateTimeField(auto_now_add=True)
+    last_activity_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-last_activity_at']
+        indexes = [
+            models.Index(fields=['user', 'session_type']),
+            models.Index(fields=['is_active', 'session_type']),
+        ]
+
+    def __str__(self) -> str:
+        user_label = getattr(self.user, 'get_username', lambda: None)() if self.user else 'anonymous'
+        return f"{self.get_session_type_display()} session #{self.pk} ({user_label})"
+
+
+class ChatMessage(models.Model):
+    """
+    Single message within a ChatSession.
+    Used for conversation memory, analytics and debugging.
+    """
+
+    SENDER_CHOICES = [
+        ('user', 'User'),
+        ('assistant', 'Assistant'),
+        ('system', 'System'),
+    ]
+
+    session = models.ForeignKey(
+        ChatSession,
+        on_delete=models.CASCADE,
+        related_name='messages',
+    )
+    sender = models.CharField(max_length=16, choices=SENDER_CHOICES)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    metadata = models.JSONField(default=dict, blank=True)
+
+    class Meta:
+        ordering = ['created_at']
+        indexes = [
+            models.Index(fields=['session', 'created_at']),
+            models.Index(fields=['sender']),
+        ]
+
+    def __str__(self) -> str:
+        return f"[{self.get_sender_display()}] {self.content[:40]}"
+
+
+class KnowledgeDocument(models.Model):
+    """
+    Lightweight knowledge base document used by the RAG layer.
+    Stores destination-specific tips, guides and FAQs that can be
+    retrieved and added to the LLM context.
+    """
+
+    CATEGORY_CHOICES = [
+        ('guide', 'Travel Guide'),
+        ('tip', 'Travel Tip'),
+        ('safety', 'Safety'),
+        ('weather', 'Weather'),
+        ('transport', 'Transport'),
+        ('general', 'General'),
+    ]
+
+    title = models.CharField(max_length=255)
+    destination = models.CharField(
+        max_length=200,
+        blank=True,
+        help_text='Destination this document is about (e.g. Islamabad, Pakistan)',
+    )
+    category = models.CharField(
+        max_length=32,
+        choices=CATEGORY_CHOICES,
+        default='general',
+    )
+    content = models.TextField(help_text='Plain text content used for RAG context.')
+    tags = models.JSONField(default=list, blank=True)
+    source = models.CharField(
+        max_length=100,
+        blank=True,
+        help_text='Short source label (e.g. internal_guide, blog, faq).',
+    )
+    # For now we store embeddings as a JSON list[float]. For small FYP-scale
+    # deployments this is sufficient and easier to set up than pgvector.
+    embedding = models.JSONField(default=list, blank=True)
+
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_at']
+        indexes = [
+            models.Index(fields=['destination', 'category']),
+            models.Index(fields=['is_active']),
+        ]
+
+    def __str__(self) -> str:
+        return self.title
+
+
+class GeneratedItinerary(models.Model):
+    """
+    Stores AI-generated itineraries as structured JSON so they can be
+    retrieved later by the itinerary detail page.
+    """
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='generated_itineraries',
+    )
+    session = models.ForeignKey(
+        ChatSession,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='generated_itineraries',
+    )
+    title = models.CharField(max_length=255, blank=True)
+    data = models.JSONField(help_text='Itinerary payload returned to the frontend.')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+        indexes = [
+            models.Index(fields=['user']),
+            models.Index(fields=['session']),
+        ]
+
+    def __str__(self) -> str:
+        return self.title or f"Itinerary #{self.pk}"
+
+    @property
+    def public_payload(self) -> dict:
+        """
+        Convenience accessor for returning a frontend-ready dict.
+        Ensures the itinerary ID matches this model primary key.
+        """
+        payload = dict(self.data or {})
+        payload.setdefault('id', str(self.pk))
+        return payload

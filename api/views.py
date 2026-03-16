@@ -9,12 +9,28 @@ from django.contrib.auth import authenticate, get_user_model, login
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
+from django.db import transaction
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
+from .models import (
+    Car,
+    ChatMessage,
+    ChatSession,
+    City,
+    GeneratedItinerary,
+    Hotel,
+    Package,
+    Room,
+)
+from .services.ai import (
+    AIConfigurationError,
+    AIServiceError,
+    generate_chat_reply,
+    generate_itinerary,
+)
 from .services.amadeus import AmadeusError, search_flights
-from .models import City, Hotel, Room, Car, Package
 
 User = get_user_model()
 
@@ -2726,3 +2742,254 @@ def package_delete_api(request, package_id):
                 {'success': False, 'message': str(e)},
                 status=400
             )
+
+
+# ==================== AI CHAT & ITINERARY APIs ====================
+
+
+@csrf_exempt
+@require_http_methods(['POST'])
+def ai_chat_api(request):
+    """
+    AI Travel Assistant chat endpoint.
+
+    Request JSON body:
+    - message: str (required) – latest user message
+    - sessionId: str (optional) – existing ChatSession ID to continue
+    """
+    try:
+        body = json.loads(request.body.decode('utf-8'))
+    except (json.JSONDecodeError, UnicodeDecodeError):
+        return JsonResponse(
+            {'success': False, 'message': 'Invalid JSON body.'},
+            status=400,
+        )
+
+    message = (body.get('message') or '').strip()
+    if not message:
+        return JsonResponse(
+            {'success': False, 'message': 'Field "message" is required.'},
+            status=400,
+        )
+
+    raw_session_id = body.get('sessionId') or body.get('session_id')
+    user = request.user if request.user.is_authenticated else None
+
+    # Prepare / create session and store the user message
+    with transaction.atomic():
+        session: ChatSession
+        if raw_session_id:
+            try:
+                session = ChatSession.objects.select_for_update().get(pk=raw_session_id)
+                if user and session.user and session.user_id != user.id:
+                    return JsonResponse(
+                        {
+                            'success': False,
+                            'message': 'You do not have access to this chat session.',
+                        },
+                        status=403,
+                    )
+                if user and session.user is None:
+                    session.user = user
+                    session.save(update_fields=['user'])
+            except ChatSession.DoesNotExist:
+                session = ChatSession.objects.create(
+                    user=user if getattr(user, 'is_authenticated', False) else None,
+                    session_type='chat',
+                )
+        else:
+            session = ChatSession.objects.create(
+                user=user if getattr(user, 'is_authenticated', False) else None,
+                session_type='chat',
+            )
+
+        previous_messages = list(
+            ChatMessage.objects.filter(session=session).order_by('created_at')
+        )[-20:]
+
+        user_message = ChatMessage.objects.create(
+            session=session,
+            sender='user',
+            content=message,
+            metadata={},
+        )
+
+    history_for_ai = previous_messages + [user_message]
+
+    try:
+        ai_payload = generate_chat_reply(
+            user=user,
+            session=session,
+            user_message=message,
+            previous_messages=history_for_ai,
+        )
+    except AIConfigurationError as exc:
+        return JsonResponse(
+            {
+                'success': False,
+                'message': str(exc),
+            },
+            status=503,
+        )
+    except AIServiceError as exc:
+        return JsonResponse(
+            {
+                'success': False,
+                'message': str(exc),
+            },
+            status=503,
+        )
+    except Exception as exc:  # noqa: BLE001
+        # Catch-all to avoid leaking internal errors to the client
+        return JsonResponse(
+            {
+                'success': False,
+                'message': 'Unexpected error while generating AI response.',
+            },
+            status=500,
+        )
+
+    ai_text = (ai_payload.get('message') or '').strip()
+    quick_replies = ai_payload.get('quickReplies') or []
+
+    # Persist assistant message and minimal metadata
+    with transaction.atomic():
+        assistant_message = ChatMessage.objects.create(
+            session=session,
+            sender='assistant',
+            content=ai_text,
+            metadata={
+                'quick_replies': quick_replies,
+                'recommendations': ai_payload.get('recommendations'),
+                'context_summary': ai_payload.get('context'),
+            },
+        )
+
+    return JsonResponse(
+        {
+            'success': True,
+            'sessionId': str(session.pk),
+            'message': ai_text,
+            'quickReplies': quick_replies,
+            'needsFollowUp': bool(ai_payload.get('needsFollowUp')),
+            'context': ai_payload.get('context') or {},
+            'recommendations': ai_payload.get('recommendations') or {},
+        },
+        status=200,
+    )
+
+
+@csrf_exempt
+@require_http_methods(['POST'])
+def ai_itinerary_api(request):
+    """
+    AI-based itinerary generator endpoint.
+
+    Request JSON body:
+    - destination: str (required)
+    - start_date: YYYY-MM-DD (required)
+    - end_date: YYYY-MM-DD (required)
+    - budget: number (optional)
+    - preferences: str (optional)
+    - travelers: int (optional)
+    - sessionId: str (optional) – to link with an existing chat session
+    """
+    try:
+        body = json.loads(request.body.decode('utf-8'))
+    except (json.JSONDecodeError, UnicodeDecodeError):
+        return JsonResponse(
+            {'success': False, 'message': 'Invalid JSON body.'},
+            status=400,
+        )
+
+    destination = (body.get('destination') or '').strip()
+    start_date = (body.get('start_date') or '').strip()
+    end_date = (body.get('end_date') or '').strip()
+
+    if not destination or not start_date or not end_date:
+        return JsonResponse(
+            {
+                'success': False,
+                'message': 'destination, start_date and end_date are required.',
+            },
+            status=400,
+        )
+
+    session: ChatSession | None = None
+    raw_session_id = body.get('sessionId') or body.get('session_id')
+    user = request.user if request.user.is_authenticated else None
+
+    if raw_session_id:
+        try:
+            session = ChatSession.objects.get(pk=raw_session_id)
+        except ChatSession.DoesNotExist:
+            session = None
+
+    try:
+        itinerary_instance = generate_itinerary(
+            user=user,
+            session=session,
+            form_data=body,
+        )
+    except AIConfigurationError as exc:
+        return JsonResponse(
+            {
+                'success': False,
+                'message': str(exc),
+            },
+            status=503,
+        )
+    except AIServiceError as exc:
+        return JsonResponse(
+            {
+                'success': False,
+                'message': str(exc),
+            },
+            status=503,
+        )
+    except Exception:
+        return JsonResponse(
+            {
+                'success': False,
+                'message': 'Unexpected error while generating itinerary.',
+            },
+            status=500,
+        )
+
+    return JsonResponse(
+        {
+            'success': True,
+            'itineraryId': itinerary_instance.pk,
+            'itinerary': itinerary_instance.public_payload,
+        },
+        status=200,
+    )
+
+
+@require_http_methods(['GET'])
+def ai_itinerary_detail_api(request, itinerary_id: int):
+    """
+    Fetch a previously generated itinerary by ID for the detail page.
+    """
+    try:
+        itinerary = GeneratedItinerary.objects.get(pk=itinerary_id)
+    except GeneratedItinerary.DoesNotExist:
+        return JsonResponse(
+            {'success': False, 'message': 'Itinerary not found.'},
+            status=404,
+        )
+
+    user = request.user if request.user.is_authenticated else None
+    if itinerary.user and user and itinerary.user_id != user.id:
+        return JsonResponse(
+            {'success': False, 'message': 'You do not have access to this itinerary.'},
+            status=403,
+        )
+
+    return JsonResponse(
+        {
+            'success': True,
+            'itinerary': itinerary.public_payload,
+        },
+        status=200,
+    )

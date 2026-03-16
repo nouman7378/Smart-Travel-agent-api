@@ -53,7 +53,7 @@ SECRET_KEY = 'django-insecure-mt5e=iuws1c!4xb)7zxvl1z#k*y_wpy9mqi6g*rgt_-sbtc+4+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'testserver']
 
 # CORS: allow React frontend (default ports 3000 = CRA, 5173 = Vite)
 CORS_ALLOWED_ORIGINS = [
@@ -190,3 +190,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Amadeus API (stored in .env - never exposed to frontend)
 AMADEUS_API_KEY = env('AMADEUS_API_KEY', default='')
 AMADEUS_API_SECRET = env('AMADEUS_API_SECRET', default='')
+
+# OpenAI API (stored in .env - never exposed to frontend)
+OPENAI_API_KEY = env('OPENAI_API_KEY', default='')
+OPENAI_MODEL = env('OPENAI_MODEL', default='gpt-4o-mini')
+OPENAI_REQUEST_TIMEOUT = env.int('OPENAI_REQUEST_TIMEOUT', default=25)

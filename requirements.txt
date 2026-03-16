@@ -5,3 +5,4 @@ django-cors-headers>=4.3.0
 requests>=2.31.0
 cloudinary>=1.36.0
 django-cloudinary-storage>=0.3.0
+openai>=1.42.0

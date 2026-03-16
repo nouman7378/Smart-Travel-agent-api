@@ -1,0 +1,19 @@
+# Environment and secrets
+.env
+
+# Python bytecode and cache folders
+__pycache__/
+*.py[cod]
+
+# Logs
+*.log
+server.log
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# SQLite local db files
+db.sqlite3
+*** End Patch

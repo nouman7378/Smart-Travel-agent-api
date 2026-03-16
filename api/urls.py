@@ -54,4 +54,9 @@ urlpatterns = [
     
     # User Management APIs - Admin Only
     path('admin/users/', views.admin_user_list_api, name='admin_user_list'),
+
+    # AI Assistant APIs
+    path('ai/chat/', views.ai_chat_api, name='ai_chat'),
+    path('ai/itinerary/', views.ai_itinerary_api, name='ai_itinerary'),
+    path('ai/itineraries/<int:itinerary_id>/', views.ai_itinerary_detail_api, name='ai_itinerary_detail'),
 ]

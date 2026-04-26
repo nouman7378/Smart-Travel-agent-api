@@ -15,6 +15,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
 from .models import (
+    BookingCart,
+    BookingItem,
     Car,
     ChatMessage,
     ChatSession,
@@ -296,6 +298,9 @@ def signup_api(request):
         last_name=last_name,
     )
 
+    # Auto-login immediately after signup so protected flows can continue.
+    login(request, user)
+
     return JsonResponse(
         {
             'success': True,
@@ -308,6 +313,162 @@ def signup_api(request):
             },
         },
         status=201,
+    )
+
+
+def _get_authenticated_user(request):
+    """Return authenticated user via session, with demo fallback from X-User-Id header."""
+    if request.user.is_authenticated:
+        return request.user
+
+    # Fallback for frontend-only auth state when session cookie is not present.
+    user_id = request.headers.get('X-User-Id')
+    if user_id:
+        try:
+            return User.objects.get(pk=int(user_id), is_active=True)
+        except (User.DoesNotExist, ValueError, TypeError):
+            return None
+    return None
+
+
+@require_http_methods(['GET'])
+def booking_cart_api(request):
+    """Return current authenticated user's booking cart."""
+    user = _get_authenticated_user(request)
+    if not user:
+        return JsonResponse(
+            {'success': False, 'message': 'Authentication required.'},
+            status=401,
+        )
+
+    cart, _ = BookingCart.objects.get_or_create(user=user)
+    items_payload = []
+    subtotal = 0.0
+    for item in cart.items.all():
+        line_total = float(item.line_total)
+        subtotal += line_total
+        items_payload.append(
+            {
+                'id': item.id,
+                'item_type': item.item_type,
+                'reference_id': item.reference_id,
+                'title': item.title,
+                'subtitle': item.subtitle,
+                'unit_price': float(item.unit_price),
+                'quantity': item.quantity,
+                'line_total': line_total,
+                'metadata': item.metadata,
+                'created_at': item.created_at.isoformat(),
+            }
+        )
+
+    return JsonResponse(
+        {
+            'success': True,
+            'cart': {
+                'id': cart.id,
+                'items': items_payload,
+                'item_count': len(items_payload),
+                'subtotal': subtotal,
+            },
+        },
+        status=200,
+    )
+
+
+@csrf_exempt
+@require_http_methods(['POST'])
+def booking_cart_add_api(request):
+    """Add an item to the authenticated user's booking cart."""
+    user = _get_authenticated_user(request)
+    if not user:
+        return JsonResponse(
+            {'success': False, 'message': 'Authentication required.'},
+            status=401,
+        )
+
+    try:
+        body = json.loads(request.body.decode('utf-8'))
+    except (json.JSONDecodeError, ValueError):
+        return JsonResponse({'success': False, 'message': 'Invalid JSON body.'}, status=400)
+
+    item_type = (body.get('item_type') or '').strip()
+    reference_id = body.get('reference_id')
+    title = (body.get('title') or '').strip()
+    subtitle = (body.get('subtitle') or '').strip()
+    quantity = body.get('quantity', 1)
+    unit_price = body.get('unit_price')
+    metadata = body.get('metadata') or {}
+
+    valid_types = {'hotel_room', 'car', 'package'}
+    if item_type not in valid_types:
+        return JsonResponse({'success': False, 'message': 'Invalid item_type.'}, status=400)
+
+    try:
+        reference_id = int(reference_id)
+        quantity = int(quantity)
+        unit_price = float(unit_price)
+    except (TypeError, ValueError):
+        return JsonResponse(
+            {'success': False, 'message': 'reference_id, quantity and unit_price must be valid numbers.'},
+            status=400,
+        )
+
+    if reference_id <= 0 or quantity <= 0 or unit_price < 0:
+        return JsonResponse(
+            {'success': False, 'message': 'Invalid booking item values provided.'},
+            status=400,
+        )
+
+    if not title:
+        return JsonResponse({'success': False, 'message': 'title is required.'}, status=400)
+
+    cart, _ = BookingCart.objects.get_or_create(user=user)
+
+    existing = BookingItem.objects.filter(
+        cart=cart,
+        item_type=item_type,
+        reference_id=reference_id,
+    ).first()
+
+    if existing:
+        existing.quantity += quantity
+        existing.unit_price = unit_price
+        existing.title = title
+        existing.subtitle = subtitle
+        existing.metadata = metadata
+        existing.save(update_fields=['quantity', 'unit_price', 'title', 'subtitle', 'metadata', 'updated_at'])
+        item = existing
+        created = False
+    else:
+        item = BookingItem.objects.create(
+            cart=cart,
+            item_type=item_type,
+            reference_id=reference_id,
+            title=title,
+            subtitle=subtitle,
+            unit_price=unit_price,
+            quantity=quantity,
+            metadata=metadata,
+        )
+        created = True
+
+    return JsonResponse(
+        {
+            'success': True,
+            'message': 'Item added to booking.' if created else 'Booking item quantity updated.',
+            'item': {
+                'id': item.id,
+                'item_type': item.item_type,
+                'reference_id': item.reference_id,
+                'title': item.title,
+                'subtitle': item.subtitle,
+                'unit_price': float(item.unit_price),
+                'quantity': item.quantity,
+                'line_total': float(item.line_total),
+            },
+        },
+        status=200,
     )
 
 

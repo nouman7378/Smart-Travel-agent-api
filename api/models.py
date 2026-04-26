@@ -341,6 +341,64 @@ class Package(models.Model):
         return max(0, self.availability - self.bookings)
 
 
+class BookingCart(models.Model):
+    """Active booking cart for one authenticated user."""
+
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='booking_cart',
+    )
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-updated_at']
+
+    def __str__(self) -> str:
+        return f"BookingCart<{self.user}>"
+
+
+class BookingItem(models.Model):
+    """Single item added to a user's booking cart."""
+
+    ITEM_TYPE_CHOICES = [
+        ('hotel_room', 'Hotel Room'),
+        ('car', 'Car'),
+        ('package', 'Package'),
+    ]
+
+    cart = models.ForeignKey(
+        BookingCart,
+        on_delete=models.CASCADE,
+        related_name='items',
+    )
+    item_type = models.CharField(max_length=20, choices=ITEM_TYPE_CHOICES)
+    reference_id = models.IntegerField(help_text='Source model item ID')
+    title = models.CharField(max_length=255)
+    subtitle = models.CharField(max_length=255, blank=True)
+    unit_price = models.DecimalField(max_digits=12, decimal_places=2)
+    quantity = models.PositiveIntegerField(default=1)
+    metadata = models.JSONField(default=dict, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_at']
+        indexes = [
+            models.Index(fields=['cart', 'item_type']),
+            models.Index(fields=['reference_id']),
+        ]
+
+    def __str__(self) -> str:
+        return f"{self.item_type} #{self.reference_id} x{self.quantity}"
+
+    @property
+    def line_total(self):
+        return self.unit_price * self.quantity
+
+
 class ChatSession(models.Model):
     """
     Represents a logical AI conversation session for a user.

@@ -56,9 +56,17 @@ urlpatterns = [
     
     # User Management APIs - Admin Only
     path('admin/users/', views.admin_user_list_api, name='admin_user_list'),
+    path('admin/dashboard/stats/', views.admin_dashboard_stats_api, name='admin_dashboard_stats'),
+    path('admin/bookings/', views.admin_bookings_list_api, name='admin_bookings_list'),
+    path('admin/payments/', views.admin_payments_list_api, name='admin_payments_list'),
 
     # AI Assistant APIs
     path('ai/chat/', views.ai_chat_api, name='ai_chat'),
     path('ai/itinerary/', views.ai_itinerary_api, name='ai_itinerary'),
     path('ai/itineraries/<int:itinerary_id>/', views.ai_itinerary_detail_api, name='ai_itinerary_detail'),
+    
+    # Community APIs
+    path('community/posts/', views.community_post_list_api, name='community_post_list'),
+    path('community/posts/create/', views.community_post_create_api, name='community_post_create'),
+    path('community/posts/<int:post_id>/like/', views.community_post_like_api, name='community_post_like'),
 ]

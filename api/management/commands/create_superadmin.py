@@ -7,12 +7,12 @@ from django.core.management.base import BaseCommand
 
 User = get_user_model()
 
-SUPERADMIN_EMAIL = 'superadmin@admin.com'
-SUPERADMIN_PASSWORD = 'password'
+SUPERADMIN_EMAIL = 'admin@admin.com'
+SUPERADMIN_PASSWORD = 'admin123'
 
 
 class Command(BaseCommand):
-    help = 'Creates the superadmin user (superadmin@admin.com / password) with access to admin only.'
+    help = 'Creates the superadmin user (admin@admin.com / admin123) with access to admin only.'
 
     def handle(self, *args, **options):
         if User.objects.filter(username=SUPERADMIN_EMAIL).exists():

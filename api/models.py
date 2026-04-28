@@ -569,3 +569,54 @@ class GeneratedItinerary(models.Model):
         payload = dict(self.data or {})
         payload.setdefault('id', str(self.pk))
         return payload
+
+
+class CommunityPost(models.Model):
+    """
+    Model for social posts in the travel community.
+    Allows users to share experiences, photos, and locations.
+    """
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='community_posts',
+    )
+    content = models.TextField()
+    location = models.CharField(max_length=255, blank=True)
+    images = models.JSONField(default=list, blank=True, help_text='List of image URLs')
+    likes_count = models.IntegerField(default=0)
+    comments_count = models.IntegerField(default=0)
+    shares_count = models.IntegerField(default=0)
+    is_verified = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = 'Community Post'
+        verbose_name_plural = 'Community Posts'
+        ordering = ['-created_at']
+        indexes = [
+            models.Index(fields=['user', 'created_at']),
+        ]
+
+    def __str__(self):
+        return f"Post by {self.user.username} at {self.created_at}"
+
+
+class CommunityPostLike(models.Model):
+    """
+    Tracks which users liked which community posts.
+    """
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+    post = models.ForeignKey(
+        CommunityPost,
+        on_delete=models.CASCADE,
+        related_name='likes',
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'post')

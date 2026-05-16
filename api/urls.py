@@ -12,6 +12,7 @@ urlpatterns = [
     path('signup/', views.signup_api, name='signup'),
     path('bookings/cart/', views.booking_cart_api, name='booking_cart'),
     path('bookings/cart/add/', views.booking_cart_add_api, name='booking_cart_add'),
+    path('bookings/confirm/', views.booking_confirm_api, name='booking_confirm'),
     path('flights/search/', views.flight_search_api, name='flight_search'),
     path('cities/search/', views.city_search_api, name='city_search'),
     

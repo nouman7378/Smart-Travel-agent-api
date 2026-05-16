@@ -341,6 +341,31 @@ class Package(models.Model):
         return max(0, self.availability - self.bookings)
 
 
+class Booking(models.Model):
+    """
+    Confirmed booking containing one or more items.
+    """
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='bookings',
+    )
+    full_name = models.CharField(max_length=255)
+    email = models.EmailField()
+    phone = models.CharField(max_length=20)
+    special_requests = models.TextField(blank=True)
+    total_amount = models.DecimalField(max_digits=12, decimal_places=2)
+    status = models.CharField(max_length=20, default='confirmed')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"Booking #{self.id} - {self.full_name}"
+
+
 class BookingCart(models.Model):
     """Active booking cart for one authenticated user."""
 
@@ -371,7 +396,16 @@ class BookingItem(models.Model):
 
     cart = models.ForeignKey(
         BookingCart,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='items',
+    )
+    booking = models.ForeignKey(
+        'Booking',
         on_delete=models.CASCADE,
+        null=True,
+        blank=True,
         related_name='items',
     )
     item_type = models.CharField(max_length=20, choices=ITEM_TYPE_CHOICES)

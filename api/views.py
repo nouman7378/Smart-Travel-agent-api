@@ -18,6 +18,7 @@ from django.utils import timezone
 from datetime import timedelta
 
 from .models import (
+    Booking,
     BookingCart,
     BookingItem,
     Car,
@@ -154,20 +155,20 @@ def admin_dashboard_stats_api(request):
     total_hotels = Hotel.objects.count()
     total_cars = Car.objects.count()
     
-    # Revenue calculation (Sum of all booking items as a placeholder)
-    revenue_agg = BookingItem.objects.aggregate(total=Sum('unit_price'))
+    # Revenue calculation from confirmed bookings
+    revenue_agg = Booking.objects.aggregate(total=Sum('total_amount'))
     total_revenue = float(revenue_agg['total'] or 0)
     
-    # Recent bookings
-    recent_bookings_qs = BookingItem.objects.all().order_by('-created_at')[:5]
+    # Recent bookings from Booking model
+    recent_bookings_qs = Booking.objects.all().order_by('-created_at')[:5]
     recent_bookings = []
-    for item in recent_bookings_qs:
+    for b in recent_bookings_qs:
         recent_bookings.append({
-            'id': str(item.id),
-            'customer': item.cart.user.get_full_name() or item.cart.user.username,
-            'package': item.title,
-            'amount': float(item.unit_price),
-            'status': 'confirmed', # Placeholder
+            'id': str(b.id),
+            'customer': b.full_name,
+            'package': f"Booking #{b.id}",
+            'amount': float(b.total_amount),
+            'status': b.status,
         })
 
     # If no data, provide some mock-like but derived from DB where possible
@@ -175,10 +176,10 @@ def admin_dashboard_stats_api(request):
         'totalUsers': total_users,
         'activeTravelers': active_travelers,
         'totalTrips': total_packages + total_hotels + total_cars,
-        'ongoingBookings': BookingItem.objects.count(),
-        'completedTrips': int(BookingItem.objects.count() * 0.8),
+        'ongoingBookings': Booking.objects.filter(status='confirmed').count(),
+        'completedTrips': Booking.objects.filter(status='completed').count(),
         'monthlyRevenue': total_revenue,
-        'pendingRequests': 0,
+        'pendingRequests': Booking.objects.filter(status='pending').count(),
         'expiringSubscriptions': 0,
         'growth': {
             'users': 15.4,
@@ -208,28 +209,26 @@ def admin_dashboard_stats_api(request):
 @require_http_methods(['GET'])
 def admin_bookings_list_api(request):
     """
-    List all bookings for the admin dashboard (Super Admin only).
+    List all confirmed bookings for the admin dashboard (Super Admin only).
     """
     is_auth, user = check_admin_auth(request)
     if not is_auth:
         return JsonResponse({'success': False, 'message': 'Unauthorized.'}, status=403)
 
-    bookings_qs = BookingItem.objects.all().order_by('-created_at')
+    bookings_qs = Booking.objects.all().order_by('-created_at')
     results = []
     for b in bookings_qs:
         results.append({
             'id': str(b.id),
             'bookingNumber': f"BK-{b.id:06d}",
-            'userId': str(b.cart.user.id),
-            'userName': b.cart.user.get_full_name() or b.cart.user.username,
-            'userEmail': b.cart.user.email,
-            'packageName': b.title,
-            'bookingType': b.item_type,
-            'status': 'confirmed', # Placeholder
-            'totalAmount': float(b.unit_price),
-            'paymentStatus': 'completed', # Placeholder
+            'userId': str(b.user.id),
+            'userName': b.full_name,
+            'userEmail': b.email,
+            'status': b.status,
+            'totalAmount': float(b.total_amount),
             'bookingDate': b.created_at.isoformat(),
-            'travelDate': (b.created_at + timedelta(days=30)).isoformat(), # Placeholder
+            'phone': b.phone,
+            'specialRequests': b.special_requests
         })
 
     return JsonResponse({'success': True, 'bookings': results}, status=200)
@@ -606,6 +605,70 @@ def booking_cart_add_api(request):
         },
         status=200,
     )
+
+
+@csrf_exempt
+@require_http_methods(['POST'])
+def booking_confirm_api(request):
+    """
+    Confirm the current cart and create a Booking record.
+    """
+    user = _get_authenticated_user(request)
+    if not user:
+        return JsonResponse({'success': False, 'message': 'Authentication required.'}, status=401)
+
+    try:
+        body = json.loads(request.body.decode('utf-8'))
+    except (json.JSONDecodeError, ValueError):
+        return JsonResponse({'success': False, 'message': 'Invalid JSON body.'}, status=400)
+
+    guest_info = body.get('guest_info', {})
+    items_data = body.get('items', [])
+    total_amount = body.get('total_amount', 0)
+
+    if not guest_info.get('name') or not guest_info.get('email') or not guest_info.get('phone'):
+        return JsonResponse({'success': False, 'message': 'Incomplete guest information.'}, status=400)
+
+    with transaction.atomic():
+        # Create the Booking
+        booking = Booking.objects.create(
+            user=user,
+            full_name=guest_info.get('name'),
+            email=guest_info.get('email'),
+            phone=guest_info.get('phone'),
+            special_requests=guest_info.get('special_requests', ''),
+            total_amount=total_amount,
+            status='confirmed'
+        )
+
+        # Update and link BookingItems from cart to this Booking
+        cart, _ = BookingCart.objects.get_or_create(user=user)
+        
+        if items_data:
+            item_ids = [item['id'] for item in items_data]
+            cart_items = BookingItem.objects.filter(cart=cart, id__in=item_ids)
+            
+            # Map items for quick lookup
+            items_map = {str(item['id']): item for item in items_data}
+            
+            for item in cart_items:
+                if str(item.id) in items_map:
+                    item.quantity = items_map[str(item.id)]['quantity']
+                
+                item.booking = booking
+                item.cart = None
+                item.save()
+        else:
+            for item in cart.items.all():
+                item.booking = booking
+                item.cart = None
+                item.save()
+
+    return JsonResponse({
+        'success': True,
+        'message': 'Booking confirmed successfully.',
+        'booking_id': booking.id
+    }, status=201)
 
 
 @csrf_exempt

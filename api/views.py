@@ -229,6 +229,59 @@ def admin_bookings_list_api(request):
     bookings_qs = Booking.objects.all().order_by('-created_at')
     results = []
     for b in bookings_qs:
+        items = b.items.all()
+        # Find first item to define booking type and package name
+        first_item = items.first()
+        
+        booking_type = 'package'
+        package_name = "Custom Package"
+        travel_date = b.created_at.date().isoformat()  # Fallback to created_at
+        
+        if first_item:
+            # Map item_type choices
+            if first_item.item_type == 'hotel_room':
+                booking_type = 'hotel'
+            elif first_item.item_type == 'flight':
+                booking_type = 'flight'
+            elif first_item.item_type == 'car':
+                booking_type = 'car'
+            else:
+                booking_type = 'package'
+            
+            package_name = first_item.title
+            
+            # Try to resolve travel_date from metadata (e.g. departDate, checkIn, date)
+            meta = first_item.metadata or {}
+            if isinstance(meta, dict):
+                travel_date_val = (
+                    meta.get('checkIn') or 
+                    meta.get('departDate') or 
+                    meta.get('date')
+                )
+                if travel_date_val:
+                    travel_date = str(travel_date_val)
+        
+        # Payment status: Stripe checkouts are already completed on successful payment intent
+        payment_status = 'completed'
+        if b.status == 'cancelled':
+            payment_status = 'refunded'
+        elif b.status == 'pending':
+            payment_status = 'pending'
+
+        # Detailed item records
+        items_details = []
+        for item in items:
+            items_details.append({
+                'id': str(item.id),
+                'item_type': item.item_type,
+                'title': item.title,
+                'subtitle': item.subtitle,
+                'unit_price': float(item.unit_price),
+                'quantity': item.quantity,
+                'line_total': float(item.unit_price * item.quantity),
+                'metadata': item.metadata if isinstance(item.metadata, dict) else {}
+            })
+
         results.append({
             'id': str(b.id),
             'bookingNumber': f"BK-{b.id:06d}",
@@ -236,10 +289,16 @@ def admin_bookings_list_api(request):
             'userName': b.full_name,
             'userEmail': b.email,
             'status': b.status,
+            'bookingType': booking_type,
+            'packageName': package_name,
+            'paymentStatus': payment_status,
+            'travelDate': travel_date,
+            'assignedAgent': 'Nouman Ashraf',  # Default Admin Agent
             'totalAmount': float(b.total_amount),
             'bookingDate': b.created_at.isoformat(),
             'phone': b.phone,
-            'specialRequests': b.special_requests
+            'specialRequests': b.special_requests,
+            'items': items_details
         })
 
     return JsonResponse({'success': True, 'bookings': results}, status=200)
@@ -258,12 +317,21 @@ def admin_payments_list_api(request):
     items_qs = BookingItem.objects.all().order_by('-created_at')
     results = []
     for item in items_qs:
+        user_obj = None
+        if item.cart and item.cart.user:
+            user_obj = item.cart.user
+        elif item.booking and item.booking.user:
+            user_obj = item.booking.user
+            
+        if not user_obj:
+            continue
+
         results.append({
             'id': str(item.id),
             'bookingId': str(item.id),
             'bookingNumber': f"BK-{item.id:06d}",
-            'userId': str(item.cart.user.id),
-            'userName': item.cart.user.get_full_name() or item.cart.user.username,
+            'userId': str(user_obj.id),
+            'userName': user_obj.get_full_name() or user_obj.username,
             'amount': float(item.unit_price),
             'status': 'completed',
             'paymentMethod': 'Credit Card',
@@ -555,7 +623,7 @@ def booking_cart_add_api(request):
     unit_price = body.get('unit_price')
     metadata = body.get('metadata') or {}
 
-    valid_types = {'hotel_room', 'car', 'package'}
+    valid_types = {'hotel_room', 'flight', 'car', 'package'}
     if item_type not in valid_types:
         return JsonResponse({'success': False, 'message': 'Invalid item_type.'}, status=400)
 
@@ -651,12 +719,17 @@ def booking_confirm_api(request):
 
     with transaction.atomic():
         # Create the Booking
+        special_reqs = guest_info.get('special_requests', '')
+        payment_intent_id = body.get('payment_intent_id', '')
+        if payment_intent_id:
+            special_reqs = f"{special_reqs}\n[Stripe Payment Intent ID: {payment_intent_id}]".strip()
+
         booking = Booking.objects.create(
             user=user,
             full_name=guest_info.get('name'),
             email=guest_info.get('email'),
             phone=guest_info.get('phone'),
-            special_requests=guest_info.get('special_requests', ''),
+            special_requests=special_reqs,
             total_amount=total_amount,
             status='confirmed'
         )
@@ -684,11 +757,365 @@ def booking_confirm_api(request):
                 item.cart = None
                 item.save()
 
+    # Send Invoice Email via configured Gmail SMTP
+    try:
+        from django.core.mail import EmailMultiAlternatives
+        from django.utils.html import strip_tags
+        from django.conf import settings
+        from .models import Room, Car, Package
+        import re
+
+        subject = f'Your SmartTravel Booking Invoice - BK-{booking.id:06d}'
+        
+        # Remove Stripe Payment Intent ID from special requests display
+        special_requests_clean = booking.special_requests
+        if special_requests_clean:
+            special_requests_clean = re.sub(r'\[Stripe Payment Intent ID:\s*[^\]]+\]', '', special_requests_clean).strip()
+        
+        # Fetch booked items to render in email
+        booked_items = booking.items.all()
+        
+        items_html = ""
+        subtotal = 0
+        for item in booked_items:
+            line_total = item.unit_price * item.quantity
+            subtotal += line_total
+            
+            # Resolve specific details based on item_type
+            extra_details_html = ""
+            try:
+                if item.item_type == 'hotel_room':
+                    room = Room.objects.select_related('hotel').get(id=item.reference_id)
+                    extra_details_html = f"""
+                    <div style="font-size: 12px; color: #64748b; margin-top: 4px; line-height: 1.5; background-color: #f8fafc; border-radius: 6px; padding: 8px; border-left: 3px solid #3b82f6;">
+                        <strong>Hotel:</strong> {room.hotel.name}<br/>
+                        <strong>Location:</strong> {room.hotel.location}<br/>
+                        <strong>Room Type:</strong> {room.room_type} · <strong>Max Guests:</strong> {room.max_guests}<br/>
+                        <strong>Amenities:</strong> {', '.join(room.amenities[:4]) if room.amenities else 'Standard'}
+                    </div>
+                    """
+                elif item.item_type == 'car':
+                    car = Car.objects.get(id=item.reference_id)
+                    extra_details_html = f"""
+                    <div style="font-size: 12px; color: #64748b; margin-top: 4px; line-height: 1.5; background-color: #f8fafc; border-radius: 6px; padding: 8px; border-left: 3px solid #10b981;">
+                        <strong>Vehicle:</strong> {car.model} ({car.company})<br/>
+                        <strong>Category:</strong> {car.get_type_display()} · <strong>Transmission:</strong> {car.get_transmission_display()}<br/>
+                        <strong>Specs:</strong> {car.seats} Seats · {car.luggage_capacity} Luggage · {car.get_fuel_type_display()}
+                    </div>
+                    """
+                elif item.item_type == 'package':
+                    package = Package.objects.get(id=item.reference_id)
+                    extra_details_html = f"""
+                    <div style="font-size: 12px; color: #64748b; margin-top: 4px; line-height: 1.5; background-color: #f8fafc; border-radius: 6px; padding: 8px; border-left: 3px solid #8b5cf6;">
+                        <strong>Destination:</strong> {package.destination} · <strong>Duration:</strong> {package.nights} Nights<br/>
+                        <strong>Airline:</strong> {package.airline} ({package.departure_airport} &rarr; {package.arrival_airport})<br/>
+                        <strong>Hotel:</strong> {package.hotel_name} ({package.hotel_stars}★, Rating: {package.hotel_rating})
+                    </div>
+                    """
+                elif item.item_type == 'flight':
+                    meta_dict = item.metadata if isinstance(item.metadata, dict) else {}
+                    extra_details_html = f"""
+                    <div style="font-size: 12px; color: #64748b; margin-top: 4px; line-height: 1.5; background-color: #f8fafc; border-radius: 6px; padding: 8px; border-left: 3px solid #3b82f6;">
+                        <strong>Flight Number:</strong> {meta_dict.get('flight_number', 'N/A')}<br/>
+                        <strong>Route:</strong> {item.subtitle}<br/>
+                        <strong>Departure Date:</strong> {meta_dict.get('departDate', 'N/A')}<br/>
+                        <strong>Class:</strong> {meta_dict.get('class', 'Economy').capitalize()}
+                    </div>
+                    """
+            except Exception:
+                pass
+
+            if item.subtitle:
+                subtitle_line = f'<div style="font-size: 13px; color: #475569; margin-top: 2px;"><em>{item.subtitle}</em></div>'
+            else:
+                subtitle_line = ""
+
+            items_html += f"""
+            <tr>
+                <td style="padding: 16px 12px; border-bottom: 1px solid #e2e8f0; vertical-align: top;">
+                    <div style="font-weight: bold; color: #1e293b; font-size: 14px;">{item.title}</div>
+                    {subtitle_line}
+                    {extra_details_html}
+                </td>
+                <td style="padding: 16px 12px; border-bottom: 1px solid #e2e8f0; color: #475569; text-align: center; vertical-align: top; font-size: 14px;">{item.quantity}</td>
+                <td style="padding: 16px 12px; border-bottom: 1px solid #e2e8f0; color: #475569; text-align: right; vertical-align: top; font-size: 14px;">PKR {float(item.unit_price):,.2f}</td>
+                <td style="padding: 16px 12px; border-bottom: 1px solid #e2e8f0; color: #0f172a; text-align: right; font-weight: bold; vertical-align: top; font-size: 14px;">PKR {float(line_total):,.2f}</td>
+            </tr>
+            """
+
+        tax = float(subtotal) * 0.05
+        service_fee = 10.0
+        grand_total = float(subtotal) + tax + service_fee
+
+        logo_cid_html = ""
+        # Check if logo file exists and set dynamic HTML
+        import os
+        from email.mime.image import MIMEImage
+        logo_path = '/Users/apple/Desktop/smarttravel/front-end/src/assets/logo.png'
+        logo_attached = False
+        if os.path.exists(logo_path):
+            try:
+                logo_cid_html = '<img src="cid:logo_image" alt="SmartTravel Hub" style="height: 50px; display: block; margin: 0 auto 10px auto;" />'
+                logo_attached = True
+            except Exception:
+                logo_cid_html = '<span style="font-size: 28px; font-weight: bold; color: #3b82f6; letter-spacing: -0.025em; display: block; margin-bottom: 5px;">SmartTravel Hub</span>'
+        else:
+            logo_cid_html = '<span style="font-size: 28px; font-weight: bold; color: #3b82f6; letter-spacing: -0.025em; display: block; margin-bottom: 5px;">SmartTravel Hub</span>'
+
+        html_content = f"""
+        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <html xmlns="http://www.w3.org/1999/xhtml">
+        <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <title>Booking Invoice</title>
+            <style type="text/css">
+                body {{ font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.6; margin: 0; padding: 0; background-color: #f8fafc; color: #334155; }}
+                table {{ border-collapse: collapse; width: 100%; }}
+                .container {{ max-width: 600px; margin: 0 auto; padding: 40px 20px; }}
+                .card {{ background-color: #ffffff; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02); padding: 40px; position: relative; overflow: hidden; }}
+                .top-bar {{ height: 6px; background: linear-gradient(90deg, #3b82f6 0%, #6366f1 100%); position: absolute; top: 0; left: 0; right: 0; }}
+                .header {{ text-align: center; border-bottom: 1px solid #f1f5f9; padding-bottom: 24px; margin-bottom: 24px; }}
+                .status-badge {{ background-color: #dcfce7; color: #15803d; font-weight: bold; font-size: 12px; padding: 6px 12px; border-radius: 9999px; display: inline-block; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 8px; }}
+                .invoice-title {{ font-size: 20px; font-weight: 800; color: #0f172a; margin-top: 16px; margin-bottom: 16px; letter-spacing: -0.025em; }}
+                .meta-section {{ background-color: #f8fafc; border-radius: 12px; padding: 20px; margin-bottom: 24px; border: 1px solid #f1f5f9; }}
+                .meta-table td {{ padding: 6px 0; font-size: 13px; color: #64748b; }}
+                .meta-table .label {{ font-weight: bold; color: #1e293b; width: 130px; }}
+                .items-table {{ margin-top: 24px; margin-bottom: 24px; }}
+                .items-table th {{ background-color: #f1f5f9; color: #475569; font-weight: 700; text-align: left; padding: 12px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 2px solid #e2e8f0; }}
+                .totals-table td {{ padding: 8px 0; font-size: 14px; color: #475569; }}
+                .totals-table .grand-total {{ font-size: 18px; font-weight: 800; color: #3b82f6; border-top: 1px solid #e2e8f0; padding-top: 12px; }}
+                .footer {{ text-align: center; margin-top: 32px; font-size: 12px; color: #94a3b8; line-height: 1.6; }}
+                .footer a {{ color: #3b82f6; text-decoration: none; font-weight: 600; }}
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <div class="card">
+                    <div class="top-bar"></div>
+                    
+                    <div class="header">
+                        {logo_cid_html}
+                        <h2 style="margin: 12px 0 4px 0; color: #0f172a; font-weight: 800; font-size: 22px; letter-spacing: -0.025em;">Booking Confirmed</h2>
+                        <span class="status-badge">Paid Successfully</span>
+                    </div>
+                    
+                    <div class="invoice-title">Invoice #{booking.id:06d}</div>
+                    
+                    <div class="meta-section">
+                        <table class="meta-table">
+                            <tr>
+                                <td class="label">Date:</td>
+                                <td>{booking.created_at.strftime('%B %d, %Y') if booking.created_at else ''}</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Guest Name:</td>
+                                <td>{booking.full_name}</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Registered Email:</td>
+                                <td>{user.email if (user and user.email) else booking.email}</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Phone Number:</td>
+                                <td>{booking.phone}</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Payment Method:</td>
+                                <td>Stripe Secure Credit Card</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <table class="items-table">
+                        <thead>
+                            <tr>
+                                <th style="border-top-left-radius: 8px; border-bottom-left-radius: 8px; padding-left: 12px;">Selected Bookings</th>
+                                <th style="text-align: center;">Qty</th>
+                                <th style="text-align: right;">Unit Price</th>
+                                <th style="text-align: right; border-top-right-radius: 8px; border-bottom-right-radius: 8px; padding-right: 12px;">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {items_html}
+                        </tbody>
+                    </table>
+
+                    <table class="totals-table" style="margin-left: auto; width: 280px; margin-top: 16px;">
+                        <tr>
+                            <td style="text-align: left; color: #64748b;">Subtotal:</td>
+                            <td style="text-align: right; font-weight: 700; color: #1e293b;">PKR {float(subtotal):,.2f}</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left; color: #64748b;">GST / Tax (5%):</td>
+                            <td style="text-align: right; font-weight: 700; color: #1e293b;">PKR {tax:,.2f}</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left; color: #64748b;">Booking Service Fee:</td>
+                            <td style="text-align: right; font-weight: 700; color: #1e293b;">PKR {service_fee:,.2f}</td>
+                        </tr>
+                        <tr class="grand-total">
+                            <td style="text-align: left; padding-top: 12px;">Total Paid:</td>
+                            <td style="text-align: right; font-weight: 800; color: #3b82f6; padding-top: 12px;">PKR {grand_total:,.2f}</td>
+                        </tr>
+                    </table>
+                    
+                    {f'<div style="margin-top: 24px; padding: 16px; background-color: #f8fafc; border-radius: 12px; font-size: 13px; color: #475569; border: 1px dashed #e2e8f0;"><strong>Special Requests:</strong><br/><div style="margin-top: 4px; color: #1e293b;">{special_requests_clean}</div></div>' if special_requests_clean else ''}
+                </div>
+                
+                <div class="footer">
+                    <p>Need help? Visit our <a href="#">Support Center</a> or email <a href="mailto:support@smarttravel.com">support@smarttravel.com</a></p>
+                    <p>&copy; {booking.created_at.year if booking.created_at else 2026} SmartTravel Hub. All rights reserved.</p>
+                </div>
+            </div>
+        </body>
+        </html>
+        """
+        
+        text_content = strip_tags(html_content)
+        
+        recipient_email = user.email if (user and user.email) else booking.email
+
+        email = EmailMultiAlternatives(
+            subject=subject,
+            body=text_content,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            to=[recipient_email]
+        )
+        email.attach_alternative(html_content, "text/html")
+        
+        # Attach logo image inline if exists
+        if logo_attached:
+            try:
+                with open(logo_path, 'rb') as f:
+                    logo_data = f.read()
+                    mime_image = MIMEImage(logo_data)
+                    mime_image.add_header('Content-ID', '<logo_image>')
+                    mime_image.add_header('Content-Disposition', 'inline', filename='logo.png')
+                    email.attach(mime_image)
+            except Exception:
+                pass
+        
+        # Robust SSL bypass for macOS Python certificate issues
+        import ssl
+        original_context = ssl.create_default_context
+        ssl.create_default_context = ssl._create_unverified_context
+        try:
+            email.send(fail_silently=False)
+        finally:
+            ssl.create_default_context = original_context
+        
+    except Exception as email_err:
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.error(f"Failed to send booking confirmation email to {user.email if (user and user.email) else booking.email}: {str(email_err)}")
+
     return JsonResponse({
         'success': True,
         'message': 'Booking confirmed successfully.',
         'booking_id': booking.id
     }, status=201)
+
+
+@csrf_exempt
+@require_http_methods(['POST'])
+def stripe_create_payment_intent(request):
+    """
+    Create a Stripe PaymentIntent for the given amount.
+    Returns the client_secret for the frontend to confirm the payment.
+    """
+    import stripe
+    from django.conf import settings
+
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+
+    user = _get_authenticated_user(request)
+    if not user:
+        return JsonResponse({'success': False, 'message': 'Authentication required.'}, status=401)
+
+    try:
+        body = json.loads(request.body.decode('utf-8'))
+    except (json.JSONDecodeError, ValueError):
+        return JsonResponse({'success': False, 'message': 'Invalid JSON body.'}, status=400)
+
+    amount = body.get('amount', 0)
+    currency = body.get('currency', 'pkr')
+
+    if not amount or amount <= 0:
+        return JsonResponse({'success': False, 'message': 'Invalid amount.'}, status=400)
+
+    try:
+        # Stripe expects amount in smallest currency unit (e.g. paisa for PKR)
+        amount_in_smallest_unit = int(round(float(amount) * 100))
+
+        intent = stripe.PaymentIntent.create(
+            amount=amount_in_smallest_unit,
+            currency=currency.lower(),
+            metadata={
+                'user_id': str(user.id),
+                'user_email': user.email,
+            },
+        )
+
+        return JsonResponse({
+            'success': True,
+            'client_secret': intent.client_secret,
+            'payment_intent_id': intent.id,
+        }, status=200)
+
+    except stripe.error.StripeError as e:
+        return JsonResponse({
+            'success': False,
+            'message': str(e.user_message or e),
+        }, status=400)
+    except Exception as e:
+        return JsonResponse({
+            'success': False,
+            'message': f'Payment error: {str(e)}',
+        }, status=500)
+
+
+@csrf_exempt
+@require_http_methods(['GET'])
+def user_bookings_api(request):
+    """
+    List all confirmed bookings of the logged-in user.
+    """
+    user = _get_authenticated_user(request)
+    if not user:
+        return JsonResponse({'success': False, 'message': 'Authentication required.'}, status=401)
+
+    bookings = Booking.objects.filter(user=user).prefetch_related('items').order_by('-created_at')
+    results = []
+    for b in bookings:
+        items_list = []
+        for item in b.items.all():
+            items_list.append({
+                'id': item.id,
+                'item_type': item.item_type,
+                'reference_id': item.reference_id,
+                'title': item.title,
+                'subtitle': item.subtitle,
+                'unit_price': float(item.unit_price),
+                'quantity': item.quantity,
+                'line_total': float(item.unit_price * item.quantity),
+                'metadata': item.metadata,
+                'created_at': item.created_at.isoformat() if item.created_at else None,
+            })
+        
+        results.append({
+            'id': b.id,
+            'full_name': b.full_name,
+            'email': b.email,
+            'phone': b.phone,
+            'special_requests': b.special_requests,
+            'total_amount': float(b.total_amount),
+            'status': b.status,
+            'created_at': b.created_at.isoformat() if b.created_at else None,
+            'items': items_list,
+        })
+
+    return JsonResponse({'success': True, 'bookings': results}, status=200)
 
 
 @csrf_exempt
@@ -3431,3 +3858,82 @@ def community_post_like_api(request, post_id):
         },
         status=200
     )
+
+
+@csrf_exempt
+@require_http_methods(['GET', 'POST'])
+def flight_search(request):
+    """
+    Search for flights via AviationStack API.
+    """
+    import requests
+    from django.conf import settings
+    
+    flight_iata = None
+    dep_iata = None
+    arr_iata = None
+    
+    if request.method == 'POST':
+        try:
+            body = json.loads(request.body.decode('utf-8'))
+            flight_iata = body.get('flight_iata')
+            dep_iata = body.get('dep_iata') or body.get('departure_airport_code') or body.get('origin')
+            arr_iata = body.get('arr_iata') or body.get('destination_airport_code') or body.get('destination')
+        except Exception:
+            pass
+    else:
+        flight_iata = request.GET.get('flight_iata')
+        dep_iata = request.GET.get('dep_iata') or request.GET.get('departure_airport_code') or request.GET.get('origin')
+        arr_iata = request.GET.get('arr_iata') or request.GET.get('destination_airport_code') or request.GET.get('destination')
+
+    BASE_URL = "http://api.aviationstack.com/v1"
+    params = {
+        'access_key': settings.AVIATIONSTACK_API_KEY,
+    }
+    if flight_iata:
+        params['flight_iata'] = flight_iata
+    if dep_iata:
+        params['dep_iata'] = dep_iata
+    if arr_iata:
+        params['arr_iata'] = arr_iata
+
+    try:
+        response = requests.get(f"{BASE_URL}/flights", params=params, timeout=15)
+        response.raise_for_status()
+        return JsonResponse(response.json(), safe=False)
+    except Exception as e:
+        return JsonResponse({'success': False, 'message': str(e)}, status=500)
+
+
+@csrf_exempt
+@require_http_methods(['GET', 'POST'])
+def airport_search(request):
+    """
+    Search for airports via AviationStack API.
+    """
+    import requests
+    from django.conf import settings
+    
+    search = None
+    if request.method == 'POST':
+        try:
+            body = json.loads(request.body.decode('utf-8'))
+            search = body.get('search') or body.get('query')
+        except Exception:
+            pass
+    else:
+        search = request.GET.get('search') or request.GET.get('query')
+
+    BASE_URL = "http://api.aviationstack.com/v1"
+    params = {
+        'access_key': settings.AVIATIONSTACK_API_KEY,
+    }
+    if search:
+        params['search'] = search
+
+    try:
+        response = requests.get(f"{BASE_URL}/airports", params=params, timeout=15)
+        response.raise_for_status()
+        return JsonResponse(response.json(), safe=False)
+    except Exception as e:
+        return JsonResponse({'success': False, 'message': str(e)}, status=500)

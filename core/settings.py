@@ -138,8 +138,23 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Amadeus API
 AMADEUS_API_KEY = env('AMADEUS_API_KEY', default='')
 AMADEUS_API_SECRET = env('AMADEUS_API_SECRET', default='')
+AVIATIONSTACK_API_KEY = env('AVIATIONSTACK_API_KEY', default='')
 
 # OpenAI API
 OPENAI_API_KEY = env('OPENAI_API_KEY', default='')
 OPENAI_MODEL = env('OPENAI_MODEL', default='gpt-4o-mini')
 OPENAI_REQUEST_TIMEOUT = env.int('OPENAI_REQUEST_TIMEOUT', default=25)
+CSRF_TRUSTED_ORIGINS = ['https://smart-travel.fly.dev']
+
+# Stripe Payment
+STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY', default='')
+STRIPE_PUBLISHABLE_KEY = env('STRIPE_PUBLISHABLE_KEY', default='')
+
+# Email Configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = env('EMAIL_HOST', default='smtp.gmail.com')
+EMAIL_PORT = env.int('EMAIL_PORT', default=587)
+EMAIL_USE_TLS = env.bool('EMAIL_USE_TLS', default=True)
+EMAIL_HOST_USER = env('EMAIL_HOST_USER', default='')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD', default='')
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL', default='')

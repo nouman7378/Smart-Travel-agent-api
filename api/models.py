@@ -390,6 +390,7 @@ class BookingItem(models.Model):
 
     ITEM_TYPE_CHOICES = [
         ('hotel_room', 'Hotel Room'),
+        ('flight', 'Flight'),
         ('car', 'Car'),
         ('package', 'Package'),
     ]

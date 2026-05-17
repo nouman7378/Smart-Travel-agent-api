@@ -13,8 +13,12 @@ urlpatterns = [
     path('bookings/cart/', views.booking_cart_api, name='booking_cart'),
     path('bookings/cart/add/', views.booking_cart_add_api, name='booking_cart_add'),
     path('bookings/confirm/', views.booking_confirm_api, name='booking_confirm'),
+    path('bookings/user/', views.user_bookings_api, name='user_bookings'),
+    path('payments/create-intent/', views.stripe_create_payment_intent, name='stripe_create_payment_intent'),
     path('flights/search/', views.flight_search_api, name='flight_search'),
     path('cities/search/', views.city_search_api, name='city_search'),
+    path('flights/', views.flight_search, name='aviation_flights'),
+    path('airports/', views.airport_search, name='aviation_airports'),
     
     # Hotel APIs - Public
     path('hotels/', views.hotel_list_api, name='hotel_list'),

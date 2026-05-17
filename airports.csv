@@ -1,0 +1,1755 @@
+id,created_at,updated_at,deleted_at,city,country,code
+1,4/9/26 15:07,4/9/26 15:07,NULL,Al Arish,Egypt,AAC
+2,4/9/26 15:07,4/9/26 15:07,NULL,Annaba,Algeria,AAE
+3,4/9/26 15:07,4/9/26 15:07,NULL,Alborg,Denmark,AAL
+4,4/9/26 15:07,4/9/26 15:07,NULL,Al Ain,United Arab Emirates,AAN
+5,4/9/26 15:07,4/9/26 15:07,NULL,Aarhus,Denmark,AAR
+6,4/9/26 15:07,4/9/26 15:07,NULL,Abadan,Iran,ABD
+7,4/9/26 15:07,4/9/26 15:07,NULL,"Allentown, PA",USA,ABE
+8,4/9/26 15:07,4/9/26 15:07,NULL,"Abilene, TX",USA,ABI
+9,4/9/26 15:07,4/9/26 15:07,NULL,Abidjan,Ivory Coast,ABJ
+10,4/9/26 15:07,4/9/26 15:07,NULL,Bamaga,Australia,ABM
+11,4/9/26 15:07,4/9/26 15:07,NULL,"Albuquerque, NM",USA,ABQ
+12,4/9/26 15:07,4/9/26 15:07,NULL,"Aberdeen, SD",USA,ABR
+13,4/9/26 15:07,4/9/26 15:07,NULL,Abu Simbel,Egypt,ABS
+14,4/9/26 15:07,4/9/26 15:07,NULL,Abuja International,Nigeria,ABV
+15,4/9/26 15:07,4/9/26 15:07,NULL,Albury,Australia,ABX
+16,4/9/26 15:07,4/9/26 15:07,NULL,"Albany, GA",USA,ABY
+17,4/9/26 15:07,4/9/26 15:07,NULL,Aberdeen,United Kingdom,ABZ
+18,4/9/26 15:07,4/9/26 15:07,NULL,Acapulco,Mexico,ACA
+19,4/9/26 15:07,4/9/26 15:07,NULL,Accra,Ghana,ACC
+20,4/9/26 15:07,4/9/26 15:07,NULL,Arrecife/Lanzarote,Spain,ACE
+21,4/9/26 15:07,4/9/26 15:07,NULL,Altenrhein,Switzerland,ACH
+22,4/9/26 15:07,4/9/26 15:07,NULL,"Nantucket, MA",USA,ACK
+23,4/9/26 15:07,4/9/26 15:07,NULL,"Waco, TX",USA,ACT
+24,4/9/26 15:07,4/9/26 15:07,NULL,"Eureka, CA",USA,ACV
+25,4/9/26 15:07,4/9/26 15:07,NULL,"Atlantic City, NJ",USA,ACY
+26,4/9/26 15:07,4/9/26 15:07,NULL,Adana,Turkey,ADA
+27,4/9/26 15:07,4/9/26 15:07,NULL,Addis Ababa,Ethiopia,ADD
+28,4/9/26 15:07,4/9/26 15:07,NULL,Aden,Yemen,ADE
+29,4/9/26 15:07,4/9/26 15:07,NULL,"Amman, Civil - Marka Airport",Jordan,ADJ
+30,4/9/26 15:07,4/9/26 15:07,NULL,Adelaide,Australia,ADL
+31,4/9/26 15:07,4/9/26 15:07,NULL,"Kodiak, AK",USA,ADQ
+32,4/9/26 15:07,4/9/26 15:07,NULL,Aktyubinsk,Kazakhstan,ADX
+33,4/9/26 15:07,4/9/26 15:07,NULL,Alldays,South Africa,ADY
+34,4/9/26 15:07,4/9/26 15:07,NULL,San Andres,Colombia,ADZ
+35,4/9/26 15:07,4/9/26 15:07,NULL,Abeche,Chad,AEH
+36,4/9/26 15:07,4/9/26 15:07,NULL,"Buenos Aires, Jorge Newbery",Argentina,AEP
+37,4/9/26 15:07,4/9/26 15:07,NULL,Adler/Sochi,Russia,AER
+38,4/9/26 15:07,4/9/26 15:07,NULL,Alesund,Norway,AES
+39,4/9/26 15:07,4/9/26 15:07,NULL,Agadir,Morocco,AGA
+40,4/9/26 15:07,4/9/26 15:07,NULL,Augsburg,Germany,AGB
+41,4/9/26 15:07,4/9/26 15:07,NULL,Malaga,Spain,AGP
+42,4/9/26 15:07,4/9/26 15:07,NULL,"Augusta, GA",USA,AGS
+43,4/9/26 15:07,4/9/26 15:07,NULL,Aguascaliente,Mexico,AGU
+44,4/9/26 15:07,4/9/26 15:07,NULL,Aggeneys,South Africa,AGZ
+45,4/9/26 15:07,4/9/26 15:07,NULL,Khamis Mushayat,Saudi Arabia,AHB
+46,4/9/26 15:07,4/9/26 15:07,NULL,"Athens, GA",USA,AHN
+47,4/9/26 15:07,4/9/26 15:07,NULL,Alghero Sassari,Italy,AHO
+48,4/9/26 15:07,4/9/26 15:07,NULL,Al Hoceima,Morocco,AHU
+49,4/9/26 15:07,4/9/26 15:07,NULL,Ajaccio,France,AJA
+50,4/9/26 15:07,4/9/26 15:07,NULL,Anjouan,Comoros (Comores),AJN
+51,4/9/26 15:07,4/9/26 15:07,NULL,Aracaju,Brazil,AJU
+52,4/9/26 15:07,4/9/26 15:07,NULL,Agades,Niger,AJY
+53,4/9/26 15:07,4/9/26 15:07,NULL,Auckland,New Zealand,AKL
+54,4/9/26 15:07,4/9/26 15:07,NULL,"King Salomon, AK",USA,AKN
+55,4/9/26 15:07,4/9/26 15:07,NULL,Akrotiri - RAF,Cyprus,AKT
+56,4/9/26 15:07,4/9/26 15:07,NULL,Alma Ata,Kazakhstan,ALA
+57,4/9/26 15:07,4/9/26 15:07,NULL,"Albany, NY",USA,ALB
+58,4/9/26 15:07,4/9/26 15:07,NULL,Alicante,Spain,ALC
+59,4/9/26 15:07,4/9/26 15:07,NULL,Alta,Norway,ALF
+60,4/9/26 15:07,4/9/26 15:07,NULL,Algiers,Algeria,ALG
+61,4/9/26 15:07,4/9/26 15:07,NULL,Albany,Australia,ALH
+62,4/9/26 15:07,4/9/26 15:07,NULL,Alexander Bay,South Africa,ALJ
+63,4/9/26 15:07,4/9/26 15:07,NULL,"Waterloo, IA",USA,ALO
+64,4/9/26 15:07,4/9/26 15:07,NULL,Aleppo,Syria,ALP
+65,4/9/26 15:07,4/9/26 15:07,NULL,Andorra La Vella H/P,Andorra,ALV
+66,4/9/26 15:07,4/9/26 15:07,NULL,"Walla Walla, WA",USA,ALW
+67,4/9/26 15:07,4/9/26 15:07,NULL,"Alexandria, El Nhouza Airport",Egypt,ALY
+68,4/9/26 15:07,4/9/26 15:07,NULL,"Amarillo, TX",USA,AMA
+69,4/9/26 15:07,4/9/26 15:07,NULL,Ahmedabad,India,AMD
+70,4/9/26 15:07,4/9/26 15:07,NULL,"Amman, Queen Alia Intl",Jordan,AMM
+71,4/9/26 15:07,4/9/26 15:07,NULL,"Amsterdam, Schiphol",Netherlands,AMS
+72,4/9/26 15:07,4/9/26 15:07,NULL,"Anniston, AL",USA,ANB
+73,4/9/26 15:07,4/9/26 15:07,NULL,"Anchorage, AK",USA,ANC
+74,4/9/26 15:07,4/9/26 15:07,NULL,Ankara,Turkey,ANK
+75,4/9/26 15:07,4/9/26 15:07,NULL,Antwerp,Belgium,ANR
+76,4/9/26 15:07,4/9/26 15:07,NULL,Antigua,Antigua,ANU
+77,4/9/26 15:07,4/9/26 15:07,NULL,Ancona,Italy,AOI
+78,4/9/26 15:07,4/9/26 15:07,NULL,Aomori,Japan,AOJ
+79,4/9/26 15:07,4/9/26 15:07,NULL,Karpathos,Greece,AOK
+80,4/9/26 15:07,4/9/26 15:07,NULL,"Altoona, PA",USA,AOO
+81,4/9/26 15:07,4/9/26 15:07,NULL,"Naples, FL",USA,APF
+82,4/9/26 15:07,4/9/26 15:07,NULL,Apia,Samoa,APW
+83,4/9/26 15:07,4/9/26 15:07,NULL,Aqaba,Jordan,AQJ
+84,4/9/26 15:07,4/9/26 15:07,NULL,"Ann Arbor, MI",USA,ARB
+85,4/9/26 15:07,4/9/26 15:07,NULL,Arkhangelsk,Russian Federation,ARH
+86,4/9/26 15:07,4/9/26 15:07,NULL,Arusha,Tanzania,ARK
+87,4/9/26 15:07,4/9/26 15:07,NULL,Stockholm - Arlanda,Sweden,ARN
+88,4/9/26 15:07,4/9/26 15:07,NULL,"Ashgabat, Ashkhabat",Turkmenistan,ASB
+89,4/9/26 15:07,4/9/26 15:07,NULL,"Aspen Snowmass, CO",USA,ASE
+90,4/9/26 15:07,4/9/26 15:07,NULL,Amami,Japan,ASJ
+91,4/9/26 15:07,4/9/26 15:07,NULL,Yamoussoukro,C?te d'Ivoire (Ivory Coast),ASK
+92,4/9/26 15:07,4/9/26 15:07,NULL,Asmara,Eritrea,ASM
+93,4/9/26 15:07,4/9/26 15:07,NULL,Alice Springs,Australia,ASP
+94,4/9/26 15:07,4/9/26 15:07,NULL,Asuncion,Paraguay,ASU
+95,4/9/26 15:07,4/9/26 15:07,NULL,"Aswan, Daraw Airport",Egypt,ASW
+96,4/9/26 15:07,4/9/26 15:07,NULL,Athens,Greece,ATH
+97,4/9/26 15:07,4/9/26 15:07,NULL,"Atlanta, Hartsfield Atlanta Int'l Airport",USA,ATL
+98,4/9/26 15:07,4/9/26 15:07,NULL,"Athens, OH",USA,ATO
+99,4/9/26 15:07,4/9/26 15:07,NULL,Amritsar,India,ATQ
+100,4/9/26 15:07,4/9/26 15:07,NULL,"Appelton/Neenah/Menasha, WI",USA,ATW
+101,4/9/26 15:07,4/9/26 15:07,NULL,"Watertown, SD",USA,ATY
+102,4/9/26 15:07,4/9/26 15:07,NULL,Assiut,Egypt,ATZ
+103,4/9/26 15:07,4/9/26 15:07,NULL,Aruba,Aruba,AUA
+104,4/9/26 15:07,4/9/26 15:07,NULL,Abu Rudeis,Egypt,AUE
+105,4/9/26 15:07,4/9/26 15:07,NULL,"Augusta, ME",USA,AUG
+106,4/9/26 15:07,4/9/26 15:07,NULL,Abu Dhabi,UAE,AUH
+107,4/9/26 15:07,4/9/26 15:07,NULL,Aurillac,France,AUR
+108,4/9/26 15:07,4/9/26 15:07,NULL,"Austin, TX",USA,AUS
+109,4/9/26 15:07,4/9/26 15:07,NULL,"Asheville, NC",USA,AVL
+110,4/9/26 15:07,4/9/26 15:07,NULL,"Wilkes Barre/Scranton, PA",USA,AVP
+111,4/9/26 15:07,4/9/26 15:07,NULL,Anguilla,Anguilla,AXA
+112,4/9/26 15:07,4/9/26 15:07,NULL,Armenia,Colombia,AXS
+113,4/9/26 15:07,4/9/26 15:07,NULL,Akita,Japan,AXT
+114,4/9/26 15:07,4/9/26 15:07,NULL,Ayers Rock,Australia,AYQ
+115,4/9/26 15:07,4/9/26 15:07,NULL,Ayr,Australia,AYR
+116,4/9/26 15:07,4/9/26 15:07,NULL,Antalya,Turkey,AYT
+117,4/9/26 15:07,4/9/26 15:07,NULL,"Kalamazoo/Battle Creek, MI",USA,AZO
+118,4/9/26 15:07,4/9/26 15:07,NULL,Bahrain,Bahrain,BAH
+119,4/9/26 15:07,4/9/26 15:07,NULL,Baku,Azerbaijan,BAK
+120,4/9/26 15:07,4/9/26 15:07,NULL,Barranquilla,Colombia,BAQ
+121,4/9/26 15:07,4/9/26 15:07,NULL,Bhubaneswar,India,BBI
+122,4/9/26 15:07,4/9/26 15:07,NULL,Berberati,Central African Republic,BBT
+123,4/9/26 15:07,4/9/26 15:07,NULL,Bambari,Central African Republic,BBY
+124,4/9/26 15:07,4/9/26 15:07,NULL,Barcelona,Spain,BCN
+125,4/9/26 15:07,4/9/26 15:07,NULL,Bermuda,Bermuda,BDA
+126,4/9/26 15:07,4/9/26 15:07,NULL,Bundaberg,Australia,BDB
+127,4/9/26 15:07,4/9/26 15:07,NULL,"Hartford, CT/Springfield, MA",USA,BDL
+128,4/9/26 15:07,4/9/26 15:07,NULL,Baronda,India,BDQ
+129,4/9/26 15:07,4/9/26 15:07,NULL,"Bridgeport, CT",USA,BDR
+130,4/9/26 15:07,4/9/26 15:07,NULL,Brindisi,Italy,BDS
+131,4/9/26 15:07,4/9/26 15:07,NULL,Bardufoss,Norway,BDU
+132,4/9/26 15:07,4/9/26 15:07,NULL,Belgrad (Beograd),Yugoslavia,BEG
+133,4/9/26 15:07,4/9/26 15:07,NULL,"Benton Harbour, MI",USA,BEH
+134,4/9/26 15:07,4/9/26 15:07,NULL,Belem,Brazil,BEL
+135,4/9/26 15:07,4/9/26 15:07,NULL,Bengasi,Libya,BEN
+136,4/9/26 15:07,4/9/26 15:07,NULL,Newcastle - Belmont,Australia,BEO
+137,4/9/26 15:07,4/9/26 15:07,NULL,Berlin,Germany,BER
+138,4/9/26 15:07,4/9/26 15:07,NULL,Brest,France,BES
+139,4/9/26 15:07,4/9/26 15:07,NULL,"Bethel, AK",USA,BET
+140,4/9/26 15:07,4/9/26 15:07,NULL,Beira,Mozambique,BEW
+141,4/9/26 15:07,4/9/26 15:07,NULL,Beirut,Lebanon,BEY
+142,4/9/26 15:07,4/9/26 15:07,NULL,"Bradford/Warren, PA/Olean, NY",USA,BFD
+143,4/9/26 15:07,4/9/26 15:07,NULL,"Bakersfield, CA",USA,BFL
+144,4/9/26 15:07,4/9/26 15:07,NULL,Bloemfontein,South Africa,BFN
+145,4/9/26 15:07,4/9/26 15:07,NULL,Buffalo Range,Zimbabwe,BFO
+146,4/9/26 15:07,4/9/26 15:07,NULL,Belfast International,United Kingdom,BFS
+147,4/9/26 15:07,4/9/26 15:07,NULL,Bucaramanga,Colombia,BGA
+148,4/9/26 15:07,4/9/26 15:07,NULL,Bangui,Central African Republic,BGF
+149,4/9/26 15:07,4/9/26 15:07,NULL,"Bridgetown, Grantley Adams Int'l",Barbados,BGI
+150,4/9/26 15:07,4/9/26 15:07,NULL,Bergen,Norway,BGO
+151,4/9/26 15:07,4/9/26 15:07,NULL,"Bangor, ME",USA,BGR
+152,4/9/26 15:07,4/9/26 15:07,NULL,Bangassou,Central African Republic,BGU
+153,4/9/26 15:07,4/9/26 15:07,NULL,"Bagdad, Al Muthana",Iraq,BGW
+154,4/9/26 15:07,4/9/26 15:07,NULL,Milan - Orio Al Serio,Italy,BGY
+155,4/9/26 15:07,4/9/26 15:07,NULL,"Bullhead City, NV",USA,BHC
+156,4/9/26 15:07,4/9/26 15:07,NULL,Belfast - Harbour,United Kingdom,BHD
+157,4/9/26 15:07,4/9/26 15:07,NULL,Blenheim,New Zealand,BHE
+158,4/9/26 15:07,4/9/26 15:07,NULL,"Birmingham, AL",USA,BHM
+159,4/9/26 15:07,4/9/26 15:07,NULL,Bhopal,India,BHO
+160,4/9/26 15:07,4/9/26 15:07,NULL,Broken Hill,Australia,BHQ
+161,4/9/26 15:07,4/9/26 15:07,NULL,Bahawalpur,Pakistan,BHV
+162,4/9/26 15:07,4/9/26 15:07,NULL,Birmingham,United Kingdom,BHX
+163,4/9/26 15:07,4/9/26 15:07,NULL,Bastia,France,BIA
+164,4/9/26 15:07,4/9/26 15:07,NULL,"Billings, MT",USA,BIL
+165,4/9/26 15:07,4/9/26 15:07,NULL,Bilbao,Spain,BIO
+166,4/9/26 15:07,4/9/26 15:07,NULL,Biarritz,France,BIQ
+167,4/9/26 15:07,4/9/26 15:07,NULL,"Bismarck/Mandan, ND",USA,BIS
+168,4/9/26 15:07,4/9/26 15:07,NULL,Bria,Central African Republic,BIV
+169,4/9/26 15:07,4/9/26 15:07,NULL,"Bemidji, MN",USA,BJI
+170,4/9/26 15:07,4/9/26 15:07,NULL,Banjul,Gambia,BJL
+171,4/9/26 15:07,4/9/26 15:07,NULL,Bujumbura,Burundi,BJM
+172,4/9/26 15:07,4/9/26 15:07,NULL,Leon,Mexico,BJX
+173,4/9/26 15:07,4/9/26 15:07,NULL,Badajoz,Spain,BJZ
+174,4/9/26 15:07,4/9/26 15:07,NULL,Kota Kinabalu,Malaysia,BKI
+175,4/9/26 15:07,4/9/26 15:07,NULL,Bangkok,Thailand,BKK
+176,4/9/26 15:07,4/9/26 15:07,NULL,"Cleveland, Burke Lakefront, OH",USA,BKL
+177,4/9/26 15:07,4/9/26 15:07,NULL,Bamako,Mali,BKO
+178,4/9/26 15:07,4/9/26 15:07,NULL,"Beckley, WV",USA,BKW
+179,4/9/26 15:07,4/9/26 15:07,NULL,"Brookings, SD",USA,BKX
+180,4/9/26 15:07,4/9/26 15:07,NULL,"Bluefield, WV",USA,BLF
+181,4/9/26 15:07,4/9/26 15:07,NULL,"Bellingham, WA",USA,BLI
+182,4/9/26 15:07,4/9/26 15:07,NULL,Billund,Denmark,BLL
+183,4/9/26 15:07,4/9/26 15:07,NULL,Bologna,Italy,BLQ
+184,4/9/26 15:07,4/9/26 15:07,NULL,Bangalore,India,BLR
+185,4/9/26 15:07,4/9/26 15:07,NULL,Blackwater,Australia,BLT
+186,4/9/26 15:07,4/9/26 15:07,NULL,Blantyre,Malawi,BLZ
+187,4/9/26 15:07,4/9/26 15:07,NULL,Stockholm - Bromma,Sweden,BMA
+188,4/9/26 15:07,4/9/26 15:07,NULL,Broome,Australia,BME
+189,4/9/26 15:07,4/9/26 15:07,NULL,"Bloomington, IN",USA,BMG
+190,4/9/26 15:07,4/9/26 15:07,NULL,"Bloomington, IL",USA,BMI
+191,4/9/26 15:07,4/9/26 15:07,NULL,Brampton Island,Australia,BMP
+192,4/9/26 15:07,4/9/26 15:07,NULL,"Nashville, TN",USA,BNA
+193,4/9/26 15:07,4/9/26 15:07,NULL,Brisbane,Australia,BNE
+194,4/9/26 15:07,4/9/26 15:07,NULL,Ballina,Australia,BNK
+195,4/9/26 15:07,4/9/26 15:07,NULL,Broennoeysund,Norway,BNN
+196,4/9/26 15:07,4/9/26 15:07,NULL,Bannu,Pakistan,BNP
+197,4/9/26 15:07,4/9/26 15:07,NULL,Bora Bora,French Polynesia,BOB
+198,4/9/26 15:07,4/9/26 15:07,NULL,Bordeaux,France,BOD
+199,4/9/26 15:07,4/9/26 15:07,NULL,Bogota,Colombia,BOG
+200,4/9/26 15:07,4/9/26 15:07,NULL,"Boise, ID",USA,BOI
+201,4/9/26 15:07,4/9/26 15:07,NULL,Bourgas/Burgas,Bulgaria,BOJ
+202,4/9/26 15:07,4/9/26 15:07,NULL,Bombay,India,BOM
+203,4/9/26 15:07,4/9/26 15:07,NULL,Bonaire,Netherlands Antilles,BON
+204,4/9/26 15:07,4/9/26 15:07,NULL,Bodo,Norway,BOO
+205,4/9/26 15:07,4/9/26 15:07,NULL,"Boston - Logan, MA",USA,BOS
+206,4/9/26 15:07,4/9/26 15:07,NULL,Bobo/Dioulasso,Burkina Faso,BOY
+207,4/9/26 15:07,4/9/26 15:07,NULL,"Beaumont/Pt. Arthur, TX",USA,BPT
+208,4/9/26 15:07,4/9/26 15:07,NULL,"Brunswick, GA",USA,BQK
+209,4/9/26 15:07,4/9/26 15:07,NULL,Aguadilla,Puerto Rico,BQN
+210,4/9/26 15:07,4/9/26 15:07,NULL,San Carlos de Bariloche,Argentina,BRC
+211,4/9/26 15:07,4/9/26 15:07,NULL,"Brainerd, MN",USA,BRD
+212,4/9/26 15:07,4/9/26 15:07,NULL,Bremen,Germany,BRE
+213,4/9/26 15:07,4/9/26 15:07,NULL,Bari,Italy,BRI
+214,4/9/26 15:07,4/9/26 15:07,NULL,"Burlington, IA",USA,BRL
+215,4/9/26 15:07,4/9/26 15:07,NULL,Bern,Switzerland,BRN
+216,4/9/26 15:07,4/9/26 15:07,NULL,Bristol,United Kingdom,BRS
+217,4/9/26 15:07,4/9/26 15:07,NULL,Brussels,Belgium,BRU
+218,4/9/26 15:07,4/9/26 15:07,NULL,Brasilia,Brazil,BSB
+219,4/9/26 15:07,4/9/26 15:07,NULL,Basel,Switzerland,BSL
+220,4/9/26 15:07,4/9/26 15:07,NULL,"Basra, Basrah",Iraq,BSR
+221,4/9/26 15:07,4/9/26 15:07,NULL,"Butte, MT",USA,BTM
+222,4/9/26 15:07,4/9/26 15:07,NULL,"Baton Rouge, La",USA,BTR
+223,4/9/26 15:07,4/9/26 15:07,NULL,Bratislava,Slovakia,BTS
+224,4/9/26 15:07,4/9/26 15:07,NULL,Bintulu,Malaysia,BTU
+225,4/9/26 15:07,4/9/26 15:07,NULL,"Burlington, VT",USA,BTV
+226,4/9/26 15:07,4/9/26 15:07,NULL,"Budapest, Ferihegy",Hungary,BUD
+227,4/9/26 15:07,4/9/26 15:07,NULL,Buenos Aires,Argentina,BUE
+228,4/9/26 15:07,4/9/26 15:07,NULL,"Buffalo/Niagara Falls, NY",USA,BUF
+229,4/9/26 15:07,4/9/26 15:07,NULL,Bengueka,Angola,BUG
+230,4/9/26 15:07,4/9/26 15:07,NULL,Bucharest,Romania,BUH
+231,4/9/26 15:07,4/9/26 15:07,NULL,Bulawayo,Zimbabwe,BUQ
+232,4/9/26 15:07,4/9/26 15:07,NULL,"Burbank, CA",USA,BUR
+233,4/9/26 15:07,4/9/26 15:07,NULL,Boa Vista,Brazil,BVB
+234,4/9/26 15:07,4/9/26 15:07,NULL,Washington DC - Baltimore Washington Int'l,USA,BWI
+235,4/9/26 15:07,4/9/26 15:07,NULL,Bandar Seri Begawan,Brunei,BWN
+236,4/9/26 15:07,4/9/26 15:07,NULL,Burnie (Wynyard),Australia,BWT
+237,4/9/26 15:07,4/9/26 15:07,NULL,Bodrum,Turkey,BXN
+238,4/9/26 15:07,4/9/26 15:07,NULL,Bissau,Guinea Bissau,BXO
+239,4/9/26 15:07,4/9/26 15:07,NULL,"Borrego Springs, CA",USA,BXS
+240,4/9/26 15:07,4/9/26 15:07,NULL,Bouake,Ivory Coast,BYK
+241,4/9/26 15:07,4/9/26 15:07,NULL,Bayreuth,Germany,BYU
+242,4/9/26 15:07,4/9/26 15:07,NULL,Belize City,Belize,BZE
+243,4/9/26 15:07,4/9/26 15:07,NULL,Barisal,Bangladesh,BZL
+244,4/9/26 15:07,4/9/26 15:07,NULL,"Bozeman, MT",USA,BZN
+245,4/9/26 15:07,4/9/26 15:07,NULL,Brazzaville,Congo,BZV
+246,4/9/26 15:07,4/9/26 15:07,NULL,Cabinda,Angola,CAB
+247,4/9/26 15:07,4/9/26 15:07,NULL,"Columbia, SC",USA,CAE
+248,4/9/26 15:07,4/9/26 15:07,NULL,Cagliari,Italy,CAG
+249,4/9/26 15:07,4/9/26 15:07,NULL,Cairo Int'l,Egypt,CAI
+250,4/9/26 15:07,4/9/26 15:07,NULL,"Akron, OH",USA,CAK
+251,4/9/26 15:07,4/9/26 15:07,NULL,Guangzou,Hong Kong,CAN
+252,4/9/26 15:07,4/9/26 15:07,NULL,Casablanca,Morocco,CAS
+253,4/9/26 15:07,4/9/26 15:07,NULL,Cayenne,French Guayana,CAY
+254,4/9/26 15:07,4/9/26 15:07,NULL,Cochabamba,Bolivia,CBB
+255,4/9/26 15:07,4/9/26 15:07,NULL,Cambrigde,United Kingdom,CBG
+256,4/9/26 15:07,4/9/26 15:07,NULL,Canberra,Australia,CBR
+257,4/9/26 15:07,4/9/26 15:07,NULL,Cebu,Philippines,CBU
+258,4/9/26 15:07,4/9/26 15:07,NULL,Calicut,India,CCJ
+259,4/9/26 15:07,4/9/26 15:07,NULL,"Concord, CA",USA,CCR
+260,4/9/26 15:07,4/9/26 15:07,NULL,Caracas,Venezuela,CCS
+261,4/9/26 15:07,4/9/26 15:07,NULL,Kolkata (Calcutta) - Netaji Subhas Chandra,India,CCU
+262,4/9/26 15:07,4/9/26 15:07,NULL,Chub Cay,Bahamas,CCZ
+263,4/9/26 15:07,4/9/26 15:07,NULL,"Cedar City, UT",USA,CDC
+264,4/9/26 15:07,4/9/26 15:07,NULL,Paris - Charles de Gaulle,France,CDG
+265,4/9/26 15:07,4/9/26 15:07,NULL,"Cordova, AK",USA,CDV
+266,4/9/26 15:07,4/9/26 15:07,NULL,"Crescent City, CA",USA,CEC
+267,4/9/26 15:07,4/9/26 15:07,NULL,Ceduna,Australia,CED
+268,4/9/26 15:07,4/9/26 15:07,NULL,Ciudad Obregon,Mexico,CEN
+269,4/9/26 15:07,4/9/26 15:07,NULL,Cessnock,Australia,CES
+270,4/9/26 15:07,4/9/26 15:07,NULL,Clermont Ferrand,France,CFE
+271,4/9/26 15:07,4/9/26 15:07,NULL,Cienfuegos,Canada,CFG
+272,4/9/26 15:07,4/9/26 15:07,NULL,Coffs Harbour,Australia,CFS
+273,4/9/26 15:07,4/9/26 15:07,NULL,Corfu,Greece,CFU
+274,4/9/26 15:07,4/9/26 15:07,NULL,"Craig, AK",USA,CGA
+275,4/9/26 15:07,4/9/26 15:07,NULL,Cuiaba,Brazil,CGB
+276,4/9/26 15:07,4/9/26 15:07,NULL,Sao Paulo - Congonhas,Brazil,CGH
+277,4/9/26 15:07,4/9/26 15:07,NULL,Jakarta - Soekarno-Hatta,Indonesia,CGK
+278,4/9/26 15:07,4/9/26 15:07,NULL,"K?ln, K?ln/Bonn",Germany,CGN
+279,4/9/26 15:07,4/9/26 15:07,NULL,Chittagong,Bangladesh,CGP
+280,4/9/26 15:07,4/9/26 15:07,NULL,Changchun,"Jilin, China",CGQ
+281,4/9/26 15:07,4/9/26 15:07,NULL,Campo Grande,Brazil,CGR
+282,4/9/26 15:07,4/9/26 15:07,NULL,"Chattanooga, TN",USA,CHA
+283,4/9/26 15:07,4/9/26 15:07,NULL,Christchurch,New Zealand,CHC
+284,4/9/26 15:07,4/9/26 15:07,NULL,"Chicago, IL",USA,CHI
+285,4/9/26 15:07,4/9/26 15:07,NULL,"Charlottesville, VA",USA,CHO
+286,4/9/26 15:07,4/9/26 15:07,NULL,Chania,Greece,CHQ
+287,4/9/26 15:07,4/9/26 15:07,NULL,"Charleston, SC",USA,CHS
+288,4/9/26 15:07,4/9/26 15:07,NULL,Rome - Ciampino,Italy,CIA
+289,4/9/26 15:07,4/9/26 15:07,NULL,"Chico, CA",USA,CIC
+290,4/9/26 15:07,4/9/26 15:07,NULL,"Cedar Rapids, IA",USA,CID
+291,4/9/26 15:07,4/9/26 15:07,NULL,Chipata,Zambia,CIP
+292,4/9/26 15:07,4/9/26 15:07,NULL,Coimbatore,India,CJB
+293,4/9/26 15:07,4/9/26 15:07,NULL,Chitral,Pakistan,CJL
+294,4/9/26 15:07,4/9/26 15:07,NULL,Ciudad Juarez,Mexico,CJS
+295,4/9/26 15:07,4/9/26 15:07,NULL,"Clarksburg, WV",USA,CKB
+296,4/9/26 15:07,4/9/26 15:07,NULL,Chongqing,"Sichuan, China",CKG
+297,4/9/26 15:07,4/9/26 15:07,NULL,Conakry,Guinea,CKY
+298,4/9/26 15:07,4/9/26 15:07,NULL,"Carlsbad, CA",USA,CLD
+299,4/9/26 15:07,4/9/26 15:07,NULL,"Cleveland, Hopkins, OH",USA,CLE
+300,4/9/26 15:07,4/9/26 15:07,NULL,"College Station/Bryan, TX",USA,CLL
+301,4/9/26 15:07,4/9/26 15:07,NULL,"Port Angeles, WA",USA,CLM
+302,4/9/26 15:07,4/9/26 15:07,NULL,Cali,Colombia,CLO
+303,4/9/26 15:07,4/9/26 15:07,NULL,Colima,Mexico,CLQ
+304,4/9/26 15:07,4/9/26 15:07,NULL,"Charlotte, NC",USA,CLT
+305,4/9/26 15:07,4/9/26 15:07,NULL,Calvi,France,CLY
+306,4/9/26 15:07,4/9/26 15:07,NULL,Colombo,Sri Lanka,CMB
+307,4/9/26 15:07,4/9/26 15:07,NULL,Ciudad Del Carmen,Mexico,CME
+308,4/9/26 15:07,4/9/26 15:07,NULL,Chambery,France,CMF
+309,4/9/26 15:07,4/9/26 15:07,NULL,"Columbus, OH",USA,CMH
+310,4/9/26 15:07,4/9/26 15:07,NULL,"Champaign, IL",USA,CMI
+311,4/9/26 15:07,4/9/26 15:07,NULL,"Casablanca, Mohamed V",Morocco,CMN
+312,4/9/26 15:07,4/9/26 15:07,NULL,Clermont,Australia,CMQ
+313,4/9/26 15:07,4/9/26 15:07,NULL,"Hancock, MI",USA,CMX
+314,4/9/26 15:07,4/9/26 15:07,NULL,Constanza,Romania,CND
+315,4/9/26 15:07,4/9/26 15:07,NULL,Belo Horizonte,Brazil,CNF
+316,4/9/26 15:07,4/9/26 15:07,NULL,Cairns,Australia,CNS
+317,4/9/26 15:07,4/9/26 15:07,NULL,Chiang Mai,Thailand,CNX
+318,4/9/26 15:07,4/9/26 15:07,NULL,"Cody/Powell/Yellowstone, WY",USA,COD
+319,4/9/26 15:07,4/9/26 15:07,NULL,Cochin,India,COK
+320,4/9/26 15:07,4/9/26 15:07,NULL,Cotonou,Benin,COO
+321,4/9/26 15:07,4/9/26 15:07,NULL,Cordoba,Argentina,COR
+322,4/9/26 15:07,4/9/26 15:07,NULL,"Colorado Springs, CO",USA,COS
+323,4/9/26 15:07,4/9/26 15:07,NULL,Coober Pedy,Australia,CPD
+324,4/9/26 15:07,4/9/26 15:07,NULL,Copenhagen,Denmark,CPH
+325,4/9/26 15:07,4/9/26 15:07,NULL,"Casper, WY",USA,CPR
+326,4/9/26 15:07,4/9/26 15:07,NULL,Cape Town,South Africa,CPT
+327,4/9/26 15:07,4/9/26 15:07,NULL,Carnot,Central African Republic,CRF
+328,4/9/26 15:07,4/9/26 15:07,NULL,"Corpus Christi, TX",USA,CRP
+329,4/9/26 15:07,4/9/26 15:07,NULL,Crotone,Italy,CRV
+330,4/9/26 15:07,4/9/26 15:07,NULL,"Charleston, WV",USA,CRW
+331,4/9/26 15:07,4/9/26 15:07,NULL,"Columbus, GA",USA,CSG
+332,4/9/26 15:07,4/9/26 15:07,NULL,Casino,Australia,CSI
+333,4/9/26 15:07,4/9/26 15:07,NULL,Catania,Italy,CTA
+334,4/9/26 15:07,4/9/26 15:07,NULL,Catagena,Colombia,CTG
+335,4/9/26 15:07,4/9/26 15:07,NULL,Cooktown,Australia,CTN
+336,4/9/26 15:07,4/9/26 15:07,NULL,Sapporo - Shin-Chitose Airport,Japan,CTS
+337,4/9/26 15:07,4/9/26 15:07,NULL,Chengdu,"Sichuan, China",CTU
+338,4/9/26 15:07,4/9/26 15:07,NULL,Cuba,Cuba,CUB
+339,4/9/26 15:07,4/9/26 15:07,NULL,Cucuta,Colombia,CUC
+340,4/9/26 15:07,4/9/26 15:07,NULL,Cuenca,Ecuador,CUE
+341,4/9/26 15:07,4/9/26 15:07,NULL,Culiacan,Mexico,CUL
+342,4/9/26 15:07,4/9/26 15:07,NULL,Cumana,Venezuela,CUM
+343,4/9/26 15:07,4/9/26 15:07,NULL,Cancun,Mexico,CUN
+344,4/9/26 15:07,4/9/26 15:07,NULL,Curacao,Netherlands Antilles,CUR
+345,4/9/26 15:07,4/9/26 15:07,NULL,"Chihuahua, Gen Fierro Villalobos",Mexico,CUU
+346,4/9/26 15:07,4/9/26 15:07,NULL,Cuzco,Peru,CUZ
+347,4/9/26 15:07,4/9/26 15:07,NULL,"Cincinnati, OH",USA,CVG
+348,4/9/26 15:07,4/9/26 15:07,NULL,Ciudad Victoria,Mexico,CVM
+349,4/9/26 15:07,4/9/26 15:07,NULL,Carnarvon,Australia,CVQ
+350,4/9/26 15:07,4/9/26 15:07,NULL,Coventry,United Kingdom,CVT
+351,4/9/26 15:07,4/9/26 15:07,NULL,"Wausau/Stevens Point, WI",USA,CWA
+352,4/9/26 15:07,4/9/26 15:07,NULL,Curitiba,Brazil,CWB
+353,4/9/26 15:07,4/9/26 15:07,NULL,Cardiff,United Kingdom,CWL
+354,4/9/26 15:07,4/9/26 15:07,NULL,Christmas Line,Iceland,CXI
+355,4/9/26 15:07,4/9/26 15:07,NULL,Charters Towers,Australia,CXT
+356,4/9/26 15:07,4/9/26 15:07,NULL,"Cheyenne, WY",USA,CYS
+357,4/9/26 15:07,4/9/26 15:07,NULL,Chichen Itza,Mexico,CZA
+358,4/9/26 15:07,4/9/26 15:07,NULL,Constantine,Algeria,CZL
+359,4/9/26 15:07,4/9/26 15:07,NULL,Cozmel,Mexico,CZM
+360,4/9/26 15:07,4/9/26 15:07,NULL,"Daytona Beach, FL",USA,DAB
+361,4/9/26 15:07,4/9/26 15:07,NULL,Dhaka,Bangladesh,DAC
+362,4/9/26 15:07,4/9/26 15:07,NULL,"Dallas, Love Field, TX",USA,DAL
+363,4/9/26 15:07,4/9/26 15:07,NULL,"Damascus, International",Syria,DAM
+364,4/9/26 15:07,4/9/26 15:07,NULL,"Danville, VA",USA,DAN
+365,4/9/26 15:07,4/9/26 15:07,NULL,Dar es Salam (Daressalam),Tanzania,DAR
+366,4/9/26 15:07,4/9/26 15:07,NULL,"Dayton, OH",USA,DAY
+367,4/9/26 15:07,4/9/26 15:07,NULL,Dubbo,Australia,DBO
+368,4/9/26 15:07,4/9/26 15:07,NULL,"Dubuque, IA",USA,DBQ
+369,4/9/26 15:07,4/9/26 15:07,NULL,Dubrovnik,Croatia (Hrvatska),DBV
+370,4/9/26 15:07,4/9/26 15:07,NULL,Dalby,Australia,DBY
+371,4/9/26 15:07,4/9/26 15:07,NULL,Washington DC - Ronald Reagan National,USA,DCA
+372,4/9/26 15:07,4/9/26 15:07,NULL,"Sheffield, Doncaster, Robin Hood Int'l Airport",UK,DCS
+373,4/9/26 15:07,4/9/26 15:07,NULL,Daydream Island,Australia,DDI
+374,4/9/26 15:07,4/9/26 15:07,NULL,"Decatur, IL",USA,DEC
+375,4/9/26 15:07,4/9/26 15:07,NULL,"Delhi, Indira Gandhi",India,DEL
+376,4/9/26 15:07,4/9/26 15:07,NULL,"Denver International Airport, CO",USA,DEN
+377,4/9/26 15:07,4/9/26 15:07,NULL,Derby,United Kingdom,DER
+378,4/9/26 15:07,4/9/26 15:07,NULL,"Detroit City, MI",USA,DET
+379,4/9/26 15:07,4/9/26 15:07,NULL,"Dallas/Ft. Worth, TX",USA,DFW
+380,4/9/26 15:07,4/9/26 15:07,NULL,Dongguan,"Guangdong, China",DGM
+381,4/9/26 15:07,4/9/26 15:07,NULL,Dhahran,Saudi Arabia,DHA
+382,4/9/26 15:07,4/9/26 15:07,NULL,"Dothan, AL",USA,DHN
+383,4/9/26 15:07,4/9/26 15:07,NULL,Dijon,France,DIJ
+384,4/9/26 15:07,4/9/26 15:07,NULL,Dili,East Timor,DIL
+385,4/9/26 15:07,4/9/26 15:07,NULL,Djerba,Tunisia,DJE
+386,4/9/26 15:07,4/9/26 15:07,NULL,Daloa,Ivory Coast,DJO
+387,4/9/26 15:07,4/9/26 15:07,NULL,Dunk Iceland,Australia,DKI
+388,4/9/26 15:07,4/9/26 15:07,NULL,Dakar,Senegal,DKR
+389,4/9/26 15:07,4/9/26 15:07,NULL,Douala,Cameroon,DLA
+390,4/9/26 15:07,4/9/26 15:07,NULL,Dalian,"Liaoning, China",DLC
+391,4/9/26 15:07,4/9/26 15:07,NULL,"Dillingham, AK",USA,DLG
+392,4/9/26 15:07,4/9/26 15:07,NULL,"Duluth, MN/Superior, WI",USA,DLH
+393,4/9/26 15:07,4/9/26 15:07,NULL,Dalaman,Turkey,DLM
+394,4/9/26 15:07,4/9/26 15:07,NULL,Moscow - Domodedovo,Russia,DME
+395,4/9/26 15:07,4/9/26 15:07,NULL,"Dammam, King Fahad Int'l",Saudi Arabien,DMM
+396,4/9/26 15:07,4/9/26 15:07,NULL,Dundee,United Kingdom,DND
+397,4/9/26 15:07,4/9/26 15:07,NULL,Dnepropetrovsk,Ukraine,DNK
+398,4/9/26 15:07,4/9/26 15:07,NULL,Dinard,France,DNR
+399,4/9/26 15:07,4/9/26 15:07,NULL,Doha,Qatar,DOH
+400,4/9/26 15:07,4/9/26 15:07,NULL,Devonport,Australia,DPO
+401,4/9/26 15:07,4/9/26 15:07,NULL,Denpasar/Bali,Indonesia,DPS
+402,4/9/26 15:07,4/9/26 15:07,NULL,Derby,Australia,DRB
+403,4/9/26 15:07,4/9/26 15:07,NULL,"Durango, CO",USA,DRO
+404,4/9/26 15:07,4/9/26 15:07,NULL,Dresden,Germany,DRS
+405,4/9/26 15:07,4/9/26 15:07,NULL,Darwin,Australia,DRW
+406,4/9/26 15:07,4/9/26 15:07,NULL,Doncaster/Sheffield,United Kingdom,DSA
+407,4/9/26 15:07,4/9/26 15:07,NULL,Dera Ismail Khan,Pakistan,DSK
+408,4/9/26 15:07,4/9/26 15:07,NULL,"Des Moines, IA",USA,DSM
+409,4/9/26 15:07,4/9/26 15:07,NULL,Dortmund,Germany,DTM
+410,4/9/26 15:07,4/9/26 15:07,NULL,"Detroit Metropolitan Area, MI",USA,DTT
+411,4/9/26 15:07,4/9/26 15:07,NULL,"Detroit Metropolitan Wayne County Airport, MI",USA,DTW
+412,4/9/26 15:07,4/9/26 15:07,NULL,Dublin,Ireland,DUB
+413,4/9/26 15:07,4/9/26 15:07,NULL,Dunedin,New Zealand,DUD
+414,4/9/26 15:07,4/9/26 15:07,NULL,"Dubois, PA",USA,DUJ
+415,4/9/26 15:07,4/9/26 15:07,NULL,Durban,South Africa,DUR
+416,4/9/26 15:07,4/9/26 15:07,NULL,Duesseldorf,Germany,DUS
+417,4/9/26 15:07,4/9/26 15:07,NULL,"Dutch Harbor, AK",USA,DUT
+418,4/9/26 15:07,4/9/26 15:07,NULL,"Devils Lake, ND",USA,DVL
+419,4/9/26 15:07,4/9/26 15:07,NULL,Dubai,UAE,DXB
+420,4/9/26 15:07,4/9/26 15:07,NULL,Dysart,Australia,DYA
+421,4/9/26 15:07,4/9/26 15:07,NULL,Dushanbe (Duschanbe),Tadschikistan,DYU
+422,4/9/26 15:07,4/9/26 15:07,NULL,Dzaoudzi,Mayotte,DZA
+423,4/9/26 15:07,4/9/26 15:07,NULL,Basel/Mulhouse,Switzerland/France,EAP
+424,4/9/26 15:07,4/9/26 15:07,NULL,San Sebastian,Spain,EAS
+425,4/9/26 15:07,4/9/26 15:07,NULL,"Wenatchee, WA",USA,EAT
+426,4/9/26 15:07,4/9/26 15:07,NULL,"Eau Clarie, WI",USA,EAU
+427,4/9/26 15:07,4/9/26 15:07,NULL,Entebbe,Uganda,EBB
+428,4/9/26 15:07,4/9/26 15:07,NULL,Esbjerg,Denmark,EBJ
+429,4/9/26 15:07,4/9/26 15:07,NULL,St. Etienne,France,EBU
+430,4/9/26 15:07,4/9/26 15:07,NULL,Edinburgh,United Kingdom,EDI
+431,4/9/26 15:07,4/9/26 15:07,NULL,Emerald,Australia,EDR
+432,4/9/26 15:07,4/9/26 15:07,NULL,"Vail, CO",USA,EGE
+433,4/9/26 15:07,4/9/26 15:07,NULL,Egilsstadir,Iceland,EGS
+434,4/9/26 15:07,4/9/26 15:07,NULL,Eindhoven,Netherlands,EIN
+435,4/9/26 15:07,4/9/26 15:07,NULL,Tortola,Virgin Islands,EIS
+436,4/9/26 15:07,4/9/26 15:07,NULL,"Elkhart, IN",USA,EKI
+437,4/9/26 15:07,4/9/26 15:07,NULL,"Elko, NV",USA,EKO
+438,4/9/26 15:07,4/9/26 15:07,NULL,North Eleuthera,Bahamas,ELH
+439,4/9/26 15:07,4/9/26 15:07,NULL,Ellisras,South Africa,ELL
+440,4/9/26 15:07,4/9/26 15:07,NULL,"Elmira, NY",USA,ELM
+441,4/9/26 15:07,4/9/26 15:07,NULL,"El Paso, TX",USA,ELP
+442,4/9/26 15:07,4/9/26 15:07,NULL,East London,South Africa,ELS
+443,4/9/26 15:07,4/9/26 15:07,NULL,"Ely, NV",USA,ELY
+444,4/9/26 15:07,4/9/26 15:07,NULL,Derby (East Midlands),United Kingdom,EMA
+445,4/9/26 15:07,4/9/26 15:07,NULL,El Minya,Egypt,EMY
+446,4/9/26 15:07,4/9/26 15:07,NULL,"Kenai, AK",USA,ENA
+447,4/9/26 15:07,4/9/26 15:07,NULL,Nancy,France,ENC
+448,4/9/26 15:07,4/9/26 15:07,NULL,Enontekioe,Finland,ENF
+449,4/9/26 15:07,4/9/26 15:07,NULL,Enugu,Nigeria,ENU
+450,4/9/26 15:07,4/9/26 15:07,NULL,Esperance,Australia,EPR
+451,4/9/26 15:07,4/9/26 15:07,NULL,Erfurt,Germany,ERF
+452,4/9/26 15:07,4/9/26 15:07,NULL,"Erie, PA",USA,ERI
+453,4/9/26 15:07,4/9/26 15:07,NULL,Windhoek - Eros,Namibia,ERS
+454,4/9/26 15:07,4/9/26 15:07,NULL,"Escabana, MI",USA,ESC
+455,4/9/26 15:07,4/9/26 15:07,NULL,"Alexandria, La",USA,ESF
+456,4/9/26 15:07,4/9/26 15:07,NULL,Elat,Israel,ETH
+457,4/9/26 15:07,4/9/26 15:07,NULL,"Eugene, OR",USA,EUG
+458,4/9/26 15:07,4/9/26 15:07,NULL,Evenes,Norway,EVE
+459,4/9/26 15:07,4/9/26 15:07,NULL,"Eriwan (Yerevan, Jerevan)",Armenia,EVN
+460,4/9/26 15:07,4/9/26 15:07,NULL,"Evansville, IN",USA,EVV
+461,4/9/26 15:07,4/9/26 15:07,NULL,"New Bern, NC",USA,EWN
+462,4/9/26 15:07,4/9/26 15:07,NULL,"New York - Newark, NJ",USA,EWR
+463,4/9/26 15:07,4/9/26 15:07,NULL,Exeter,United Kingdom,EXT
+464,4/9/26 15:07,4/9/26 15:07,NULL,"Key West, FL",USA,EYW
+465,4/9/26 15:07,4/9/26 15:07,NULL,"Buenos Aires, Ezeiza Int'l Airport",Argentina,EZE
+466,4/9/26 15:07,4/9/26 15:07,NULL,Faroer,Denmark,FAE
+467,4/9/26 15:07,4/9/26 15:07,NULL,"Fairbanks, AK",USA,FAI
+468,4/9/26 15:07,4/9/26 15:07,NULL,Faro,Portugal,FAO
+469,4/9/26 15:07,4/9/26 15:07,NULL,"Fargo, ND, MN",USA,FAR
+470,4/9/26 15:07,4/9/26 15:07,NULL,"Fresno, CA",USA,FAT
+471,4/9/26 15:07,4/9/26 15:07,NULL,"Fayetteville/Ft. Bragg, NC",USA,FAY
+472,4/9/26 15:07,4/9/26 15:07,NULL,Lumbumbashi,Zaire,FBM
+473,4/9/26 15:07,4/9/26 15:07,NULL,Oslo - Fornebu,Norway,FBU
+474,4/9/26 15:07,4/9/26 15:07,NULL,"Kalispell, MT",USA,FCA
+475,4/9/26 15:07,4/9/26 15:07,NULL,Rome - Fuimicino,Italy,FCO
+476,4/9/26 15:07,4/9/26 15:07,NULL,Fort de France,Martinique,FDF
+477,4/9/26 15:07,4/9/26 15:07,NULL,Friedrichshafen,Germany,FDH
+478,4/9/26 15:07,4/9/26 15:07,NULL,Fes,Morocco,FEZ
+479,4/9/26 15:07,4/9/26 15:07,NULL,"Fort Huachuca/Sierra Vista, AZ",USA,FHU
+480,4/9/26 15:07,4/9/26 15:07,NULL,Kinshasa - N'Djili,Congo (Zaire),FIH
+481,4/9/26 15:07,4/9/26 15:07,NULL,"Fujairah, Int'l Airport",United Arab Emirates,FJR
+482,4/9/26 15:07,4/9/26 15:07,NULL,Karlsruhe-Baden - Soellingen,Germany,FKB
+483,4/9/26 15:07,4/9/26 15:07,NULL,Kisangani,Zaire,FKI
+484,4/9/26 15:07,4/9/26 15:07,NULL,"Franklin/Oil City, PA",USA,FKL
+485,4/9/26 15:07,4/9/26 15:07,NULL,"Fukushima-shi, Fukushima Airport",Japan,FKS
+486,4/9/26 15:07,4/9/26 15:07,NULL,"Flagstaff, AZ",USA,FLG
+487,4/9/26 15:07,4/9/26 15:07,NULL,"Fort Lauderdale/Hollywood, FL",USA,FLL
+488,4/9/26 15:07,4/9/26 15:07,NULL,Florianopolis,Brazil,FLN
+489,4/9/26 15:07,4/9/26 15:07,NULL,"Florence, SC",USA,FLO
+490,4/9/26 15:07,4/9/26 15:07,NULL,Florence,Italy,FLR
+491,4/9/26 15:07,4/9/26 15:07,NULL,"Farmington, NM",USA,FMN
+492,4/9/26 15:07,4/9/26 15:07,NULL,Muenster/Osnabrueck,Germany,FMO
+493,4/9/26 15:07,4/9/26 15:07,NULL,"Fort Myers, Metropolitan Area, FL",USA,FMY
+494,4/9/26 15:07,4/9/26 15:07,NULL,Freetown,Sierra Leone,FNA
+495,4/9/26 15:07,4/9/26 15:07,NULL,Funchal,Portugal,FNC
+496,4/9/26 15:07,4/9/26 15:07,NULL,Nimes,France,FNI
+497,4/9/26 15:07,4/9/26 15:07,NULL,Pyongyang - Sunan,North Korea,FNJ
+498,4/9/26 15:07,4/9/26 15:07,NULL,"Flint, MI",USA,FNT
+499,4/9/26 15:07,4/9/26 15:07,NULL,"Fort Dodge, IA",USA,FOD
+500,4/9/26 15:07,4/9/26 15:07,NULL,Fortaleza,Brazil,FOR
+501,4/9/26 15:07,4/9/26 15:07,NULL,Freeport,Bahamas,FPO
+502,4/9/26 15:07,4/9/26 15:07,NULL,Frankfurt/Main Int'l Airport,Germany,FRA
+503,4/9/26 15:07,4/9/26 15:07,NULL,Frejus,France,FRJ
+504,4/9/26 15:07,4/9/26 15:07,NULL,Floro,Norway,FRO
+505,4/9/26 15:07,4/9/26 15:07,NULL,Francistown,Botswana,FRW
+506,4/9/26 15:07,4/9/26 15:07,NULL,Figari,France,FSC
+507,4/9/26 15:07,4/9/26 15:07,NULL,"Sioux Falls, SD",USA,FSD
+508,4/9/26 15:07,4/9/26 15:07,NULL,"Fort Smith, AR",USA,FSM
+509,4/9/26 15:07,4/9/26 15:07,NULL,"St. Pierre, NF",Canada,FSP
+510,4/9/26 15:07,4/9/26 15:07,NULL,"Fort Worth, TX",USA,FTW
+511,4/9/26 15:07,4/9/26 15:07,NULL,Fuerteventura,Spain,FUE
+512,4/9/26 15:07,4/9/26 15:07,NULL,Fukuoka,Japan,FUK
+513,4/9/26 15:07,4/9/26 15:07,NULL,Futuna,Wallis and Futuna Islands,FUT
+514,4/9/26 15:07,4/9/26 15:07,NULL,"Fort Wayne, IN",USA,FWA
+515,4/9/26 15:07,4/9/26 15:07,NULL,"Fayetteville, AR",USA,FYV
+516,4/9/26 15:07,4/9/26 15:07,NULL,"Gadsden, AL",USA,GAD
+517,4/9/26 15:07,4/9/26 15:07,NULL,"Yamagata, Junmachi",Japan,GAJ
+518,4/9/26 15:07,4/9/26 15:07,NULL,Guwahati,India,GAU
+519,4/9/26 15:07,4/9/26 15:07,NULL,Gaborone,Botswana,GBE
+520,4/9/26 15:07,4/9/26 15:07,NULL,Grand Bahama,Bahamas,GBI
+521,4/9/26 15:07,4/9/26 15:07,NULL,"Gilette, WY",USA,GCC
+522,4/9/26 15:07,4/9/26 15:07,NULL,Guernsey,United Kingdom,GCI
+523,4/9/26 15:07,4/9/26 15:07,NULL,Grand Cayman,Cayman Islands,GCM
+524,4/9/26 15:07,4/9/26 15:07,NULL,"Grand Canyon, AZ",USA,GCN
+525,4/9/26 15:07,4/9/26 15:07,NULL,Guadalajara,Mexico,GDL
+526,4/9/26 15:07,4/9/26 15:07,NULL,Gdansk,Poland,GDN
+527,4/9/26 15:07,4/9/26 15:07,NULL,"Glendive, MT",USA,GDV
+528,4/9/26 15:07,4/9/26 15:07,NULL,"Spokane, WA",USA,GEG
+529,4/9/26 15:07,4/9/26 15:07,NULL,Georgetown,Guyana,GEO
+530,4/9/26 15:07,4/9/26 15:07,NULL,Geraldton,Australia,GET
+531,4/9/26 15:07,4/9/26 15:07,NULL,Geelong,Australia,GEX
+532,4/9/26 15:07,4/9/26 15:07,NULL,Griffith,Australia,GFF
+533,4/9/26 15:07,4/9/26 15:07,NULL,"Grand Forks, ND",USA,GFK
+534,4/9/26 15:07,4/9/26 15:07,NULL,"Longview/Kilgore, TX",USA,GGG
+535,4/9/26 15:07,4/9/26 15:07,NULL,"Glasgow, MT",USA,GGW
+536,4/9/26 15:07,4/9/26 15:07,NULL,Govenors Harbour,Bahamas,GHB
+537,4/9/26 15:07,4/9/26 15:07,NULL,Gibraltar,Gibraltar,GIB
+538,4/9/26 15:07,4/9/26 15:07,NULL,Rio de Janeiro - Galeao,Brazil,GIG
+539,4/9/26 15:07,4/9/26 15:07,NULL,Gilgit,Pakistan,GIL
+540,4/9/26 15:07,4/9/26 15:07,NULL,Jounieh,Lebanon,GJN
+541,4/9/26 15:07,4/9/26 15:07,NULL,"Grand Junction, CO",USA,GJT
+542,4/9/26 15:07,4/9/26 15:07,NULL,Great Keppel Island,Australia,GKL
+543,4/9/26 15:07,4/9/26 15:07,NULL,Glasgow,United Kingdom,GLA
+544,4/9/26 15:07,4/9/26 15:07,NULL,"Greenville, MS",USA,GLH
+545,4/9/26 15:07,4/9/26 15:07,NULL,"Galveston, TX",USA,GLS
+546,4/9/26 15:07,4/9/26 15:07,NULL,Gladstone,Australia,GLT
+547,4/9/26 15:07,4/9/26 15:07,NULL,Grenoble,France,GNB
+548,4/9/26 15:07,4/9/26 15:07,NULL,Grenada,Grenada,GND
+549,4/9/26 15:07,4/9/26 15:07,NULL,"Gainesville, FL",USA,GNV
+550,4/9/26 15:07,4/9/26 15:07,NULL,Genoa,Italy,GOA
+551,4/9/26 15:07,4/9/26 15:07,NULL,Goa,India,GOI
+552,4/9/26 15:07,4/9/26 15:07,NULL,"Groton/New London, CT",USA,GON
+553,4/9/26 15:07,4/9/26 15:07,NULL,Goondiwindi,Australia,GOO
+554,4/9/26 15:07,4/9/26 15:07,NULL,Goteborg,Sweden,GOT
+555,4/9/26 15:07,4/9/26 15:07,NULL,Garoua,Cameroon,GOU
+556,4/9/26 15:07,4/9/26 15:07,NULL,Gove (Nhulunbuy),Australia,GOV
+557,4/9/26 15:07,4/9/26 15:07,NULL,Gorna,Bulgaria,GOZ
+558,4/9/26 15:07,4/9/26 15:07,NULL,Araxos,Greece,GPA
+559,4/9/26 15:07,4/9/26 15:07,NULL,"Gulfport/Biloxi, MS",USA,GPT
+560,4/9/26 15:07,4/9/26 15:07,NULL,"Grand Rapids, MN",USA,GPZ
+561,4/9/26 15:07,4/9/26 15:07,NULL,"Green Bay, WI",USA,GRB
+562,4/9/26 15:07,4/9/26 15:07,NULL,George,South Africa,GRJ
+563,4/9/26 15:07,4/9/26 15:07,NULL,Gerona,Spain,GRO
+564,4/9/26 15:07,4/9/26 15:07,NULL,"Grand Rapids, MI",USA,GRR
+565,4/9/26 15:07,4/9/26 15:07,NULL,Sao Paulo - Guarulhos,Brazil,GRU
+566,4/9/26 15:07,4/9/26 15:07,NULL,Granada,Spain,GRX
+567,4/9/26 15:07,4/9/26 15:07,NULL,Graz,Austria,GRZ
+568,4/9/26 15:07,4/9/26 15:07,NULL,Guadalcanal,Solomon Islands,GSI
+569,4/9/26 15:07,4/9/26 15:07,NULL,"Greensboro/Winston Salem, NC",USA,GSO
+570,4/9/26 15:07,4/9/26 15:07,NULL,"Greenville/Spartanburg, SC",USA,GSP
+571,4/9/26 15:07,4/9/26 15:07,NULL,Groote Eyeland,Australia,GTE
+572,4/9/26 15:07,4/9/26 15:07,NULL,"Great Falls, MT",USA,GTF
+573,4/9/26 15:07,4/9/26 15:07,NULL,Groote Eylandt,Australia,GTI
+574,4/9/26 15:07,4/9/26 15:07,NULL,Mount Cook,New Zealand,GTN
+575,4/9/26 15:07,4/9/26 15:07,NULL,Guatemala City,Guatemala,GUA
+576,4/9/26 15:07,4/9/26 15:07,NULL,"Gunnison/Crested Butte, CO",USA,GUC
+577,4/9/26 15:07,4/9/26 15:07,NULL,Guam,Guam,GUM
+578,4/9/26 15:07,4/9/26 15:07,NULL,Geneva,Switzerland,GVA
+579,4/9/26 15:07,4/9/26 15:07,NULL,Gwadar,Pakistan,GWD
+580,4/9/26 15:07,4/9/26 15:07,NULL,Gweru,Zimbabwe,GWE
+581,4/9/26 15:07,4/9/26 15:07,NULL,Westerland,Germany,GWT
+582,4/9/26 15:07,4/9/26 15:07,NULL,Galway,Ireland,GWY
+583,4/9/26 15:07,4/9/26 15:07,NULL,Guayaquil,Ecuador,GYE
+584,4/9/26 15:07,4/9/26 15:07,NULL,Goiania,Brazil,GYN
+585,4/9/26 15:07,4/9/26 15:07,NULL,Gympie,Australia,GYP
+586,4/9/26 15:07,4/9/26 15:07,NULL,Hachijo Jima,Japan,HAC
+587,4/9/26 15:07,4/9/26 15:07,NULL,Den Haag (The Hague),Netherlands,HAG
+588,4/9/26 15:07,4/9/26 15:07,NULL,Moroni - Prince Said Ibrahim,Comoros (Comores),HAH
+589,4/9/26 15:07,4/9/26 15:07,NULL,Hannover,Germany,HAJ
+590,4/9/26 15:07,4/9/26 15:07,NULL,Hamburg - Fuhlsbuettel,Germany,HAM
+591,4/9/26 15:07,4/9/26 15:07,NULL,Hanoi - Noibai,Viet Nam,HAN
+592,4/9/26 15:07,4/9/26 15:07,NULL,Whitsunday Resort,Australia,HAP
+593,4/9/26 15:07,4/9/26 15:07,NULL,"Harrisburg, PA - Harrisburg Skyport",USA,HAR
+594,4/9/26 15:07,4/9/26 15:07,NULL,Haugesund,Norway,HAU
+595,4/9/26 15:07,4/9/26 15:07,NULL,Havana - Jos? Mart? Int'l,Cuba,HAV
+596,4/9/26 15:07,4/9/26 15:07,NULL,Hobart,Australia,HBA
+597,4/9/26 15:07,4/9/26 15:07,NULL,Borg El Arab Airport,Egypt,HBH
+598,4/9/26 15:07,4/9/26 15:07,NULL,Hyderabad,Pakistan,HDD
+599,4/9/26 15:07,4/9/26 15:07,NULL,"Steamboat Springs, CO",USA,HDN
+600,4/9/26 15:07,4/9/26 15:07,NULL,Hatyai (Hat Yai),Thailand,HDY
+601,4/9/26 15:07,4/9/26 15:07,NULL,Helsinki - Vantaa,Finland,HEL
+602,4/9/26 15:07,4/9/26 15:07,NULL,Heraklion,Greece,HER
+603,4/9/26 15:07,4/9/26 15:07,NULL,"Athens, Hellinikon Airport",Greece,HEW
+604,4/9/26 15:07,4/9/26 15:07,NULL,Haifa,Israel,HFA
+605,4/9/26 15:07,4/9/26 15:07,NULL,Hammerfest,Norway,HFT
+606,4/9/26 15:07,4/9/26 15:07,NULL,Hargeisa,Somalia,HGA
+607,4/9/26 15:07,4/9/26 15:07,NULL,Hangchow (Hangzhou),"Zhejiang, China",HGH
+608,4/9/26 15:07,4/9/26 15:07,NULL,Korhogo,Ivory Coast,HGO
+609,4/9/26 15:07,4/9/26 15:07,NULL,"Hilton Head Island, SC",USA,HHH
+610,4/9/26 15:07,4/9/26 15:07,NULL,"Hibbing, MN",USA,HIB
+611,4/9/26 15:07,4/9/26 15:07,NULL,"Lake Havasu City, AZ",USA,HII
+612,4/9/26 15:07,4/9/26 15:07,NULL,Hiroshima International,Japan,HIJ
+613,4/9/26 15:07,4/9/26 15:07,NULL,Honiara Henderson Int'l,Solomon Islands,HIR
+614,4/9/26 15:07,4/9/26 15:07,NULL,Hayman Island,Australia,HIS
+615,4/9/26 15:07,4/9/26 15:07,NULL,Hakodate,Japan,HKD
+616,4/9/26 15:07,4/9/26 15:07,NULL,Hong Kong - Int'l Airport (HKIA),Hong Kong,HKG
+617,4/9/26 15:07,4/9/26 15:07,NULL,Phuket,Thailand,HKT
+618,4/9/26 15:07,4/9/26 15:07,NULL,"Hickory, NC",USA,HKY
+619,4/9/26 15:07,4/9/26 15:07,NULL,Lanseria,South Africa,HLA
+620,4/9/26 15:07,4/9/26 15:07,NULL,"Helena, MT",USA,HLN
+621,4/9/26 15:07,4/9/26 15:07,NULL,Jakarta - Halim Perdanakusma,Indonesia,HLP
+622,4/9/26 15:07,4/9/26 15:07,NULL,Hamilton,Australia,HLT
+623,4/9/26 15:07,4/9/26 15:07,NULL,Home Hill,Australia,HMH
+624,4/9/26 15:07,4/9/26 15:07,NULL,Hermosillo - Gen. Pesqueira Garcia,Mexico,HMO
+625,4/9/26 15:07,4/9/26 15:07,NULL,"Morioka, Hanamaki",Japan,HNA
+626,4/9/26 15:07,4/9/26 15:07,NULL,Tokyo - Haneda,Japan,HND
+627,4/9/26 15:07,4/9/26 15:07,NULL,"Hoonah, AK",USA,HNH
+628,4/9/26 15:07,4/9/26 15:07,NULL,Hinchinbrook Island,Australia,HNK
+629,4/9/26 15:07,4/9/26 15:07,NULL,"Honolulu, HI",USA,HNL
+630,4/9/26 15:07,4/9/26 15:07,NULL,Frankfurt/Hahn,Germany,HNN
+631,4/9/26 15:07,4/9/26 15:07,NULL,"Haines, AK",USA,HNS
+632,4/9/26 15:07,4/9/26 15:07,NULL,Holguin,Cuba,HOG
+633,4/9/26 15:07,4/9/26 15:07,NULL,"Homer, AK",USA,HOM
+634,4/9/26 15:07,4/9/26 15:07,NULL,"Huron, SD",USA,HON
+635,4/9/26 15:07,4/9/26 15:07,NULL,Hof,Germany,HOQ
+636,4/9/26 15:07,4/9/26 15:07,NULL,Horta,Portugal,HOR
+637,4/9/26 15:07,4/9/26 15:07,NULL,"Houston, Hobby, TX",USA,HOU
+638,4/9/26 15:07,4/9/26 15:07,NULL,"White Plains, NY",USA,HPN
+639,4/9/26 15:07,4/9/26 15:07,NULL,Harbin (Haerbin),"Heilongjiang, China",HRB
+640,4/9/26 15:07,4/9/26 15:07,NULL,Harare,Zimbabwe,HRE
+641,4/9/26 15:07,4/9/26 15:07,NULL,Hurghada Int'l,Egypt,HRG
+642,4/9/26 15:07,4/9/26 15:07,NULL,"Harlington/South Padre Island, TX",USA,HRL
+643,4/9/26 15:07,4/9/26 15:07,NULL,"Huntsville, AL",USA,HSV
+644,4/9/26 15:07,4/9/26 15:07,NULL,Chita (Tschita),Russia,HTA
+645,4/9/26 15:07,4/9/26 15:07,NULL,Hamilton Island,Australia,HTI
+646,4/9/26 15:07,4/9/26 15:07,NULL,"Huntington, OH",USA,HTS
+647,4/9/26 15:07,4/9/26 15:07,NULL,"Terre Haute, IN",USA,HUF
+648,4/9/26 15:07,4/9/26 15:07,NULL,Huahine,French Polynesia,HUH
+649,4/9/26 15:07,4/9/26 15:07,NULL,Hue - Phu Bai,Viet Nam,HUI
+650,4/9/26 15:07,4/9/26 15:07,NULL,Huatulco,Mexico,HUX
+651,4/9/26 15:07,4/9/26 15:07,NULL,Humberside,United Kingdom,HUY
+652,4/9/26 15:07,4/9/26 15:07,NULL,Hervey Bay,Australia,HVB
+653,4/9/26 15:07,4/9/26 15:07,NULL,"New Haven, CT",USA,HVN
+654,4/9/26 15:07,4/9/26 15:07,NULL,"Havre, MT",USA,HVR
+655,4/9/26 15:07,4/9/26 15:07,NULL,Hwange National Park,Zimbabwe,HWN
+656,4/9/26 15:07,4/9/26 15:07,NULL,"Hyannis, MA",USA,HYA
+657,4/9/26 15:07,4/9/26 15:07,NULL,Hyderabad - Begumpet,India,HYD
+658,4/9/26 15:07,4/9/26 15:07,NULL,"Hydaburg, AK",USA,HYG
+659,4/9/26 15:07,4/9/26 15:07,NULL,Washington DC - Dulles Int'l,USA,IAD
+660,4/9/26 15:07,4/9/26 15:07,NULL,Niagara Falls Int'l,USA,IAG
+661,4/9/26 15:07,4/9/26 15:07,NULL,"Houston, Intercontinental, TX",USA,IAH
+662,4/9/26 15:07,4/9/26 15:07,NULL,Ibiza,Ibiza/Spain,IBZ
+663,4/9/26 15:07,4/9/26 15:07,NULL,Seoul - Incheon Int'l Airport,South Korea,ICN
+664,4/9/26 15:07,4/9/26 15:07,NULL,"Wichita, KS",USA,ICT
+665,4/9/26 15:07,4/9/26 15:07,NULL,"Idaho Falls, ID",USA,IDA
+666,4/9/26 15:07,4/9/26 15:07,NULL,Kiev - Zhulhany,Ukraine,IEV
+667,4/9/26 15:07,4/9/26 15:07,NULL,Innisfail,Australia,IFL
+668,4/9/26 15:07,4/9/26 15:07,NULL,Ingham,Australia,IGH
+669,4/9/26 15:07,4/9/26 15:07,NULL,"Iguazu, Cataratas",Argentina,IGR
+670,4/9/26 15:07,4/9/26 15:07,NULL,Irkutsk,Russia,IKT
+671,4/9/26 15:07,4/9/26 15:07,NULL,"Killeem, TX",USA,ILE
+672,4/9/26 15:07,4/9/26 15:07,NULL,"Iliamna, AK",USA,ILI
+673,4/9/26 15:07,4/9/26 15:07,NULL,"Wilmington, NC",USA,ILM
+674,4/9/26 15:07,4/9/26 15:07,NULL,Ile des Pins,New Caledonia,ILP
+675,4/9/26 15:07,4/9/26 15:07,NULL,"Indianapolis, IN",USA,IND
+676,4/9/26 15:07,4/9/26 15:07,NULL,Nis,Yugoslavia,INI
+677,4/9/26 15:07,4/9/26 15:07,NULL,"International Falls, MN",USA,INL
+678,4/9/26 15:07,4/9/26 15:07,NULL,Innsbruck - Kranebitten,Austria,INN
+679,4/9/26 15:07,4/9/26 15:07,NULL,Inverness,United Kingdom,INV
+680,4/9/26 15:07,4/9/26 15:07,NULL,Isle of Man,United Kingdom,IOM
+681,4/9/26 15:07,4/9/26 15:07,NULL,Ile Ouen,New Caledonia,IOU
+682,4/9/26 15:07,4/9/26 15:07,NULL,Easter Island,Chile,IPC
+683,4/9/26 15:07,4/9/26 15:07,NULL,"Imperial, CA",USA,IPL
+684,4/9/26 15:07,4/9/26 15:07,NULL,"Williamsport, PA",USA,IPT
+685,4/9/26 15:07,4/9/26 15:07,NULL,Iquitos,Peru,IQT
+686,4/9/26 15:07,4/9/26 15:07,NULL,Lockhart River,Australia,IRG
+687,4/9/26 15:07,4/9/26 15:07,NULL,Biraro,Central African Republic,IRO
+688,4/9/26 15:07,4/9/26 15:07,NULL,Mt. Isa,Australia,ISA
+689,4/9/26 15:07,4/9/26 15:07,NULL,Islamabad - Islamabad Int'l,Pakistan,ISB
+690,4/9/26 15:07,4/9/26 15:07,NULL,"Williston, ND",USA,ISL
+691,4/9/26 15:07,4/9/26 15:07,NULL,"Kingston, NC",USA,ISO
+692,4/9/26 15:07,4/9/26 15:07,NULL,"Long Island, Islip, NY - Mac Arthur",USA,ISP
+693,4/9/26 15:07,4/9/26 15:07,NULL,Istanbul - Ataturk,Turkey,IST
+694,4/9/26 15:07,4/9/26 15:07,NULL,"Ithaca/Cortland, NY",USA,ITH
+695,4/9/26 15:07,4/9/26 15:07,NULL,Osaka - Itami,Japan,ITM
+696,4/9/26 15:07,4/9/26 15:07,NULL,"Hilo, HI",USA,ITO
+697,4/9/26 15:07,4/9/26 15:07,NULL,Invercargill,New Zealand,IVC
+698,4/9/26 15:07,4/9/26 15:07,NULL,Ivalo,Finland,IVL
+699,4/9/26 15:07,4/9/26 15:07,NULL,Bagdogra,India,IXB
+700,4/9/26 15:07,4/9/26 15:07,NULL,Chandigarh,India,IXC
+701,4/9/26 15:07,4/9/26 15:07,NULL,Belgaum,India,IXG
+702,4/9/26 15:07,4/9/26 15:07,NULL,Ranchi,India,IXR
+703,4/9/26 15:07,4/9/26 15:07,NULL,Jamshedpur - Sonari,India,IXW
+704,4/9/26 15:07,4/9/26 15:07,NULL,"Inykern, CA",USA,IYK
+705,4/9/26 15:07,4/9/26 15:07,NULL,Izmir,Turkey,IZM
+706,4/9/26 15:07,4/9/26 15:07,NULL,"Jackson Hole, WY",USA,JAC
+707,4/9/26 15:07,4/9/26 15:07,NULL,Jacobabad,Pakistan,JAG
+708,4/9/26 15:07,4/9/26 15:07,NULL,Jaipur - Sanganeer,India,JAI
+709,4/9/26 15:07,4/9/26 15:07,NULL,"Jackson, MS",USA,JAN
+710,4/9/26 15:07,4/9/26 15:07,NULL,"Jacksonville, FL",USA,JAX
+711,4/9/26 15:07,4/9/26 15:07,NULL,Joacaba,Brazil,JCB
+712,4/9/26 15:07,4/9/26 15:07,NULL,Jeddah - King Abdulaziz Int'l,Saudi Arabia,JED
+713,4/9/26 15:07,4/9/26 15:07,NULL,Jersey,United Kingdom,JER
+714,4/9/26 15:07,4/9/26 15:07,NULL,"New York - John F. Kennedy, NY",USA,JFK
+715,4/9/26 15:07,4/9/26 15:07,NULL,Johore Bahru,Malaysia,JHB
+716,4/9/26 15:07,4/9/26 15:07,NULL,Helsingborg,Sweden,JHE
+717,4/9/26 15:07,4/9/26 15:07,NULL,"Kapalua West, HI",USA,JHM
+718,4/9/26 15:07,4/9/26 15:07,NULL,Shute Harbour,Australia,JHQ
+719,4/9/26 15:07,4/9/26 15:07,NULL,"Jamestown, NY",USA,JHW
+720,4/9/26 15:07,4/9/26 15:07,NULL,Djibouti,Djibouti,JIB
+721,4/9/26 15:07,4/9/26 15:07,NULL,Jiwani,Pakistan,JIW
+722,4/9/26 15:07,4/9/26 15:07,NULL,Joenkoeping,Sweden,JKG
+723,4/9/26 15:07,4/9/26 15:07,NULL,Chios,Greece,JKH
+724,4/9/26 15:07,4/9/26 15:07,NULL,Jakarta - Kemayoran,Indonesia,JKT
+725,4/9/26 15:07,4/9/26 15:07,NULL,"Joplin, MO",USA,JLN
+726,4/9/26 15:07,4/9/26 15:07,NULL,Jalandhar,India,JLR
+727,4/9/26 15:07,4/9/26 15:07,NULL,Mykonos,Greece,JMK
+728,4/9/26 15:07,4/9/26 15:07,NULL,"Jamestown, ND",USA,JMS
+729,4/9/26 15:07,4/9/26 15:07,NULL,Johannesburg - Johannesburg Int'l,South Africa,JNB
+730,4/9/26 15:07,4/9/26 15:07,NULL,"Juneau, AK - Juneau Int'l",USA,JNU
+731,4/9/26 15:07,4/9/26 15:07,NULL,Joensuu,Finland,JOE
+732,4/9/26 15:07,4/9/26 15:07,NULL,Joao Pessoa - Castro Pinto,Brazil,JPA
+733,4/9/26 15:07,4/9/26 15:07,NULL,Kilimadjaro,Tanzania,JRO
+734,4/9/26 15:07,4/9/26 15:07,NULL,Jerusalem,Israel,JRS
+735,4/9/26 15:07,4/9/26 15:07,NULL,Skiathos,Greece,JSI
+736,4/9/26 15:07,4/9/26 15:07,NULL,"Johnstown, PA",USA,JST
+737,4/9/26 15:07,4/9/26 15:07,NULL,Thira,Greece,JTR
+738,4/9/26 15:07,4/9/26 15:07,NULL,"Jackson, MI",USA,JXN
+739,4/9/26 15:07,4/9/26 15:07,NULL,Jyvaeskylae,Finland,JYV
+740,4/9/26 15:07,4/9/26 15:07,NULL,Kajaani,Finland,KAJ
+741,4/9/26 15:07,4/9/26 15:07,NULL,Kano,Nigeria,KAN
+742,4/9/26 15:07,4/9/26 15:07,NULL,Kuusamo,Finland,KAO
+743,4/9/26 15:07,4/9/26 15:07,NULL,Kabul - Khwaja Rawash,Afghanistan,KBL
+744,4/9/26 15:07,4/9/26 15:07,NULL,Kiev - Borispol,Ukraine,KBP
+745,4/9/26 15:07,4/9/26 15:07,NULL,Streaky Bay,Australia,KBY
+746,4/9/26 15:07,4/9/26 15:07,NULL,"Coffmann Cove, AK",USA,KCC
+747,4/9/26 15:07,4/9/26 15:07,NULL,Collinsville,Australia,KCE
+748,4/9/26 15:07,4/9/26 15:07,NULL,Kuching,Malaysia,KCH
+749,4/9/26 15:07,4/9/26 15:07,NULL,Kochi,Japan,KCZ
+750,4/9/26 15:07,4/9/26 15:07,NULL,Khuzdar,Pakistan,KDD
+751,4/9/26 15:07,4/9/26 15:07,NULL,Skardu,Pakistan,KDU
+752,4/9/26 15:07,4/9/26 15:07,NULL,Reykjavik - Keflavik International,Iceland,KEF
+753,4/9/26 15:07,4/9/26 15:07,NULL,Kiel - Holtenau,Germany,KEL
+754,4/9/26 15:07,4/9/26 15:07,NULL,Kemi/Tornio,Finland,KEM
+755,4/9/26 15:07,4/9/26 15:07,NULL,Kingscote,Australia,KGC
+756,4/9/26 15:07,4/9/26 15:07,NULL,Kalgoorlie,Australia,KGI
+757,4/9/26 15:07,4/9/26 15:07,NULL,Kigali - Gregoire Kayibanda,Rwanda,KGL
+758,4/9/26 15:07,4/9/26 15:07,NULL,Kos,Greece,KGS
+759,4/9/26 15:07,4/9/26 15:07,NULL,Kaohsiung Int'l,Taiwan,KHH
+760,4/9/26 15:07,4/9/26 15:07,NULL,Karachi - Quaid-E-Azam Int'l,Pakistan,KHI
+761,4/9/26 15:07,4/9/26 15:07,NULL,Kauhajoki,Finland,KHJ
+762,4/9/26 15:07,4/9/26 15:07,NULL,Chabarovsk (Khabarovsk),Russia,KHV
+763,4/9/26 15:07,4/9/26 15:07,NULL,Kristianstad,Sweden,KID
+764,4/9/26 15:07,4/9/26 15:07,NULL,Niigata,Japan,KIJ
+765,4/9/26 15:07,4/9/26 15:07,NULL,Kirkuk,Iraq,KIK
+766,4/9/26 15:07,4/9/26 15:07,NULL,Kimberley,South Africa,KIM
+767,4/9/26 15:07,4/9/26 15:07,NULL,Kingston - Norman Manley,Jamaica,KIN
+768,4/9/26 15:07,4/9/26 15:07,NULL,Kerry County,Ireland,KIR
+769,4/9/26 15:07,4/9/26 15:07,NULL,Kitwe,Zambia,KIW
+770,4/9/26 15:07,4/9/26 15:07,NULL,Osaka - Kansai Int'l Airport,Japan,KIX
+771,4/9/26 15:07,4/9/26 15:07,NULL,Kirkenes,Norway,KKN
+772,4/9/26 15:07,4/9/26 15:07,NULL,Kampala,Uganda,KLA
+773,4/9/26 15:07,4/9/26 15:07,NULL,Kalmar,Sweden,KLR
+774,4/9/26 15:07,4/9/26 15:07,NULL,Klagenfurt,Austria,KLU
+775,4/9/26 15:07,4/9/26 15:07,NULL,"Klawock, AK",USA,KLW
+776,4/9/26 15:07,4/9/26 15:07,NULL,Kalamata,Greece,KLX
+777,4/9/26 15:07,4/9/26 15:07,NULL,Kleinsee,South Africa,KLZ
+778,4/9/26 15:07,4/9/26 15:07,NULL,Miyazaki,Japan,KMI
+779,4/9/26 15:07,4/9/26 15:07,NULL,Kumamoto,Japan,KMJ
+780,4/9/26 15:07,4/9/26 15:07,NULL,Keetmanshoop,Namibia,KMP
+781,4/9/26 15:07,4/9/26 15:07,NULL,Komatsu,Japan,KMQ
+782,4/9/26 15:07,4/9/26 15:07,NULL,Kumasi,Ghana,KMS
+783,4/9/26 15:07,4/9/26 15:07,NULL,King Island,King Island,KNS
+784,4/9/26 15:07,4/9/26 15:07,NULL,Kununurra,Australia,KNX
+785,4/9/26 15:07,4/9/26 15:07,NULL,"Kona, HI",USA,KOA
+786,4/9/26 15:07,4/9/26 15:07,NULL,Orkney,United Kingdom,KOI
+787,4/9/26 15:07,4/9/26 15:07,NULL,Kagoshima,Japan,KOJ
+788,4/9/26 15:07,4/9/26 15:07,NULL,Kokkola/Pietarsaari,Finland,KOK
+789,4/9/26 15:07,4/9/26 15:07,NULL,Karumba,Australia,KRB
+790,4/9/26 15:07,4/9/26 15:07,NULL,Krakau,Poland,KRK
+791,4/9/26 15:07,4/9/26 15:07,NULL,Kiruna,Sweden,KRN
+792,4/9/26 15:07,4/9/26 15:07,NULL,Karup,Denmark,KRP
+793,4/9/26 15:07,4/9/26 15:07,NULL,Kristiansand,Norway,KRS
+794,4/9/26 15:07,4/9/26 15:07,NULL,Khartoum,Sudan,KRT
+795,4/9/26 15:07,4/9/26 15:07,NULL,Karlstad,Sweden,KSD
+796,4/9/26 15:07,4/9/26 15:07,NULL,Kassala,Sudan,KSL
+797,4/9/26 15:07,4/9/26 15:07,NULL,Kristiansund,Norway,KSU
+798,4/9/26 15:07,4/9/26 15:07,NULL,Karratha,Australia,KTA
+799,4/9/26 15:07,4/9/26 15:07,NULL,"Thorne Bay, AK",USA,KTB
+800,4/9/26 15:07,4/9/26 15:07,NULL,Kathmandu - Tribhuvan,Nepal,KTM
+801,4/9/26 15:07,4/9/26 15:07,NULL,"Ketchikan, AK",USA,KTN
+802,4/9/26 15:07,4/9/26 15:07,NULL,Katherine,Australia,KTR
+803,4/9/26 15:07,4/9/26 15:07,NULL,Kittil?,Finland,KTT
+804,4/9/26 15:07,4/9/26 15:07,NULL,Kuantan,Malaysia,KUA
+805,4/9/26 15:07,4/9/26 15:07,NULL,Kuala Belait,Brunei,KUB
+806,4/9/26 15:07,4/9/26 15:07,NULL,Kushiro,Japan,KUH
+807,4/9/26 15:07,4/9/26 15:07,NULL,Kuala Lumpur - Int'l Airport,Malaysia,KUL
+808,4/9/26 15:07,4/9/26 15:07,NULL,Kuopio,Finland,KUO
+809,4/9/26 15:07,4/9/26 15:07,NULL,Kavalla,Greece,KVA
+810,4/9/26 15:07,4/9/26 15:07,NULL,Kuwait - Kuwait Int'l,Kuwait,KWI
+811,4/9/26 15:07,4/9/26 15:07,NULL,Kowanyama,Australia,KWM
+812,4/9/26 15:07,4/9/26 15:07,NULL,Kazan (Ka San),Russia,KZN
+813,4/9/26 15:07,4/9/26 15:07,NULL,Luanda - 4 de Fevereiro,Angola,LAD
+814,4/9/26 15:07,4/9/26 15:07,NULL,Lae,Papua New Guinea,LAE
+815,4/9/26 15:07,4/9/26 15:07,NULL,"Lafayette, IN",USA,LAF
+816,4/9/26 15:07,4/9/26 15:07,NULL,Lannion,France,LAI
+817,4/9/26 15:07,4/9/26 15:07,NULL,"Lansing, MI",USA,LAN
+818,4/9/26 15:07,4/9/26 15:07,NULL,La Paz - Leon,Mexico,LAP
+819,4/9/26 15:07,4/9/26 15:07,NULL,"Laramie, WY",USA,LAR
+820,4/9/26 15:07,4/9/26 15:07,NULL,"Las Vegas, NV",USA,LAS
+821,4/9/26 15:07,4/9/26 15:07,NULL,"Lawton, OK",USA,LAW
+822,4/9/26 15:07,4/9/26 15:07,NULL,"Los Angeles, CA - Int'l",USA,LAX
+823,4/9/26 15:07,4/9/26 15:07,NULL,Leeds/Bradford,United Kingdom,LBA
+824,4/9/26 15:07,4/9/26 15:07,NULL,"Lubbock, TX",USA,LBB
+825,4/9/26 15:07,4/9/26 15:07,NULL,"Latrobe, PA",USA,LBE
+826,4/9/26 15:07,4/9/26 15:07,NULL,Paris - Le Bourget,France,LBG
+827,4/9/26 15:07,4/9/26 15:07,NULL,Albi,France,LBI
+828,4/9/26 15:07,4/9/26 15:07,NULL,Lambarene,Gabon,LBQ
+829,4/9/26 15:07,4/9/26 15:07,NULL,Labuan,Malaysia,LBU
+830,4/9/26 15:07,4/9/26 15:07,NULL,Libreville,Gabon,LBV
+831,4/9/26 15:07,4/9/26 15:07,NULL,Larnaca,Cyprus,LCA
+832,4/9/26 15:07,4/9/26 15:07,NULL,La Coruna,Spain,LCG
+833,4/9/26 15:07,4/9/26 15:07,NULL,"Lake Charles, La",USA,LCH
+834,4/9/26 15:07,4/9/26 15:07,NULL,London - City Airport,United Kingdom,LCY
+835,4/9/26 15:07,4/9/26 15:07,NULL,Lindeman Island,Australia,LDC
+836,4/9/26 15:07,4/9/26 15:07,NULL,Lourdes/Tarbes,France,LDE
+837,4/9/26 15:07,4/9/26 15:07,NULL,Lidkoeping,Sweden,LDK
+838,4/9/26 15:07,4/9/26 15:07,NULL,Derry (Londonderry),United Kingdom,LDY
+839,4/9/26 15:07,4/9/26 15:07,NULL,Learmouth (Exmouth),Australia,LEA
+840,4/9/26 15:07,4/9/26 15:07,NULL,"Lebanon, NH",USA,LEB
+841,4/9/26 15:07,4/9/26 15:07,NULL,St. Petersburg (Leningrad) - Pulkovo,Russia,LED
+842,4/9/26 15:07,4/9/26 15:07,NULL,Almeria,Spain,LEI
+843,4/9/26 15:07,4/9/26 15:07,NULL,Leipzig,Germany,LEJ
+844,4/9/26 15:07,4/9/26 15:07,NULL,Labe,Guinea,LEK
+845,4/9/26 15:07,4/9/26 15:07,NULL,Leinster,Australia,LER
+846,4/9/26 15:07,4/9/26 15:07,NULL,"Lexington, KY",USA,LEX
+847,4/9/26 15:07,4/9/26 15:07,NULL,Lelystad,Netherlands,LEY
+848,4/9/26 15:07,4/9/26 15:07,NULL,"Lafayette, La",USA,LFT
+849,4/9/26 15:07,4/9/26 15:07,NULL,Lome,Togo,LFW
+850,4/9/26 15:07,4/9/26 15:07,NULL,"New York - La Guardia, NY",USA,LGA
+851,4/9/26 15:07,4/9/26 15:07,NULL,"Long Beach, CA",USA,LGB
+852,4/9/26 15:07,4/9/26 15:07,NULL,Liege,Belgium,LGG
+853,4/9/26 15:07,4/9/26 15:07,NULL,Langkawi,Malaysia,LGK
+854,4/9/26 15:07,4/9/26 15:07,NULL,London - Gatwick,United Kingdom,LGW
+855,4/9/26 15:07,4/9/26 15:07,NULL,Lahore,Pakistan,LHE
+856,4/9/26 15:07,4/9/26 15:07,NULL,London - Heathrow,United Kingdom,LHR
+857,4/9/26 15:07,4/9/26 15:07,NULL,Lifou,"Loyaute, Pazifik",LIF
+858,4/9/26 15:07,4/9/26 15:07,NULL,Limoges,France,LIG
+859,4/9/26 15:07,4/9/26 15:07,NULL,"Lihue, HI",USA,LIH
+860,4/9/26 15:07,4/9/26 15:07,NULL,"Long Island, AK",USA,LIJ
+861,4/9/26 15:07,4/9/26 15:07,NULL,Lille,France,LIL
+862,4/9/26 15:07,4/9/26 15:07,NULL,Lima - J Chavez Int'l,Peru,LIM
+863,4/9/26 15:07,4/9/26 15:07,NULL,Milan - Linate,Italy,LIN
+864,4/9/26 15:07,4/9/26 15:07,NULL,Lisala,"Congo, Democratic Republic of The",LIQ
+865,4/9/26 15:07,4/9/26 15:07,NULL,Lisbon - Lisboa,Portugal,LIS
+866,4/9/26 15:07,4/9/26 15:07,NULL,"Little Rock, AR",USA,LIT
+867,4/9/26 15:07,4/9/26 15:07,NULL,Ljubljana - Brnik,Slovenia,LJU
+868,4/9/26 15:07,4/9/26 15:07,NULL,Lakselv,Norway,LKL
+869,4/9/26 15:07,4/9/26 15:07,NULL,Lucknow,India,LKO
+870,4/9/26 15:07,4/9/26 15:07,NULL,Lulea,Sweden,LLA
+871,4/9/26 15:07,4/9/26 15:07,NULL,Lilongwe - Lilongwe International,Malawi,LLW
+872,4/9/26 15:07,4/9/26 15:07,NULL,Los Mochis,Mexico,LMM
+873,4/9/26 15:07,4/9/26 15:07,NULL,Lampedusa,Italy,LMP
+874,4/9/26 15:07,4/9/26 15:07,NULL,"Klamath Fall, OR",USA,LMT
+875,4/9/26 15:07,4/9/26 15:07,NULL,"Lincoln, NE",USA,LNK
+876,4/9/26 15:07,4/9/26 15:07,NULL,Leonora,Australia,LNO
+877,4/9/26 15:07,4/9/26 15:07,NULL,"Lancaster, PA",USA,LNS
+878,4/9/26 15:07,4/9/26 15:07,NULL,"Lanai City, HI",USA,LNY
+879,4/9/26 15:07,4/9/26 15:07,NULL,Linz - Hoersching,Austria,LNZ
+880,4/9/26 15:07,4/9/26 15:07,NULL,London - All,United Kingdom,LON
+881,4/9/26 15:07,4/9/26 15:07,NULL,Lagos - Murtala Muhammed,Nigeria,LOS
+882,4/9/26 15:07,4/9/26 15:07,NULL,Las Palmas,Spain,LPA
+883,4/9/26 15:07,4/9/26 15:07,NULL,La Paz - El Alto,Bolivia,LPB
+884,4/9/26 15:07,4/9/26 15:07,NULL,Liverpool,United Kingdom,LPL
+885,4/9/26 15:07,4/9/26 15:07,NULL,Lappeenranta,Finland,LPP
+886,4/9/26 15:07,4/9/26 15:07,NULL,"Laredo, TX",USA,LRD
+887,4/9/26 15:07,4/9/26 15:07,NULL,Longreach,Australia,LRE
+888,4/9/26 15:07,4/9/26 15:07,NULL,La Rochelle,France,LRH
+889,4/9/26 15:07,4/9/26 15:07,NULL,Casa de Campo/La Romana,Dominican Republic,LRM
+890,4/9/26 15:07,4/9/26 15:07,NULL,Lorient,France,LRT
+891,4/9/26 15:07,4/9/26 15:07,NULL,"La Crosse, WI",USA,LSE
+892,4/9/26 15:07,4/9/26 15:07,NULL,Ishigaki,Japan,LSG
+893,4/9/26 15:07,4/9/26 15:07,NULL,Sumburgh (Shetland),United Kingdom,LSI
+894,4/9/26 15:07,4/9/26 15:07,NULL,Launceston,Australia,LST
+895,4/9/26 15:07,4/9/26 15:07,NULL,Lismore,Australia,LSY
+896,4/9/26 15:07,4/9/26 15:07,NULL,London - Luton,United Kingdom,LTN
+897,4/9/26 15:07,4/9/26 15:07,NULL,Loreto,Mexico,LTO
+898,4/9/26 15:07,4/9/26 15:07,NULL,Luederitz,Namibia,LUD
+899,4/9/26 15:07,4/9/26 15:07,NULL,Lugano,Switzerland,LUG
+900,4/9/26 15:07,4/9/26 15:07,NULL,Lusisiki,South Africa,LUJ
+901,4/9/26 15:07,4/9/26 15:07,NULL,Lusaka,Zambia,LUN
+902,4/9/26 15:07,4/9/26 15:07,NULL,Luxembourg,Luxembourg,LUX
+903,4/9/26 15:07,4/9/26 15:07,NULL,Laverton,Australia,LVO
+904,4/9/26 15:07,4/9/26 15:07,NULL,"Greenbrier/Lewisburg, WV",USA,LWB
+905,4/9/26 15:07,4/9/26 15:07,NULL,"Lvov (Lwow, Lemberg)",Ukraine,LWO
+906,4/9/26 15:07,4/9/26 15:07,NULL,"Lewiston, ID",USA,LWS
+907,4/9/26 15:07,4/9/26 15:07,NULL,"Lewistown, MT",USA,LWT
+908,4/9/26 15:07,4/9/26 15:07,NULL,Luxor,Egypt,LXR
+909,4/9/26 15:07,4/9/26 15:07,NULL,"Lynchburg, VA",USA,LYH
+910,4/9/26 15:07,4/9/26 15:07,NULL,Faisalabad,Pakistan,LYP
+911,4/9/26 15:07,4/9/26 15:07,NULL,Longyearbyen - Svalbard,Svalbard/Norway,LYR
+912,4/9/26 15:07,4/9/26 15:07,NULL,Lyon,France,LYS
+913,4/9/26 15:07,4/9/26 15:07,NULL,Lazaro Cardenas,Mexico,LZC
+914,4/9/26 15:07,4/9/26 15:07,NULL,Lizard Island,Australia,LZR
+915,4/9/26 15:07,4/9/26 15:07,NULL,Madras (Chennai),India,MAA
+916,4/9/26 15:07,4/9/26 15:07,NULL,Madrid - Barajas,Spain,MAD
+917,4/9/26 15:07,4/9/26 15:07,NULL,"Midland/Odessa, TX",USA,MAF
+918,4/9/26 15:07,4/9/26 15:07,NULL,Mahon,Spain,MAH
+919,4/9/26 15:07,4/9/26 15:07,NULL,Manchester,United Kingdom,MAN
+920,4/9/26 15:07,4/9/26 15:07,NULL,Manaus,Brazil,MAO
+921,4/9/26 15:07,4/9/26 15:07,NULL,Maracaibo - La Chinita,Venezuela,MAR
+922,4/9/26 15:07,4/9/26 15:07,NULL,Maupiti,French Polynesia,MAU
+923,4/9/26 15:07,4/9/26 15:07,NULL,Mayaguez,Puerto Rico,MAZ
+924,4/9/26 15:07,4/9/26 15:07,NULL,Mombasa - Moi International,Kenya,MBA
+925,4/9/26 15:07,4/9/26 15:07,NULL,Maryborough,Australia,MBH
+926,4/9/26 15:07,4/9/26 15:07,NULL,Montenego Bay,Jamaica,MBJ
+927,4/9/26 15:07,4/9/26 15:07,NULL,Mkambati,South Africa,MBM
+928,4/9/26 15:07,4/9/26 15:07,NULL,"Saginaw/Bay City/Midland, MI",USA,MBS
+929,4/9/26 15:07,4/9/26 15:07,NULL,Maribor,Slovenia,MBX
+930,4/9/26 15:07,4/9/26 15:07,NULL,"Merced, CA",USA,MCE
+931,4/9/26 15:07,4/9/26 15:07,NULL,"Kansas City, MO - Int'l",USA,MCI
+932,4/9/26 15:07,4/9/26 15:07,NULL,"Mt. McKinley, AK",USA,MCL
+933,4/9/26 15:07,4/9/26 15:07,NULL,"Macon, GA",USA,MCN
+934,4/9/26 15:07,4/9/26 15:07,NULL,"Orlando, FL",USA,MCO
+935,4/9/26 15:07,4/9/26 15:07,NULL,Macapa,Brazil,MCP
+936,4/9/26 15:07,4/9/26 15:07,NULL,Muscat - Seeb,Oman,MCT
+937,4/9/26 15:07,4/9/26 15:07,NULL,"Mason City, IA",USA,MCW
+938,4/9/26 15:07,4/9/26 15:07,NULL,Sunshine Coast,Australia,MCY
+939,4/9/26 15:07,4/9/26 15:07,NULL,Maceio,Brazil,MCZ
+940,4/9/26 15:07,4/9/26 15:07,NULL,Manado,Indonesia,MDC
+941,4/9/26 15:07,4/9/26 15:07,NULL,Medellin,Colombia,MDE
+942,4/9/26 15:07,4/9/26 15:07,NULL,Mar del Plata,Argentina,MDQ
+943,4/9/26 15:07,4/9/26 15:07,NULL,"Harrisburg, PA - Harrisburg Int'l",USA,MDT
+944,4/9/26 15:07,4/9/26 15:07,NULL,"Chicago, Midway, IL",USA,MDW
+945,4/9/26 15:07,4/9/26 15:07,NULL,Mendoza,Argentina,MDZ
+946,4/9/26 15:07,4/9/26 15:07,NULL,Medina,Saudi Arabia,MED
+947,4/9/26 15:07,4/9/26 15:07,NULL,Mare,New Caledonia,MEE
+948,4/9/26 15:07,4/9/26 15:07,NULL,"Meridian, MS",USA,MEI
+949,4/9/26 15:07,4/9/26 15:07,NULL,Melbourne - Tullamarine,Australia,MEL
+950,4/9/26 15:07,4/9/26 15:07,NULL,"Memphis, TN",USA,MEM
+951,4/9/26 15:07,4/9/26 15:07,NULL,Medan,Indonesia,MES
+952,4/9/26 15:07,4/9/26 15:07,NULL,Mexico City - Juarez International,Mexico,MEX
+953,4/9/26 15:07,4/9/26 15:07,NULL,Messina,South Africa,MEZ
+954,4/9/26 15:07,4/9/26 15:07,NULL,"McAllen, TX",USA,MFE
+955,4/9/26 15:07,4/9/26 15:07,NULL,Moanda,Gabon,MFF
+956,4/9/26 15:07,4/9/26 15:07,NULL,Muzaffarabad,Pakistan,MFG
+957,4/9/26 15:07,4/9/26 15:07,NULL,Macau,"Macau, China SAR",MFM
+958,4/9/26 15:07,4/9/26 15:07,NULL,Milford Sound,New Zealand,MFN
+959,4/9/26 15:07,4/9/26 15:07,NULL,Manguna,Papua New Guinea,MFO
+960,4/9/26 15:07,4/9/26 15:07,NULL,Maradi,Niger,MFQ
+961,4/9/26 15:07,4/9/26 15:07,NULL,"Medford, OR",USA,MFR
+962,4/9/26 15:07,4/9/26 15:07,NULL,Mfuwe,Zambia,MFU
+963,4/9/26 15:07,4/9/26 15:07,NULL,Managua - Augusto C Sandino,Nicaragua,MGA
+964,4/9/26 15:07,4/9/26 15:07,NULL,Mount Gambier,Australia,MGB
+965,4/9/26 15:07,4/9/26 15:07,NULL,Margate,South Africa,MGH
+966,4/9/26 15:07,4/9/26 15:07,NULL,"Montgomery, AL",USA,MGM
+967,4/9/26 15:07,4/9/26 15:07,NULL,Mogadischu,Somalia,MGQ
+968,4/9/26 15:07,4/9/26 15:07,NULL,"Morgantown, WV",USA,MGW
+969,4/9/26 15:07,4/9/26 15:07,NULL,"Mitchell, SD",USA,MHE
+970,4/9/26 15:07,4/9/26 15:07,NULL,Marsh Harbour,Bahamas,MHH
+971,4/9/26 15:07,4/9/26 15:07,NULL,Mariehamn (Maarianhamina),Finland,MHQ
+972,4/9/26 15:07,4/9/26 15:07,NULL,"Manchester, NH",USA,MHT
+973,4/9/26 15:07,4/9/26 15:07,NULL,"Miami, FL",USA,MIA
+974,4/9/26 15:07,4/9/26 15:07,NULL,Merida,Mexico,MID
+975,4/9/26 15:07,4/9/26 15:07,NULL,Mikkeli,Finland,MIK
+976,4/9/26 15:07,4/9/26 15:07,NULL,Milan,Italy,MIL
+977,4/9/26 15:07,4/9/26 15:07,NULL,Merimbula,Australia,MIM
+978,4/9/26 15:07,4/9/26 15:07,NULL,Monastir,Tunisia,MIR
+979,4/9/26 15:07,4/9/26 15:07,NULL,Man,Ivory Coast,MJC
+980,4/9/26 15:07,4/9/26 15:07,NULL,Moenjodaro,Pakistan,MJD
+981,4/9/26 15:07,4/9/26 15:07,NULL,Mouila,Gabon,MJL
+982,4/9/26 15:07,4/9/26 15:07,NULL,Majunga,Madagascar,MJN
+983,4/9/26 15:07,4/9/26 15:07,NULL,Mytilene (Lesbos),Greece,MJT
+984,4/9/26 15:07,4/9/26 15:07,NULL,Murcia,Spain,MJV
+985,4/9/26 15:07,4/9/26 15:07,NULL,"Milwaukee, WI",USA,MKE
+986,4/9/26 15:07,4/9/26 15:07,NULL,"Muskegon, MI",USA,MKG
+987,4/9/26 15:07,4/9/26 15:07,NULL,"Kaunakakai, HI",USA,MKK
+988,4/9/26 15:07,4/9/26 15:07,NULL,"Jackson, TN",USA,MKL
+989,4/9/26 15:07,4/9/26 15:07,NULL,Meekatharra,Australia,MKR
+990,4/9/26 15:07,4/9/26 15:07,NULL,Mackay,Australia,MKY
+991,4/9/26 15:07,4/9/26 15:07,NULL,Luga,Malta,MLA
+992,4/9/26 15:07,4/9/26 15:07,NULL,"Melbourne, FL",USA,MLB
+993,4/9/26 15:07,4/9/26 15:07,NULL,Male - International,Maledives,MLE
+994,4/9/26 15:07,4/9/26 15:07,NULL,Mulhouse,France,MLH
+995,4/9/26 15:07,4/9/26 15:07,NULL,"Moline/Quad Cities, IL",USA,MLI
+996,4/9/26 15:07,4/9/26 15:07,NULL,Morelia,Mexico,MLM
+997,4/9/26 15:07,4/9/26 15:07,NULL,"Miles City, MT",USA,MLS
+998,4/9/26 15:07,4/9/26 15:07,NULL,"Monroe, La",USA,MLU
+999,4/9/26 15:07,4/9/26 15:07,NULL,Monrovia,Liberia,MLW
+1000,4/9/26 15:07,4/9/26 15:07,NULL,Malmo (Malmoe),Sweden,MMA
+1001,4/9/26 15:07,4/9/26 15:07,NULL,"Teesside, Durham Tees Valley",United Kingdom,MME
+1002,4/9/26 15:07,4/9/26 15:07,NULL,Mount Magnet,Australia,MMG
+1003,4/9/26 15:07,4/9/26 15:07,NULL,"Matsumoto, Nagano",Japan,MMJ
+1004,4/9/26 15:07,4/9/26 15:07,NULL,Murmansk,Russia,MMK
+1005,4/9/26 15:07,4/9/26 15:07,NULL,Middlemount,Australia,MMM
+1006,4/9/26 15:07,4/9/26 15:07,NULL,Malmo (Malmoe) - Sturup,Sweden,MMX
+1007,4/9/26 15:07,4/9/26 15:07,NULL,Miyako Jima (Ryuku Islands) - Hirara,Japan,MMY
+1008,4/9/26 15:07,4/9/26 15:07,NULL,Manila - Ninoy Aquino Int'l,Philippines,MNL
+1009,4/9/26 15:07,4/9/26 15:07,NULL,"Mobile, AL - Pascagoula, MS",USA,MOB
+1010,4/9/26 15:07,4/9/26 15:07,NULL,"Modesto, CA",USA,MOD
+1011,4/9/26 15:07,4/9/26 15:07,NULL,"Minot, ND",USA,MOT
+1012,4/9/26 15:07,4/9/26 15:07,NULL,Moranbah,Australia,MOV
+1013,4/9/26 15:07,4/9/26 15:07,NULL,Moscow - Metropolitan Area,Russia,MOW
+1014,4/9/26 15:07,4/9/26 15:07,NULL,Moorea,French Polynesia,MOZ
+1015,4/9/26 15:07,4/9/26 15:07,NULL,Katima Mulilo/Mpacha,Namibia,MPA
+1016,4/9/26 15:07,4/9/26 15:07,NULL,Sindhri,Pakistan,MPD
+1017,4/9/26 15:07,4/9/26 15:07,NULL,Montpellier - Frejorgues,France,MPL
+1018,4/9/26 15:07,4/9/26 15:07,NULL,Maputo - Maputo International,Mozambique,MPM
+1019,4/9/26 15:07,4/9/26 15:07,NULL,Mildura,Australia,MQL
+1020,4/9/26 15:07,4/9/26 15:07,NULL,Moundou,Chad,MQQ
+1021,4/9/26 15:07,4/9/26 15:07,NULL,"Marquette, MI",USA,MQT
+1022,4/9/26 15:07,4/9/26 15:07,NULL,Marseille,France,MRS
+1023,4/9/26 15:07,4/9/26 15:07,NULL,Mauritius - S.Seewoosagur Ram Int'l,Mauritius,MRU
+1024,4/9/26 15:07,4/9/26 15:07,NULL,Mineralnye Vody,Russia,MRV
+1025,4/9/26 15:07,4/9/26 15:07,NULL,"Monterey, CA",USA,MRY
+1026,4/9/26 15:07,4/9/26 15:07,NULL,Moree,Australia,MRZ
+1027,4/9/26 15:07,4/9/26 15:07,NULL,"Muscle Shoals, AL",USA,MSL
+1028,4/9/26 15:07,4/9/26 15:07,NULL,"Madison, WI",USA,MSN
+1029,4/9/26 15:07,4/9/26 15:07,NULL,"Missula, MT",USA,MSO
+1030,4/9/26 15:07,4/9/26 15:07,NULL,"Minneapolis - St. Paul Int'l Airport, MN",USA,MSP
+1031,4/9/26 15:07,4/9/26 15:07,NULL,"Minsk, International",Belarus,MSQ
+1032,4/9/26 15:07,4/9/26 15:07,NULL,Maastricht/Aachen,Netherlands,MST
+1033,4/9/26 15:07,4/9/26 15:07,NULL,Maseru - Moshoeshoe Int'l,Lesotho,MSU
+1034,4/9/26 15:07,4/9/26 15:07,NULL,"New Orleans, La",USA,MSY
+1035,4/9/26 15:07,4/9/26 15:07,NULL,"Marathon, FL",USA,MTH
+1036,4/9/26 15:07,4/9/26 15:07,NULL,"Montrose/Tellruide, CO",USA,MTJ
+1037,4/9/26 15:07,4/9/26 15:07,NULL,Maitland,Australia,MTL
+1038,4/9/26 15:07,4/9/26 15:07,NULL,"Metlakatla, AK",USA,MTM
+1039,4/9/26 15:07,4/9/26 15:07,NULL,"Mattoon, IL",USA,MTO
+1040,4/9/26 15:07,4/9/26 15:07,NULL,Manzini - Matsapha Int'l,Swaziland,MTS
+1041,4/9/26 15:07,4/9/26 15:07,NULL,Minatitlan,Mexico,MTT
+1042,4/9/26 15:07,4/9/26 15:07,NULL,Monterrey,Mexico,MTY
+1043,4/9/26 15:07,4/9/26 15:07,NULL,Maun,Botswana,MUB
+1044,4/9/26 15:07,4/9/26 15:07,NULL,Muenchen (Munich) - Franz Josef Strauss,Germany,MUC
+1045,4/9/26 15:07,4/9/26 15:07,NULL,"Kamuela, HI",USA,MUE
+1046,4/9/26 15:07,4/9/26 15:07,NULL,Marsa Matrah (Marsa Matruh),Egypt,MUH
+1047,4/9/26 15:07,4/9/26 15:07,NULL,Multan,Pakistan,MUX
+1048,4/9/26 15:07,4/9/26 15:07,NULL,Mvengue,Gabon,MVB
+1049,4/9/26 15:07,4/9/26 15:07,NULL,Montevideo - Carrasco,Uruguay,MVD
+1050,4/9/26 15:07,4/9/26 15:07,NULL,Maroua,Cameroon,MVR
+1051,4/9/26 15:07,4/9/26 15:07,NULL,"Martha's Vineyard, MA",USA,MVY
+1052,4/9/26 15:07,4/9/26 15:07,NULL,Masvingo,Zimbabwe,MVZ
+1053,4/9/26 15:07,4/9/26 15:07,NULL,Mianwali,Pakistan,MWD
+1054,4/9/26 15:07,4/9/26 15:07,NULL,"Moses Lake, WA",USA,MWH
+1055,4/9/26 15:07,4/9/26 15:07,NULL,Mexicali,Mexico,MXL
+1056,4/9/26 15:07,4/9/26 15:07,NULL,Milan - Malpensa,Italy,MXP
+1057,4/9/26 15:07,4/9/26 15:07,NULL,Malindi,Kenya,MYD
+1058,4/9/26 15:07,4/9/26 15:07,NULL,Matsuyama,Japan,MYJ
+1059,4/9/26 15:07,4/9/26 15:07,NULL,"Myrtle Beach, SC",USA,MYR
+1060,4/9/26 15:07,4/9/26 15:07,NULL,Miri,Malaysia,MYY
+1061,4/9/26 15:07,4/9/26 15:07,NULL,Mzamba,South Africa,MZF
+1062,4/9/26 15:07,4/9/26 15:07,NULL,Makung,Taiwan,MZG
+1063,4/9/26 15:07,4/9/26 15:07,NULL,Metz,France,MZM
+1064,4/9/26 15:07,4/9/26 15:07,NULL,Mazatlan,Mexico,MZT
+1065,4/9/26 15:07,4/9/26 15:07,NULL,Narrabri,Australia,NAA
+1066,4/9/26 15:07,4/9/26 15:07,NULL,Nagpur,India,NAG
+1067,4/9/26 15:07,4/9/26 15:07,NULL,Nadi,Fiji,NAN
+1068,4/9/26 15:07,4/9/26 15:07,NULL,Naples,Italy,NAP
+1069,4/9/26 15:07,4/9/26 15:07,NULL,Nassau,Bahamas,NAS
+1070,4/9/26 15:07,4/9/26 15:07,NULL,Natal,Brazil,NAT
+1071,4/9/26 15:07,4/9/26 15:07,NULL,Beijing - Nanyuan Airport,China,NAY
+1072,4/9/26 15:07,4/9/26 15:07,NULL,Nairobi,Kenya,NBO
+1073,4/9/26 15:07,4/9/26 15:07,NULL,Nice - Cote D'Azur,France,NCE
+1074,4/9/26 15:07,4/9/26 15:07,NULL,Newcastle,United Kingdom,NCL
+1075,4/9/26 15:07,4/9/26 15:07,NULL,Annecy,France,NCY
+1076,4/9/26 15:07,4/9/26 15:07,NULL,Nouadhibou,Mauritania,NDB
+1077,4/9/26 15:07,4/9/26 15:07,NULL,N'Djamena,Chad,NDJ
+1078,4/9/26 15:07,4/9/26 15:07,NULL,Rundu,Namibia,NDU
+1079,4/9/26 15:07,4/9/26 15:07,NULL,Nevis,Nevis,NEV
+1080,4/9/26 15:07,4/9/26 15:07,NULL,N'Gaoundere,Cameroon,NGE
+1081,4/9/26 15:07,4/9/26 15:07,NULL,Nagoya - Komaki AFB,Japan,NGO
+1082,4/9/26 15:07,4/9/26 15:07,NULL,Nagasaki,Japan,NGS
+1083,4/9/26 15:07,4/9/26 15:07,NULL,Nicosia,Cyprus,NIC
+1084,4/9/26 15:07,4/9/26 15:07,NULL,Niamey,Niger,NIM
+1085,4/9/26 15:07,4/9/26 15:07,NULL,Nouakchott,Mauritania,NKC
+1086,4/9/26 15:07,4/9/26 15:07,NULL,N'Dola,Zambia,NLA
+1087,4/9/26 15:07,4/9/26 15:07,NULL,Nuevo Laredo,Mexico,NLD
+1088,4/9/26 15:07,4/9/26 15:07,NULL,Norfolk Island,Australia,NLK
+1089,4/9/26 15:07,4/9/26 15:07,NULL,Nelspruit,South Africa,NLP
+1090,4/9/26 15:07,4/9/26 15:07,NULL,Nikolaev,Ukraine,NLV
+1091,4/9/26 15:07,4/9/26 15:07,NULL,Nanning,"Guangxi, China",NNG
+1092,4/9/26 15:07,4/9/26 15:07,NULL,Knock,Ireland,NOC
+1093,4/9/26 15:07,4/9/26 15:07,NULL,Mactan Island - Nab,Philippines,NOP
+1094,4/9/26 15:07,4/9/26 15:07,NULL,Noumea,New Caledonia,NOU
+1095,4/9/26 15:07,4/9/26 15:07,NULL,Narrandera,Australia,NRA
+1096,4/9/26 15:07,4/9/26 15:07,NULL,Norrkoeping,Sweden,NRK
+1097,4/9/26 15:07,4/9/26 15:07,NULL,Tokyo - Narita,Japan,NRT
+1098,4/9/26 15:07,4/9/26 15:07,NULL,Noosa,Australia,NSA
+1099,4/9/26 15:07,4/9/26 15:07,NULL,Nelson,New Zealand,NSN
+1100,4/9/26 15:07,4/9/26 15:07,NULL,Scone,Australia,NSO
+1101,4/9/26 15:07,4/9/26 15:07,NULL,Nantes,France,NTE
+1102,4/9/26 15:07,4/9/26 15:07,NULL,Newcastle - Williamtown,Australia,NTL
+1103,4/9/26 15:07,4/9/26 15:07,NULL,Monterrey - Aeropuerto Del Norte,Mexico,NTR
+1104,4/9/26 15:07,4/9/26 15:07,NULL,Pilanesberg/Sun City,South Africa,NTY
+1105,4/9/26 15:07,4/9/26 15:07,NULL,N?rnberg (Nuremberg),Germany,NUE
+1106,4/9/26 15:07,4/9/26 15:07,NULL,Norwich,United Kingdom,NWI
+1107,4/9/26 15:07,4/9/26 15:07,NULL,"New York, NY",USA,NYC
+1108,4/9/26 15:07,4/9/26 15:07,NULL,Orange,Australia,OAG
+1109,4/9/26 15:07,4/9/26 15:07,NULL,"Jacksonville, NC",USA,OAJ
+1110,4/9/26 15:07,4/9/26 15:07,NULL,"Oakland, CA",USA,OAK
+1111,4/9/26 15:07,4/9/26 15:07,NULL,Oaxaca,Mexico,OAX
+1112,4/9/26 15:07,4/9/26 15:07,NULL,Ouadda,Central African Republic,ODA
+1113,4/9/26 15:07,4/9/26 15:07,NULL,Odense,Denmark,ODE
+1114,4/9/26 15:07,4/9/26 15:07,NULL,Odessa,Ukraine,ODS
+1115,4/9/26 15:07,4/9/26 15:07,NULL,"Kahului, HI",USA,OGG
+1116,4/9/26 15:07,4/9/26 15:07,NULL,Ohrid,Macedonia,OHD
+1117,4/9/26 15:07,4/9/26 15:07,NULL,Kohat,Pakistan,OHT
+1118,4/9/26 15:07,4/9/26 15:07,NULL,Oita,Japan,OIT
+1119,4/9/26 15:07,4/9/26 15:07,NULL,"Okinawa, Ryukyo Island - Naha",Japan,OKA
+1120,4/9/26 15:07,4/9/26 15:07,NULL,"Oklahoma City, OK - Will Rogers World",USA,OKC
+1121,4/9/26 15:07,4/9/26 15:07,NULL,Sapporo - Okadama,"Hokkaido, Japan",OKD
+1122,4/9/26 15:07,4/9/26 15:07,NULL,Okayama,Japan,OKJ
+1123,4/9/26 15:07,4/9/26 15:07,NULL,Mokuti,Namibia,OKU
+1124,4/9/26 15:07,4/9/26 15:07,NULL,Olbia,Italy,OLB
+1125,4/9/26 15:07,4/9/26 15:07,NULL,"Wolf Point, MT",USA,OLF
+1126,4/9/26 15:07,4/9/26 15:07,NULL,Olympic Dam,Australia,OLP
+1127,4/9/26 15:07,4/9/26 15:07,NULL,"Omaha, NE",USA,OMA
+1128,4/9/26 15:07,4/9/26 15:07,NULL,Oranjemund,Namibia,OMD
+1129,4/9/26 15:07,4/9/26 15:07,NULL,"Nome, AK",USA,OME
+1130,4/9/26 15:07,4/9/26 15:07,NULL,Mostar,Bosnia and Herzegovina,OMO
+1131,4/9/26 15:07,4/9/26 15:07,NULL,Ondangwa,Namibia,OND
+1132,4/9/26 15:07,4/9/26 15:07,NULL,"Ontario, CA",USA,ONT
+1133,4/9/26 15:07,4/9/26 15:07,NULL,Gold Coast,Australia,OOL
+1134,4/9/26 15:07,4/9/26 15:07,NULL,Cooma,Australia,OOM
+1135,4/9/26 15:07,4/9/26 15:07,NULL,Porto,Portugal,OPO
+1136,4/9/26 15:07,4/9/26 15:07,NULL,Oerebro,Sweden,ORB
+1137,4/9/26 15:07,4/9/26 15:07,NULL,"Chicago O'Hare Int'l Airport, IL",USA,ORD
+1138,4/9/26 15:07,4/9/26 15:07,NULL,"Norfolk/Virginia Beach, VA",USA,ORF
+1139,4/9/26 15:07,4/9/26 15:07,NULL,"Worcester, MA",USA,ORH
+1140,4/9/26 15:07,4/9/26 15:07,NULL,Cork,Ireland,ORK
+1141,4/9/26 15:07,4/9/26 15:07,NULL,"Orlando Metropolitan Area, FL",USA,ORL
+1142,4/9/26 15:07,4/9/26 15:07,NULL,Oran (Ouahran),Algeria,ORN
+1143,4/9/26 15:07,4/9/26 15:07,NULL,Orpheus Island,Australia,ORS
+1144,4/9/26 15:07,4/9/26 15:07,NULL,Paris - Orly,France,ORY
+1145,4/9/26 15:07,4/9/26 15:07,NULL,"Osaka, Metropolitan Area",Japan,OSA
+1146,4/9/26 15:07,4/9/26 15:07,NULL,"Oshkosh, WI",USA,OSH
+1147,4/9/26 15:07,4/9/26 15:07,NULL,Osijek,Croatia (Hrvatska),OSI
+1148,4/9/26 15:07,4/9/26 15:07,NULL,Oslo,Norway,OSL
+1149,4/9/26 15:07,4/9/26 15:07,NULL,Mosul,Iraq,OSM
+1150,4/9/26 15:07,4/9/26 15:07,NULL,"North Bend, OR",USA,OTH
+1151,4/9/26 15:07,4/9/26 15:07,NULL,"Bucharest, Otopeni",Romania,OTP
+1152,4/9/26 15:07,4/9/26 15:07,NULL,"Kotzbue, AK",USA,OTZ
+1153,4/9/26 15:07,4/9/26 15:07,NULL,Ouagadougou,Burkina Faso,OUA
+1154,4/9/26 15:07,4/9/26 15:07,NULL,Oujda,Morocco,OUD
+1155,4/9/26 15:07,4/9/26 15:07,NULL,Oudtshoorn,South Africa,OUH
+1156,4/9/26 15:07,4/9/26 15:07,NULL,Oulu,Finland,OUL
+1157,4/9/26 15:07,4/9/26 15:07,NULL,Zouerate,Mauritania,OUZ
+1158,4/9/26 15:07,4/9/26 15:07,NULL,Novosibirsk - Tolmachevo,Russia,OVB
+1159,4/9/26 15:07,4/9/26 15:07,NULL,Oviedo,Spain,OVD
+1160,4/9/26 15:07,4/9/26 15:07,NULL,"Owensboro, KY",USA,OWB
+1161,4/9/26 15:07,4/9/26 15:07,NULL,"Oxnard, CA",USA,OXR
+1162,4/9/26 15:07,4/9/26 15:07,NULL,Ouarzazate,Morocco,OZZ
+1163,4/9/26 15:07,4/9/26 15:07,NULL,Paderborn/Lippstadt,Germany,PAD
+1164,4/9/26 15:07,4/9/26 15:07,NULL,"Paducah, KY",USA,PAH
+1165,4/9/26 15:07,4/9/26 15:07,NULL,Port au Prince,Haiti,PAP
+1166,4/9/26 15:07,4/9/26 15:07,NULL,Paris,France,PAR
+1167,4/9/26 15:07,4/9/26 15:07,NULL,Patna,India,PAT
+1168,4/9/26 15:07,4/9/26 15:07,NULL,Puebla,Mexico,PBC
+1169,4/9/26 15:07,4/9/26 15:07,NULL,Paro,Bhutan,PBH
+1170,4/9/26 15:07,4/9/26 15:07,NULL,"West Palm Beach, FL",USA,PBI
+1171,4/9/26 15:07,4/9/26 15:07,NULL,Paramaribo - Zanderij Int'l,Suriname,PBM
+1172,4/9/26 15:07,4/9/26 15:07,NULL,Paraburdoo,Australia,PBO
+1173,4/9/26 15:07,4/9/26 15:07,NULL,Plettenberg Bay,South Africa,PBZ
+1174,4/9/26 15:07,4/9/26 15:07,NULL,Ponta Delgada,Portugal,PDL
+1175,4/9/26 15:07,4/9/26 15:07,NULL,"Pendelton, OR",USA,PDT
+1176,4/9/26 15:07,4/9/26 15:07,NULL,"Portland Int'l, OR",USA,PDX
+1177,4/9/26 15:07,4/9/26 15:07,NULL,Perugia,Italy,PEG
+1178,4/9/26 15:07,4/9/26 15:07,NULL,Pereira,Colombia,PEI
+1179,4/9/26 15:07,4/9/26 15:07,NULL,Beijing,China,PEK
+1180,4/9/26 15:07,4/9/26 15:07,NULL,Penang International,Malaysia,PEN
+1181,4/9/26 15:07,4/9/26 15:07,NULL,Perth Int'l,Australia,PER
+1182,4/9/26 15:07,4/9/26 15:07,NULL,Peshawar,Pakistan,PEW
+1183,4/9/26 15:07,4/9/26 15:07,NULL,"Panama City, FL",USA,PFN
+1184,4/9/26 15:07,4/9/26 15:07,NULL,Paphos,Cyprus,PFO
+1185,4/9/26 15:07,4/9/26 15:07,NULL,"Page/Lake Powell, AZ",USA,PGA
+1186,4/9/26 15:07,4/9/26 15:07,NULL,Perpignan,France,PGF
+1187,4/9/26 15:07,4/9/26 15:07,NULL,"Greenville, NC",USA,PGV
+1188,4/9/26 15:07,4/9/26 15:07,NULL,Port Harcourt,Nigeria,PHC
+1189,4/9/26 15:07,4/9/26 15:07,NULL,Port Hedland,Australia,PHE
+1190,4/9/26 15:07,4/9/26 15:07,NULL,"Newport News/Williamsburg, VA",USA,PHF
+1191,4/9/26 15:07,4/9/26 15:07,NULL,"Philadelphia, PA - Int'l",USA,PHL
+1192,4/9/26 15:07,4/9/26 15:07,NULL,Phalaborwa,South Africa,PHW
+1193,4/9/26 15:07,4/9/26 15:07,NULL,"Phoenix, AZ - Sky Harbor Int'l",USA,PHX
+1194,4/9/26 15:07,4/9/26 15:07,NULL,"Peoria/Bloomington, IL",USA,PIA
+1195,4/9/26 15:07,4/9/26 15:07,NULL,"Laurel/Hattisburg, MS",USA,PIB
+1196,4/9/26 15:07,4/9/26 15:07,NULL,"Pocatello, ID",USA,PIH
+1197,4/9/26 15:07,4/9/26 15:07,NULL,"Glasgow, Prestwick",United Kingdom,PIK
+1198,4/9/26 15:07,4/9/26 15:07,NULL,"Pierre, SD",USA,PIR
+1199,4/9/26 15:07,4/9/26 15:07,NULL,"Pittsburgh Int'l Airport, PA",USA,PIT
+1200,4/9/26 15:07,4/9/26 15:07,NULL,Panjgur,Pakistan,PJG
+1201,4/9/26 15:07,4/9/26 15:07,NULL,"Pakersburg, WV/Marietta, OH",USA,PKB
+1202,4/9/26 15:07,4/9/26 15:07,NULL,Selibi Phikwe,Botswana,PKW
+1203,4/9/26 15:07,4/9/26 15:07,NULL,"Plattsburgh, NY",USA,PLB
+1204,4/9/26 15:07,4/9/26 15:07,NULL,"Pellston, MI",USA,PLN
+1205,4/9/26 15:07,4/9/26 15:07,NULL,Port Lincoln,Australia,PLO
+1206,4/9/26 15:07,4/9/26 15:07,NULL,Port Elizabeth,South Africa,PLZ
+1207,4/9/26 15:07,4/9/26 15:07,NULL,"Palmdale/Lancaster, CA",USA,PMD
+1208,4/9/26 15:07,4/9/26 15:07,NULL,Palma de Mallorca,Spain,PMI
+1209,4/9/26 15:07,4/9/26 15:07,NULL,Palermo - Punta Raisi,Italy,PMO
+1210,4/9/26 15:07,4/9/26 15:07,NULL,Palmerston North,New Zealand,PMR
+1211,4/9/26 15:07,4/9/26 15:07,NULL,Margerita,Venezuela,PMV
+1212,4/9/26 15:07,4/9/26 15:07,NULL,Phnom Penh - Pochentong,Cambodia,PNH
+1213,4/9/26 15:07,4/9/26 15:07,NULL,Pohnpei,Micronesia,PNI
+1214,4/9/26 15:07,4/9/26 15:07,NULL,Pantelleria,Italy,PNL
+1215,4/9/26 15:07,4/9/26 15:07,NULL,Pune,India,PNQ
+1216,4/9/26 15:07,4/9/26 15:07,NULL,Pointe Noire,Congo,PNR
+1217,4/9/26 15:07,4/9/26 15:07,NULL,"Pensacola, FL",USA,PNS
+1218,4/9/26 15:07,4/9/26 15:07,NULL,Porto Alegre,Brazil,POA
+1219,4/9/26 15:07,4/9/26 15:07,NULL,Port Gentil,Gabon,POG
+1220,4/9/26 15:07,4/9/26 15:07,NULL,Port Moresby - Jackson Field,Papua New Guinea,POM
+1221,4/9/26 15:07,4/9/26 15:07,NULL,Puerto Plata,Dominican Republic,POP
+1222,4/9/26 15:07,4/9/26 15:07,NULL,Pori,Finland,POR
+1223,4/9/26 15:07,4/9/26 15:07,NULL,Port of Spain,Trinidad,POS
+1224,4/9/26 15:07,4/9/26 15:07,NULL,"Poughkeepsie, NY",USA,POU
+1225,4/9/26 15:07,4/9/26 15:07,NULL,"Poznan, Lawica",Poland,POZ
+1226,4/9/26 15:07,4/9/26 15:07,NULL,Pago Pago,American Samoa,PPG
+1227,4/9/26 15:07,4/9/26 15:07,NULL,Prosperpine,Australia,PPP
+1228,4/9/26 15:07,4/9/26 15:07,NULL,Papeete - Faaa,French Polynesia (Tahiti),PPT
+1229,4/9/26 15:07,4/9/26 15:07,NULL,"Presque Island, ME",USA,PQI
+1230,4/9/26 15:07,4/9/26 15:07,NULL,Port Macquarie,Australia,PQQ
+1231,4/9/26 15:07,4/9/26 15:07,NULL,Prague - Ruzyne,Czech Republic,PRG
+1232,4/9/26 15:07,4/9/26 15:07,NULL,Pristina,Yugoslavia,PRN
+1233,4/9/26 15:07,4/9/26 15:07,NULL,Pretoria - Wonderboom Apt.,South Africa,PRY
+1234,4/9/26 15:07,4/9/26 15:07,NULL,Pisa - Gal Galilei,Italy,PSA
+1235,4/9/26 15:07,4/9/26 15:07,NULL,"Pasco, WA",USA,PSC
+1236,4/9/26 15:07,4/9/26 15:07,NULL,Port Said,Egypt,PSD
+1237,4/9/26 15:07,4/9/26 15:07,NULL,Ponce,Puerto Rico,PSE
+1238,4/9/26 15:07,4/9/26 15:07,NULL,"Petersburg, AK",USA,PSG
+1239,4/9/26 15:07,4/9/26 15:07,NULL,Pasni,Pakistan,PSI
+1240,4/9/26 15:07,4/9/26 15:07,NULL,"Palm Springs, CA",USA,PSP
+1241,4/9/26 15:07,4/9/26 15:07,NULL,Pescara,Italy,PSR
+1242,4/9/26 15:07,4/9/26 15:07,NULL,Pietersburg,South Africa,PTG
+1243,4/9/26 15:07,4/9/26 15:07,NULL,Portland,Australia,PTJ
+1244,4/9/26 15:07,4/9/26 15:07,NULL,Pointe a Pitre,Guadeloupe,PTP
+1245,4/9/26 15:07,4/9/26 15:07,NULL,Panama City - Tocumen International,Panama,PTY
+1246,4/9/26 15:07,4/9/26 15:07,NULL,"Pueblo, CO",USA,PUB
+1247,4/9/26 15:07,4/9/26 15:07,NULL,Pau,France,PUF
+1248,4/9/26 15:07,4/9/26 15:07,NULL,Port Augusta,Australia,PUG
+1249,4/9/26 15:07,4/9/26 15:07,NULL,Punta Cana,Dominican Republic,PUJ
+1250,4/9/26 15:07,4/9/26 15:07,NULL,Punta Arenas,Chile,PUQ
+1251,4/9/26 15:07,4/9/26 15:07,NULL,Pu San (Pusan) - Kimhae,South Korea,PUS
+1252,4/9/26 15:07,4/9/26 15:07,NULL,"Pullman, WA",USA,PUW
+1253,4/9/26 15:07,4/9/26 15:07,NULL,Pula,Croatia (Hrvatska),PUY
+1254,4/9/26 15:07,4/9/26 15:07,NULL,"Providence, RI",USA,PVD
+1255,4/9/26 15:07,4/9/26 15:07,NULL,Shanghai - Pu Dong,China,PVG
+1256,4/9/26 15:07,4/9/26 15:07,NULL,Porto Velho,Brazil,PVH
+1257,4/9/26 15:07,4/9/26 15:07,NULL,Preveza/Lefkas,Greece,PVK
+1258,4/9/26 15:07,4/9/26 15:07,NULL,Puerto Vallarta,Mexico,PVR
+1259,4/9/26 15:07,4/9/26 15:07,NULL,"Portland, ME",USA,PWM
+1260,4/9/26 15:07,4/9/26 15:07,NULL,Puerto Escondido,Mexico,PXM
+1261,4/9/26 15:07,4/9/26 15:07,NULL,Porto Santo,Portugal,PXO
+1262,4/9/26 15:07,4/9/26 15:07,NULL,Pattaya,Thailand,PYX
+1263,4/9/26 15:07,4/9/26 15:07,NULL,Pietermaritzburg,South Africa,PZB
+1264,4/9/26 15:07,4/9/26 15:07,NULL,Zhob,Pakistan,PZH
+1265,4/9/26 15:07,4/9/26 15:07,NULL,Puerto Ordaz,Venezuela,PZO
+1266,4/9/26 15:07,4/9/26 15:07,NULL,Chiba City,Japan,QCB
+1267,4/9/26 15:07,4/9/26 15:07,NULL,Montenegro,Brazil,QGF
+1268,4/9/26 15:07,4/9/26 15:07,NULL,Kanpur,India,QJU
+1269,4/9/26 15:07,4/9/26 15:07,NULL,Limassol,Cyprus,QLI
+1270,4/9/26 15:07,4/9/26 15:07,NULL,Mirpur,Pakistan,QML
+1271,4/9/26 15:07,4/9/26 15:07,NULL,Anand,India,QNB
+1272,4/9/26 15:07,4/9/26 15:07,NULL,Novi Sad,Yugoslavia,QND
+1273,4/9/26 15:07,4/9/26 15:07,NULL,Owerri,Nigeria,QOW
+1274,4/9/26 15:07,4/9/26 15:07,NULL,Singapore - Paya Lebar,Singapore,QPG
+1275,4/9/26 15:07,4/9/26 15:07,NULL,Tallinn - Pirita Harbour,Estonia,QUF
+1276,4/9/26 15:07,4/9/26 15:07,NULL,Praia,Cape Verde,RAI
+1277,4/9/26 15:07,4/9/26 15:07,NULL,Rajkot,India,RAJ
+1278,4/9/26 15:07,4/9/26 15:07,NULL,Marrakech - Menara,Morocco,RAK
+1279,4/9/26 15:07,4/9/26 15:07,NULL,"Rapid City, SD",USA,RAP
+1280,4/9/26 15:07,4/9/26 15:07,NULL,Rarotonga Cook,Island,RAR
+1281,4/9/26 15:07,4/9/26 15:07,NULL,Rawala Kot,Pakistan,RAZ
+1282,4/9/26 15:07,4/9/26 15:07,NULL,Rabat - Sale,Morocco,RBA
+1283,4/9/26 15:07,4/9/26 15:07,NULL,Rio Branco,Brazil,RBR
+1284,4/9/26 15:07,4/9/26 15:07,NULL,Richards Bay,South Africa,RCB
+1285,4/9/26 15:07,4/9/26 15:07,NULL,"Redding, CA",USA,RDD
+1286,4/9/26 15:07,4/9/26 15:07,NULL,"Reading, PA",USA,RDG
+1287,4/9/26 15:07,4/9/26 15:07,NULL,"Redmond, OR",USA,RDM
+1288,4/9/26 15:07,4/9/26 15:07,NULL,"Raleigh/Durham, NC",USA,RDU
+1289,4/9/26 15:07,4/9/26 15:07,NULL,Rodez,France,RDZ
+1290,4/9/26 15:07,4/9/26 15:07,NULL,Recife,Brazil,REC
+1291,4/9/26 15:07,4/9/26 15:07,NULL,Reggio Calabria,Italy,REG
+1292,4/9/26 15:07,4/9/26 15:07,NULL,Reykjavik - Metropolitan Area,Iceland,REK
+1293,4/9/26 15:07,4/9/26 15:07,NULL,Reus,Spain,REU
+1294,4/9/26 15:07,4/9/26 15:07,NULL,"Rockford, IL",USA,RFD
+1295,4/9/26 15:07,4/9/26 15:07,NULL,Raiatea,French Polynesia,RFP
+1296,4/9/26 15:07,4/9/26 15:07,NULL,Rangiroa,French Polynesia,RGI
+1297,4/9/26 15:07,4/9/26 15:07,NULL,Yangon (Rangoon) - Mingaladon,Myanmar (Burma),RGN
+1298,4/9/26 15:07,4/9/26 15:07,NULL,"Rhinelander, WI",USA,RHI
+1299,4/9/26 15:07,4/9/26 15:07,NULL,Rhodos,Greece,RHO
+1300,4/9/26 15:07,4/9/26 15:07,NULL,"Richmond, VA",USA,RIC
+1301,4/9/26 15:07,4/9/26 15:07,NULL,Rio de Janeiro,Brazil,RIO
+1302,4/9/26 15:07,4/9/26 15:07,NULL,Riga,Latvia,RIX
+1303,4/9/26 15:07,4/9/26 15:07,NULL,Rijeka,Croatia (Hrvatska),RJK
+1304,4/9/26 15:07,4/9/26 15:07,NULL,"Rockland, ME",USA,RKD
+1305,4/9/26 15:07,4/9/26 15:07,NULL,"Rock Springs, WY",USA,RKS
+1306,4/9/26 15:07,4/9/26 15:07,NULL,Ras al Khaymah (Ras al Khaimah),UAE,RKT
+1307,4/9/26 15:07,4/9/26 15:07,NULL,Arlit,Niger,RLT
+1308,4/9/26 15:07,4/9/26 15:07,NULL,Rimini,Italy,RMI
+1309,4/9/26 15:07,4/9/26 15:07,NULL,Ronneby,Sweden,RNB
+1310,4/9/26 15:07,4/9/26 15:07,NULL,Roanne,France,RNE
+1311,4/9/26 15:07,4/9/26 15:07,NULL,Roenne,Denmark,RNN
+1312,4/9/26 15:07,4/9/26 15:07,NULL,"Reno, NV",USA,RNO
+1313,4/9/26 15:07,4/9/26 15:07,NULL,Rennes,France,RNS
+1314,4/9/26 15:07,4/9/26 15:07,NULL,"Roanoke, VA",USA,ROA
+1315,4/9/26 15:07,4/9/26 15:07,NULL,Monrovia - Roberts Int'l,Liberia,ROB
+1316,4/9/26 15:07,4/9/26 15:07,NULL,"Rochester, NY",USA,ROC
+1317,4/9/26 15:07,4/9/26 15:07,NULL,Rockhampton,Australia,ROK
+1318,4/9/26 15:07,4/9/26 15:07,NULL,Rome,Italy,ROM
+1319,4/9/26 15:07,4/9/26 15:07,NULL,Rosario,Argentina,ROS
+1320,4/9/26 15:07,4/9/26 15:07,NULL,Rotorua,New Zealand,ROT
+1321,4/9/26 15:07,4/9/26 15:07,NULL,Ruse,Bulgaria,ROU
+1322,4/9/26 15:07,4/9/26 15:07,NULL,Rodrigues Island,Mauritius,RRG
+1323,4/9/26 15:07,4/9/26 15:07,NULL,Rock Sound,Bahamas,RSD
+1324,4/9/26 15:07,4/9/26 15:07,NULL,"Rochester, MN",USA,RST
+1325,4/9/26 15:07,4/9/26 15:07,NULL,"Fort Myers, Southwest Florida Reg, FL",USA,RSW
+1326,4/9/26 15:07,4/9/26 15:07,NULL,Roatan,Honduras,RTB
+1327,4/9/26 15:07,4/9/26 15:07,NULL,Rotterdam,Netherlands,RTM
+1328,4/9/26 15:07,4/9/26 15:07,NULL,Riyadh - King Khaled Int'l,Saudi Arabia,RUH
+1329,4/9/26 15:07,4/9/26 15:07,NULL,Saint Denis de la Reunion,Reunion,RUN
+1330,4/9/26 15:07,4/9/26 15:07,NULL,Rovaniemi,Finland,RVN
+1331,4/9/26 15:07,4/9/26 15:07,NULL,"Rocky Mount - Wilson, NC",USA,RWI
+1332,4/9/26 15:07,4/9/26 15:07,NULL,Rawalpindi,Pakistan,RWP
+1333,4/9/26 15:07,4/9/26 15:07,NULL,Rahim Yar Khan,Pakistan,RYK
+1334,4/9/26 15:07,4/9/26 15:07,NULL,Sanaa (Sana'a) - Sana'a International,Yemen,SAH
+1335,4/9/26 15:07,4/9/26 15:07,NULL,El Salvador,El Salvador,SAL
+1336,4/9/26 15:07,4/9/26 15:07,NULL,"San Diego - Lindberg Field Int'l, CA",USA,SAN
+1337,4/9/26 15:07,4/9/26 15:07,NULL,Sao Paulo,Brazil,SAO
+1338,4/9/26 15:07,4/9/26 15:07,NULL,San Pedro Sula,Honduras,SAP
+1339,4/9/26 15:07,4/9/26 15:07,NULL,"San Antonio, TX",USA,SAT
+1340,4/9/26 15:07,4/9/26 15:07,NULL,"Savannah, GA",USA,SAV
+1341,4/9/26 15:07,4/9/26 15:07,NULL,Salisbury,Zimbabwe,SAY
+1342,4/9/26 15:07,4/9/26 15:07,NULL,"Santa Barbara, CA",USA,SBA
+1343,4/9/26 15:07,4/9/26 15:07,NULL,Saint Brieuc,France,SBK
+1344,4/9/26 15:07,4/9/26 15:07,NULL,"South Bend, IN",USA,SBN
+1345,4/9/26 15:07,4/9/26 15:07,NULL,"San Luis Obisco, CA",USA,SBP
+1346,4/9/26 15:07,4/9/26 15:07,NULL,Springbok,South Africa,SBU
+1347,4/9/26 15:07,4/9/26 15:07,NULL,Sibu,Malaysia,SBW
+1348,4/9/26 15:07,4/9/26 15:07,NULL,"Salisbury, MD",USA,SBY
+1349,4/9/26 15:07,4/9/26 15:07,NULL,"Prudhoe Bay, AK",USA,SCC
+1350,4/9/26 15:07,4/9/26 15:07,NULL,"State College/Belefonte, PA",USA,SCE
+1351,4/9/26 15:07,4/9/26 15:07,NULL,"Scottsdale, AZ",USA,SCF
+1352,4/9/26 15:07,4/9/26 15:07,NULL,"Stockton, CA",USA,SCK
+1353,4/9/26 15:07,4/9/26 15:07,NULL,Santiago de Chile - Arturo Merino Benitez,Chile,SCL
+1354,4/9/26 15:07,4/9/26 15:07,NULL,Saarbruecken,Germany,SCN
+1355,4/9/26 15:07,4/9/26 15:07,NULL,Santiago de Compostela,Spain,SCQ
+1356,4/9/26 15:07,4/9/26 15:07,NULL,Santiago - Antonio Maceo Airport,Cuba,SCU
+1357,4/9/26 15:07,4/9/26 15:07,NULL,"Bagdad, Saddam International",Iraq,SDA
+1358,4/9/26 15:07,4/9/26 15:07,NULL,"Louisville, KY",USA,SDF
+1359,4/9/26 15:07,4/9/26 15:07,NULL,Santa Rosa Copan,Honduras,SDH
+1360,4/9/26 15:07,4/9/26 15:07,NULL,Sendai,Japan,SDJ
+1361,4/9/26 15:07,4/9/26 15:07,NULL,Sundsvall,Sweden,SDL
+1362,4/9/26 15:07,4/9/26 15:07,NULL,Santo Domingo,Dominican Republic,SDQ
+1363,4/9/26 15:07,4/9/26 15:07,NULL,Santander,Spain,SDR
+1364,4/9/26 15:07,4/9/26 15:07,NULL,Sado Shima,Japan,SDS
+1365,4/9/26 15:07,4/9/26 15:07,NULL,Saidu Sharif,Pakistan,SDT
+1366,4/9/26 15:07,4/9/26 15:07,NULL,Rio de Janeiro - Santos Dumont,Brazil,SDU
+1367,4/9/26 15:07,4/9/26 15:07,NULL,"Sidney, MT",USA,SDY
+1368,4/9/26 15:07,4/9/26 15:07,NULL,"Seattle/Tacoma, WA",USA,SEA
+1369,4/9/26 15:07,4/9/26 15:07,NULL,Sehba,Libya,SEB
+1370,4/9/26 15:07,4/9/26 15:07,NULL,Seoul - Kimpo,South Korea,SEL
+1371,4/9/26 15:07,4/9/26 15:07,NULL,Southend,United Kingdom,SEN
+1372,4/9/26 15:07,4/9/26 15:07,NULL,Siwa,Egypt,SEW
+1373,4/9/26 15:07,4/9/26 15:07,NULL,Mahe - Seychelles Int'l,Seychelles,SEZ
+1374,4/9/26 15:07,4/9/26 15:07,NULL,Sfax,Tunisia,SFA
+1375,4/9/26 15:07,4/9/26 15:07,NULL,St. Martin,St. Martin,SFG
+1376,4/9/26 15:07,4/9/26 15:07,NULL,Soendre Stroemfjord,Greenland,SFJ
+1377,4/9/26 15:07,4/9/26 15:07,NULL,"San Francisco - Int'l Airport, SA",USA,SFO
+1378,4/9/26 15:07,4/9/26 15:07,NULL,Soenderborg,Denmark,SGD
+1379,4/9/26 15:07,4/9/26 15:07,NULL,"Springfield, MO",USA,SGF
+1380,4/9/26 15:07,4/9/26 15:07,NULL,Saigon (Ho Chi Minh City),Viet Nam,SGN
+1381,4/9/26 15:07,4/9/26 15:07,NULL,"St. George, UT",USA,SGU
+1382,4/9/26 15:07,4/9/26 15:07,NULL,"Skagway, AK",USA,SGY
+1383,4/9/26 15:07,4/9/26 15:07,NULL,Shanghai - Hongqiao,China,SHA
+1384,4/9/26 15:07,4/9/26 15:07,NULL,"Shenandoah Valley/Stauton, VA",USA,SHD
+1385,4/9/26 15:07,4/9/26 15:07,NULL,Shenyang,"Liaoning, China",SHE
+1386,4/9/26 15:07,4/9/26 15:07,NULL,Sharjah,UAE,SHJ
+1387,4/9/26 15:07,4/9/26 15:07,NULL,"Sheridan, WY",USA,SHR
+1388,4/9/26 15:07,4/9/26 15:07,NULL,"Shreveport, La",USA,SHV
+1389,4/9/26 15:07,4/9/26 15:07,NULL,Sal,Cape Verde,SID
+1390,4/9/26 15:07,4/9/26 15:07,NULL,Singapore - Changi,Singapore,SIN
+1391,4/9/26 15:07,4/9/26 15:07,NULL,Simferopol,Ukraine,SIP
+1392,4/9/26 15:07,4/9/26 15:07,NULL,Sishen,South Africa,SIS
+1393,4/9/26 15:07,4/9/26 15:07,NULL,"Sitka, AK",USA,SIT
+1394,4/9/26 15:07,4/9/26 15:07,NULL,Singleton,Australia,SIX
+1395,4/9/26 15:07,4/9/26 15:07,NULL,"San Jose, CA",USA,SJC
+1396,4/9/26 15:07,4/9/26 15:07,NULL,San Jose Cabo,Mexico,SJD
+1397,4/9/26 15:07,4/9/26 15:07,NULL,Sarajevo,Bosnia and Herzegovina,SJJ
+1398,4/9/26 15:07,4/9/26 15:07,NULL,San Jose,Costa Rica,SJO
+1399,4/9/26 15:07,4/9/26 15:07,NULL,"San Angelo, TX",USA,SJT
+1400,4/9/26 15:07,4/9/26 15:07,NULL,San Juan Perto,Rico,SJU
+1401,4/9/26 15:07,4/9/26 15:07,NULL,Seinaejoki,Finland,SJY
+1402,4/9/26 15:07,4/9/26 15:07,NULL,St. Kitts,St. Kitts And Nevis,SKB
+1403,4/9/26 15:07,4/9/26 15:07,NULL,Samarkand,Uzbekistan,SKD
+1404,4/9/26 15:07,4/9/26 15:07,NULL,Thessaloniki - Makedonia Apt.,Greece,SKG
+1405,4/9/26 15:07,4/9/26 15:07,NULL,Skopje,Macedonia,SKP
+1406,4/9/26 15:07,4/9/26 15:07,NULL,Skrydstrup,Denmark,SKS
+1407,4/9/26 15:07,4/9/26 15:07,NULL,Santa Katarina - Mount Sinai,Egypt,SKV
+1408,4/9/26 15:07,4/9/26 15:07,NULL,Sukkur,Pakistan,SKZ
+1409,4/9/26 15:07,4/9/26 15:07,NULL,"Salta, Gen Belgrano",Argentina,SLA
+1410,4/9/26 15:07,4/9/26 15:07,NULL,"Salt Lake City, UT",USA,SLC
+1411,4/9/26 15:07,4/9/26 15:07,NULL,"Salem, OR",USA,SLE
+1412,4/9/26 15:07,4/9/26 15:07,NULL,Salalah,Oman,SLL
+1413,4/9/26 15:07,4/9/26 15:07,NULL,San Luis Potosi,Mexico,SLP
+1414,4/9/26 15:07,4/9/26 15:07,NULL,Silistra,Bulgaria,SLS
+1415,4/9/26 15:07,4/9/26 15:07,NULL,St. Lucia Vigle,St. Lucia,SLU
+1416,4/9/26 15:07,4/9/26 15:07,NULL,Sao Luis,Brazil,SLZ
+1417,4/9/26 15:07,4/9/26 15:07,NULL,Santa Maria,Portugal,SMA
+1418,4/9/26 15:07,4/9/26 15:07,NULL,"Sacramento, CA",USA,SMF
+1419,4/9/26 15:07,4/9/26 15:07,NULL,Samos,Greece,SMI
+1420,4/9/26 15:07,4/9/26 15:07,NULL,"Santa Maria, CA",USA,SMX
+1421,4/9/26 15:07,4/9/26 15:07,NULL,"Orange County (Santa Ana), CA",USA,SNA
+1422,4/9/26 15:07,4/9/26 15:07,NULL,Salinas,Ecuador,SNC
+1423,4/9/26 15:07,4/9/26 15:07,NULL,Shannon (Limerick),Ireland,SNN
+1424,4/9/26 15:07,4/9/26 15:07,NULL,"Salinas, CA",USA,SNS
+1425,4/9/26 15:07,4/9/26 15:07,NULL,Sofia - Vrazhdebna,Bulgaria,SOF
+1426,4/9/26 15:07,4/9/26 15:07,NULL,Sogndal,Norway,SOG
+1427,4/9/26 15:07,4/9/26 15:07,NULL,South Molle Island,Australia,SOI
+1428,4/9/26 15:07,4/9/26 15:07,NULL,Santo,Vanuatu,SON
+1429,4/9/26 15:07,4/9/26 15:07,NULL,Sodankylae,Finland,SOT
+1430,4/9/26 15:07,4/9/26 15:07,NULL,Southampton - Eastleigh,United Kingdom,SOU
+1431,4/9/26 15:07,4/9/26 15:07,NULL,Santa Cruz de la Palma,Spain,SPC
+1432,4/9/26 15:07,4/9/26 15:07,NULL,"Springfield, IL",USA,SPI
+1433,4/9/26 15:07,4/9/26 15:07,NULL,Sapporo,"Hokkaido, Japan",SPK
+1434,4/9/26 15:07,4/9/26 15:07,NULL,Saipan,Northern Mariana Islands,SPN
+1435,4/9/26 15:07,4/9/26 15:07,NULL,"Wichita Falls, TX",USA,SPS
+1436,4/9/26 15:07,4/9/26 15:07,NULL,Split,Croatia (Hrvatska),SPU
+1437,4/9/26 15:07,4/9/26 15:07,NULL,San Pedro,Ivory Coast,SPY
+1438,4/9/26 15:07,4/9/26 15:07,NULL,Santa Rosa,Bolivia,SRB
+1439,4/9/26 15:07,4/9/26 15:07,NULL,"Sarasota/Bradenton, FL",USA,SRQ
+1440,4/9/26 15:07,4/9/26 15:07,NULL,Santa Cruz de la Sierra,Bolivia,SRZ
+1441,4/9/26 15:07,4/9/26 15:07,NULL,Salvador,Brazil,SSA
+1442,4/9/26 15:07,4/9/26 15:07,NULL,Malabo,Equatorial Guinea,SSG
+1443,4/9/26 15:07,4/9/26 15:07,NULL,Sharm El Sheikh,Egypt,SSH
+1444,4/9/26 15:07,4/9/26 15:07,NULL,Santa Rosalia,Colombia,SSL
+1445,4/9/26 15:07,4/9/26 15:07,NULL,"St. Louis - Lambert, MO",USA,STL
+1446,4/9/26 15:07,4/9/26 15:07,NULL,Stansted (London),United Kingdom,STN
+1447,4/9/26 15:07,4/9/26 15:07,NULL,Stockholm Metropolitan Area,Sweden,STO
+1448,4/9/26 15:07,4/9/26 15:07,NULL,Stuttgart - Echterdingen,Germany,STR
+1449,4/9/26 15:07,4/9/26 15:07,NULL,"Santa Rosa, CA",USA,STS
+1450,4/9/26 15:07,4/9/26 15:07,NULL,St. Thomas,Virgin Islands,STT
+1451,4/9/26 15:07,4/9/26 15:07,NULL,Surat,India,STV
+1452,4/9/26 15:07,4/9/26 15:07,NULL,St. Croix,Virgin Islands,STX
+1453,4/9/26 15:07,4/9/26 15:07,NULL,Surabaya - Juanda,Indonesia,SUB
+1454,4/9/26 15:07,4/9/26 15:07,NULL,Lamezia Terme,Italy,SUF
+1455,4/9/26 15:07,4/9/26 15:07,NULL,Sui,Pakistan,SUL
+1456,4/9/26 15:07,4/9/26 15:07,NULL,Agana,Guam,SUM
+1457,4/9/26 15:07,4/9/26 15:07,NULL,"Sun Valley, ID",USA,SUN
+1458,4/9/26 15:07,4/9/26 15:07,NULL,Suva/Nausori,Fiji,SUV
+1459,4/9/26 15:07,4/9/26 15:07,NULL,"Sioux City, IA",USA,SUX
+1460,4/9/26 15:07,4/9/26 15:07,NULL,St. Vincent,St. Vincent,SVD
+1461,4/9/26 15:07,4/9/26 15:07,NULL,Stavanger,Norway,SVG
+1462,4/9/26 15:07,4/9/26 15:07,NULL,Savonlinna,Finland,SVL
+1463,4/9/26 15:07,4/9/26 15:07,NULL,Moscow - Sheremetyevo,Russia,SVO
+1464,4/9/26 15:07,4/9/26 15:07,NULL,Sevilla,Spain,SVQ
+1465,4/9/26 15:07,4/9/26 15:07,NULL,"Newburgh, NY",USA,SWF
+1466,4/9/26 15:07,4/9/26 15:07,NULL,Swakopmund,Namibia,SWP
+1467,4/9/26 15:07,4/9/26 15:07,NULL,Strassburg,France,SXB
+1468,4/9/26 15:07,4/9/26 15:07,NULL,"Berlin, Schoenefeld",Germany,SXF
+1469,4/9/26 15:07,4/9/26 15:07,NULL,Sligo,Ireland,SXL
+1470,4/9/26 15:07,4/9/26 15:07,NULL,St. Marteen,Netherlands Antilles,SXM
+1471,4/9/26 15:07,4/9/26 15:07,NULL,Srinagar,India,SXR
+1472,4/9/26 15:07,4/9/26 15:07,NULL,Sydney - Kingsford Smith,Australia,SYD
+1473,4/9/26 15:07,4/9/26 15:07,NULL,"Syracuse, NY",USA,SYR
+1474,4/9/26 15:07,4/9/26 15:07,NULL,Stornway,United Kingdom,SYY
+1475,4/9/26 15:07,4/9/26 15:07,NULL,Kuala Lumpur - Sultan Abdul Aziz Shah,Malaysia,SZB
+1476,4/9/26 15:07,4/9/26 15:07,NULL,"Sheffield, City Airport",UK,SZD
+1477,4/9/26 15:07,4/9/26 15:07,NULL,Salzburg - W.A. Mozart,Austria,SZG
+1478,4/9/26 15:07,4/9/26 15:07,NULL,Skukuza,South Africa,SZK
+1479,4/9/26 15:07,4/9/26 15:07,NULL,Shenzhen,"Guangdong, China",SZX
+1480,4/9/26 15:07,4/9/26 15:07,NULL,Stettin,Poland,SZZ
+1481,4/9/26 15:07,4/9/26 15:07,NULL,Tobago,Tobago,TAB
+1482,4/9/26 15:07,4/9/26 15:07,NULL,Takamatsu,Japan,TAK
+1483,4/9/26 15:07,4/9/26 15:07,NULL,Tampico - Gen. F. Javier Mina,Mexico,TAM
+1484,4/9/26 15:07,4/9/26 15:07,NULL,Qingdao,"Shandong, China",TAO
+1485,4/9/26 15:07,4/9/26 15:07,NULL,Tashkent - Vostochny,Uzbekistan,TAS
+1486,4/9/26 15:07,4/9/26 15:07,NULL,Taipei - Sung Shan,Taiwan,TAY
+1487,4/9/26 15:07,4/9/26 15:07,NULL,Tbilisi - Novo Alexeyevka,Georgia,TBS
+1488,4/9/26 15:07,4/9/26 15:07,NULL,Nuku'alofa - Fua'Amotu International,Tonga,TBU
+1489,4/9/26 15:07,4/9/26 15:07,NULL,Tennant Creek,Australia,TCA
+1490,4/9/26 15:07,4/9/26 15:07,NULL,Treasure Cay,Bahamas,TCB
+1491,4/9/26 15:07,4/9/26 15:07,NULL,Tenerife,Spain,TCI
+1492,4/9/26 15:07,4/9/26 15:07,NULL,"Tuscaloosa, AL",USA,TCL
+1493,4/9/26 15:07,4/9/26 15:07,NULL,Thaba'Nchu,South Africa,TCU
+1494,4/9/26 15:07,4/9/26 15:07,NULL,Thisted,Denmark,TED
+1495,4/9/26 15:07,4/9/26 15:07,NULL,Temora,Australia,TEM
+1496,4/9/26 15:07,4/9/26 15:07,NULL,Terceira,Portugal,TER
+1497,4/9/26 15:07,4/9/26 15:07,NULL,Te Anau,New Zealand,TEU
+1498,4/9/26 15:07,4/9/26 15:07,NULL,"Telluride, CO",USA,TEX
+1499,4/9/26 15:07,4/9/26 15:07,NULL,Tenerife - Norte Los Rodeos,Spain,TFN
+1500,4/9/26 15:07,4/9/26 15:07,NULL,Tenerife - Sur Reina Sofia,Spain,TFS
+1501,4/9/26 15:07,4/9/26 15:07,NULL,Podgorica,Yugoslavia,TGD
+1502,4/9/26 15:07,4/9/26 15:07,NULL,Tegucigalpa,Honduras,TGU
+1503,4/9/26 15:07,4/9/26 15:07,NULL,Targovishte,Bulgaria,TGV
+1504,4/9/26 15:07,4/9/26 15:07,NULL,Tuxtla Gutierrez,Mexico,TGZ
+1505,4/9/26 15:07,4/9/26 15:07,NULL,Teresina,Brazil,THE
+1506,4/9/26 15:07,4/9/26 15:07,NULL,"Berlin, Tempelhof",Germany,THF
+1507,4/9/26 15:07,4/9/26 15:07,NULL,Tehran (Teheran) - Mehrabad,Iran,THR
+1508,4/9/26 15:07,4/9/26 15:07,NULL,Tirana - Rinas,Albania,TIA
+1509,4/9/26 15:07,4/9/26 15:07,NULL,Taif,Saudi Arabia,TIF
+1510,4/9/26 15:07,4/9/26 15:07,NULL,Tijuana - Rodriguez,Mexico,TIJ
+1511,4/9/26 15:07,4/9/26 15:07,NULL,Tripoli - Tripoli Int'l,Libya,TIP
+1512,4/9/26 15:07,4/9/26 15:07,NULL,Thursday Island,Australia,TIS
+1513,4/9/26 15:07,4/9/26 15:07,NULL,Tivat,Yugoslavia,TIV
+1514,4/9/26 15:07,4/9/26 15:07,NULL,"Talkeetna, AK",USA,TKA
+1515,4/9/26 15:07,4/9/26 15:07,NULL,Tokushima,Japan,TKS
+1516,4/9/26 15:07,4/9/26 15:07,NULL,Turku,Finland,TKU
+1517,4/9/26 15:07,4/9/26 15:07,NULL,"Tallahassee, FL",USA,TLH
+1518,4/9/26 15:07,4/9/26 15:07,NULL,Tallinn - Ulemiste,Estonia,TLL
+1519,4/9/26 15:07,4/9/26 15:07,NULL,Toulouse - Blagnac,France,TLS
+1520,4/9/26 15:07,4/9/26 15:07,NULL,Tel Aviv - Ben Gurion Int'l,Israel,TLV
+1521,4/9/26 15:07,4/9/26 15:07,NULL,Tampere,Finland,TMP
+1522,4/9/26 15:07,4/9/26 15:07,NULL,Sao Tome,Sao Tome & Principe,TMS
+1523,4/9/26 15:07,4/9/26 15:07,NULL,Tamworth,Australia,TMW
+1524,4/9/26 15:07,4/9/26 15:07,NULL,Termez (Termes),Uzbekistan,TMZ
+1525,4/9/26 15:07,4/9/26 15:07,NULL,Jinan,"Shandong, China",TNA
+1526,4/9/26 15:07,4/9/26 15:07,NULL,Tanger - Boukhalef,Morocco,TNG
+1527,4/9/26 15:07,4/9/26 15:07,NULL,Antananarivo (Tanannarive),Madagascar,TNR
+1528,4/9/26 15:07,4/9/26 15:07,NULL,Tioman,Indonesia,TOD
+1529,4/9/26 15:07,4/9/26 15:07,NULL,"Toledo, OH",USA,TOL
+1530,4/9/26 15:07,4/9/26 15:07,NULL,Tromsoe,Norway,TOS
+1531,4/9/26 15:07,4/9/26 15:07,NULL,Touho,New Caledonia,TOU
+1532,4/9/26 15:07,4/9/26 15:07,NULL,Toyama,Japan,TOY
+1533,4/9/26 15:07,4/9/26 15:07,NULL,"Tampa Int'l, FL",USA,TPA
+1534,4/9/26 15:07,4/9/26 15:07,NULL,Taipei - Chiang Kai Shek,Taiwan,TPE
+1535,4/9/26 15:07,4/9/26 15:07,NULL,Tom Price,Australia,TPR
+1536,4/9/26 15:07,4/9/26 15:07,NULL,Trapani,Italy,TPS
+1537,4/9/26 15:07,4/9/26 15:07,NULL,Trondheim,Norway,TRD
+1538,4/9/26 15:07,4/9/26 15:07,NULL,Oslo - Sandefjord,Norway,TRF
+1539,4/9/26 15:07,4/9/26 15:07,NULL,"Tri-Cities Regional, TN/VA",USA,TRI
+1540,4/9/26 15:07,4/9/26 15:07,NULL,Turin,Italy,TRN
+1541,4/9/26 15:07,4/9/26 15:07,NULL,Taree,Australia,TRO
+1542,4/9/26 15:07,4/9/26 15:07,NULL,Trieste,Italy,TRS
+1543,4/9/26 15:07,4/9/26 15:07,NULL,Thiruvananthapuram,India,TRV
+1544,4/9/26 15:07,4/9/26 15:07,NULL,Tiruchirapally,India,TRZ
+1545,4/9/26 15:07,4/9/26 15:07,NULL,Tsumeb,Namibia,TSB
+1546,4/9/26 15:07,4/9/26 15:07,NULL,Astana,Kazakstan,TSE
+1547,4/9/26 15:07,4/9/26 15:07,NULL,Treviso,Italy,TSF
+1548,4/9/26 15:07,4/9/26 15:07,NULL,Tianjin,China,TSN
+1549,4/9/26 15:07,4/9/26 15:07,NULL,Townsville,Australia,TSV
+1550,4/9/26 15:07,4/9/26 15:07,NULL,"Trenton/Princeton, NJ",USA,TTN
+1551,4/9/26 15:07,4/9/26 15:07,NULL,Turbat,Pakistan,TUK
+1552,4/9/26 15:07,4/9/26 15:07,NULL,"Tulsa, OK",USA,TUL
+1553,4/9/26 15:07,4/9/26 15:07,NULL,Tunis - Carthage,Tunisia,TUN
+1554,4/9/26 15:07,4/9/26 15:07,NULL,"Tulepo, MS",USA,TUP
+1555,4/9/26 15:07,4/9/26 15:07,NULL,"Tucson, AZ",USA,TUS
+1556,4/9/26 15:07,4/9/26 15:07,NULL,Tabuk,Saudi Arabia,TUU
+1557,4/9/26 15:07,4/9/26 15:07,NULL,"Traverse City, MI",USA,TVC
+1558,4/9/26 15:07,4/9/26 15:07,NULL,"Thief River Falls, MN",USA,TVF
+1559,4/9/26 15:07,4/9/26 15:07,NULL,"Lake Tahoe, CA",USA,TVL
+1560,4/9/26 15:07,4/9/26 15:07,NULL,Toowoomba,Australia,TWB
+1561,4/9/26 15:07,4/9/26 15:07,NULL,"Twin Falls, ID",USA,TWF
+1562,4/9/26 15:07,4/9/26 15:07,NULL,Tawau,Malaysia,TWU
+1563,4/9/26 15:07,4/9/26 15:07,NULL,"Texarkana, AR",USA,TXK
+1564,4/9/26 15:07,4/9/26 15:07,NULL,"Berlin, Tegel",Germany,TXL
+1565,4/9/26 15:07,4/9/26 15:07,NULL,Taiyuan,"Shanxi, China",TYN
+1566,4/9/26 15:07,4/9/26 15:07,NULL,Tokyo,Japan,TYO
+1567,4/9/26 15:07,4/9/26 15:07,NULL,"Tyler, TX",USA,TYR
+1568,4/9/26 15:07,4/9/26 15:07,NULL,"Knoxville, TN",USA,TYS
+1569,4/9/26 15:07,4/9/26 15:07,NULL,Narsarsuaq,Greenland,UAK
+1570,4/9/26 15:07,4/9/26 15:07,NULL,"Utica, NY",USA,UCA
+1571,4/9/26 15:07,4/9/26 15:07,NULL,"Uberlandia, MG",Brazil,UDI
+1572,4/9/26 15:07,4/9/26 15:07,NULL,Queenstown,Australia,UEE
+1573,4/9/26 15:07,4/9/26 15:07,NULL,Quetta,Pakistan,UET
+1574,4/9/26 15:07,4/9/26 15:07,NULL,"Quincy, IL",USA,UIN
+1575,4/9/26 15:07,4/9/26 15:07,NULL,Quito - Mariscal Sucr,Ecuador,UIO
+1576,4/9/26 15:07,4/9/26 15:07,NULL,Quimper,France,UIP
+1577,4/9/26 15:07,4/9/26 15:07,NULL,Kobe,Japan,UKB
+1578,4/9/26 15:07,4/9/26 15:07,NULL,Kyoto,Japan,UKY
+1579,4/9/26 15:07,4/9/26 15:07,NULL,Ulundi,South Africa,ULD
+1580,4/9/26 15:07,4/9/26 15:07,NULL,Ulaanbaatar - Buyant Uhaa,Mongolia,ULN
+1581,4/9/26 15:07,4/9/26 15:07,NULL,Gulu,Uganda,ULU
+1582,4/9/26 15:07,4/9/26 15:07,NULL,Woomera,Australia,UMR
+1583,4/9/26 15:07,4/9/26 15:07,NULL,Ujung Pandang,Indonesia,UPG
+1584,4/9/26 15:07,4/9/26 15:07,NULL,Urumqi,"Xinjiang, China",URC
+1585,4/9/26 15:07,4/9/26 15:07,NULL,Upington,South Africa,UTN
+1586,4/9/26 15:07,4/9/26 15:07,NULL,Utapao (Pattaya),Thailand,UTP
+1587,4/9/26 15:07,4/9/26 15:07,NULL,Umtata,South Africa,UTT
+1588,4/9/26 15:07,4/9/26 15:07,NULL,Ulan-Ude,Russia,UUD
+1589,4/9/26 15:07,4/9/26 15:07,NULL,Oyem,Gabon/Loyautte,UVE
+1590,4/9/26 15:07,4/9/26 15:07,NULL,St. Lucia Hewanorra,St. Lucia,UVF
+1591,4/9/26 15:07,4/9/26 15:07,NULL,New Valley - Kharga,Egypt,UVL
+1592,4/9/26 15:07,4/9/26 15:07,NULL,Vaasa,Finland,VAA
+1593,4/9/26 15:07,4/9/26 15:07,NULL,Valparaiso,Chile,VAP
+1594,4/9/26 15:07,4/9/26 15:07,NULL,Varna,Bulgaria,VAR
+1595,4/9/26 15:07,4/9/26 15:07,NULL,Verona (Brescia) Montichiari,Italy,VBS
+1596,4/9/26 15:07,4/9/26 15:07,NULL,Visby,Sweden,VBY
+1597,4/9/26 15:07,4/9/26 15:07,NULL,Venice - Marco Polo,Italy,VCE
+1598,4/9/26 15:07,4/9/26 15:07,NULL,Sao Paulo - Viracopos,Brazil,VCP
+1599,4/9/26 15:07,4/9/26 15:07,NULL,"Elat, Ovula",Israel,VDA
+1600,4/9/26 15:07,4/9/26 15:07,NULL,Valverde,Spain,VDE
+1601,4/9/26 15:07,4/9/26 15:07,NULL,"Valdez, AK",USA,VDZ
+1602,4/9/26 15:07,4/9/26 15:07,NULL,"Vernal, UT",USA,VEL
+1603,4/9/26 15:07,4/9/26 15:07,NULL,Veracruz,Mexico,VER
+1604,4/9/26 15:07,4/9/26 15:07,NULL,Victoria Falls,Zimbabwe,VFA
+1605,4/9/26 15:07,4/9/26 15:07,NULL,Vigo,Spain,VGO
+1606,4/9/26 15:07,4/9/26 15:07,NULL,Vidin,Bulgaria,VID
+1607,4/9/26 15:07,4/9/26 15:07,NULL,Wien (Vienna) - Vienna Int'l,Austria,VIE
+1608,4/9/26 15:07,4/9/26 15:07,NULL,Virgin Gorda,Virgin Islands,VIJ
+1609,4/9/26 15:07,4/9/26 15:07,NULL,"Visalia, CA",USA,VIS
+1610,4/9/26 15:07,4/9/26 15:07,NULL,Vitoria,Spain,VIT
+1611,4/9/26 15:07,4/9/26 15:07,NULL,Moscow - Vnukovo,Russia,VKO
+1612,4/9/26 15:07,4/9/26 15:07,NULL,Valencia,Spain,VLC
+1613,4/9/26 15:07,4/9/26 15:07,NULL,"Valdosta, GA",USA,VLD
+1614,4/9/26 15:07,4/9/26 15:07,NULL,Port Vila,Vanuatu,VLI
+1615,4/9/26 15:07,4/9/26 15:07,NULL,Valladolid,Spain,VLL
+1616,4/9/26 15:07,4/9/26 15:07,NULL,Velikiye Luki (Welikije Luki),Russia,VLU
+1617,4/9/26 15:07,4/9/26 15:07,NULL,Wilna (Vilnius),Lithuania,VNO
+1618,4/9/26 15:07,4/9/26 15:07,NULL,Varanasi,India,VNS
+1619,4/9/26 15:07,4/9/26 15:07,NULL,"Fort Walton Beach, FL",USA,VPS
+1620,4/9/26 15:07,4/9/26 15:07,NULL,Varadero,Cuba,VRA
+1621,4/9/26 15:07,4/9/26 15:07,NULL,"Vero Beach/Ft. Pierce, FL",USA,VRB
+1622,4/9/26 15:07,4/9/26 15:07,NULL,Varkaus,Finland,VRK
+1623,4/9/26 15:07,4/9/26 15:07,NULL,Verona,Italy,VRN
+1624,4/9/26 15:07,4/9/26 15:07,NULL,Villahermosa,Mexico,VSA
+1625,4/9/26 15:07,4/9/26 15:07,NULL,Vasteras,Sweden,VST
+1626,4/9/26 15:07,4/9/26 15:07,NULL,Vientiane - Wattay,Laos,VTE
+1627,4/9/26 15:07,4/9/26 15:07,NULL,Vaexjoe,Sweden,VXO
+1628,4/9/26 15:07,4/9/26 15:07,NULL,Vryheid,South Africa,VYD
+1629,4/9/26 15:07,4/9/26 15:07,NULL,"Washington, DC",USA,WAS
+1630,4/9/26 15:07,4/9/26 15:07,NULL,Warsaw,Poland,WAW
+1631,4/9/26 15:07,4/9/26 15:07,NULL,Windhoek - Hosea Kutako Int'l,Namibia,WDH
+1632,4/9/26 15:07,4/9/26 15:07,NULL,Weipa,Australia,WEI
+1633,4/9/26 15:07,4/9/26 15:07,NULL,Welkom,South Africa,WEL
+1634,4/9/26 15:07,4/9/26 15:07,NULL,Wagga,Australia,WGA
+1635,4/9/26 15:07,4/9/26 15:07,NULL,Whakatane,New Zealand,WHK
+1636,4/9/26 15:07,4/9/26 15:07,NULL,Wickham,Australia,WHM
+1637,4/9/26 15:07,4/9/26 15:07,NULL,Wick,United Kingdom,WIC
+1638,4/9/26 15:07,4/9/26 15:07,NULL,"Wiesbaden, Air Base",Germany,WIE
+1639,4/9/26 15:07,4/9/26 15:07,NULL,"Labouchere Bay, AK",USA,WLB
+1640,4/9/26 15:07,4/9/26 15:07,NULL,Wellington,New Zealand,WLG
+1641,4/9/26 15:07,4/9/26 15:07,NULL,Wallis,Wallis and Futuna Islands,WLS
+1642,4/9/26 15:07,4/9/26 15:07,NULL,Warrnambool,Australia,WMB
+1643,4/9/26 15:07,4/9/26 15:07,NULL,Nawab Shah,Pakistan,WNS
+1644,4/9/26 15:07,4/9/26 15:07,NULL,Wollongong,Australia,WOL
+1645,4/9/26 15:07,4/9/26 15:07,NULL,Whangarei,New Zealand,WRE
+1646,4/9/26 15:07,4/9/26 15:07,NULL,"Wrangell, AK",USA,WRG
+1647,4/9/26 15:07,4/9/26 15:07,NULL,"Worland, WY",USA,WRL
+1648,4/9/26 15:07,4/9/26 15:07,NULL,Wuhan,"Hubei, China",WUH
+1649,4/9/26 15:07,4/9/26 15:07,NULL,Wiluna,Australia,WUN
+1650,4/9/26 15:07,4/9/26 15:07,NULL,Walvis Bay,South Africa,WVB
+1651,4/9/26 15:07,4/9/26 15:07,NULL,Whyalla,Australia,WYA
+1652,4/9/26 15:07,4/9/26 15:07,NULL,Wyndham,Australia,WYN
+1653,4/9/26 15:07,4/9/26 15:07,NULL,"West Yellowstone, MT",USA,WYS
+1654,4/9/26 15:07,4/9/26 15:07,NULL,Xi'an - Xianyang,"Shaanxi, China",XIY
+1655,4/9/26 15:07,4/9/26 15:07,NULL,"Lac Brochet, MB",Canada,XLB
+1656,4/9/26 15:07,4/9/26 15:07,NULL,Manihi,French Polynesia,XMH
+1657,4/9/26 15:07,4/9/26 15:07,NULL,Xiamen,"Fujian, China",XMN
+1658,4/9/26 15:07,4/9/26 15:07,NULL,"Fayetteville, AR",USA,XNA
+1659,4/9/26 15:07,4/9/26 15:07,NULL,Pukatawagan,Canada,XPK
+1660,4/9/26 15:07,4/9/26 15:07,NULL,Jerez de la Frontera/Cadiz,Spain,XRY
+1661,4/9/26 15:07,4/9/26 15:07,NULL,"South Indian Lake, MB",Canada,XSI
+1662,4/9/26 15:07,4/9/26 15:07,NULL,"Yakutat, AK",USA,YAK
+1663,4/9/26 15:07,4/9/26 15:07,NULL,Yaounde,Cameroon,YAO
+1664,4/9/26 15:07,4/9/26 15:07,NULL,"Attawapiskat, NT",Canada,YAT
+1665,4/9/26 15:07,4/9/26 15:07,NULL,Cambridge Bay,Canada,YCB
+1666,4/9/26 15:07,4/9/26 15:07,NULL,Deer Lake/Corner Brook,Canada,YDF
+1667,4/9/26 15:07,4/9/26 15:07,NULL,Edmonton,Canada,YEA
+1668,4/9/26 15:07,4/9/26 15:07,NULL,"Edmonton, International",Canada,YEG
+1669,4/9/26 15:07,4/9/26 15:07,NULL,Inuvik,Canada,YEV
+1670,4/9/26 15:07,4/9/26 15:07,NULL,Fort Albert,Canada,YFA
+1671,4/9/26 15:07,4/9/26 15:07,NULL,Iqaluit (Frobisher Bay),Canada,YFB
+1672,4/9/26 15:07,4/9/26 15:07,NULL,Fredericton,Canada,YFC
+1673,4/9/26 15:07,4/9/26 15:07,NULL,Flin Flon,Canada,YFO
+1674,4/9/26 15:07,4/9/26 15:07,NULL,La Grande,Canada,YGL
+1675,4/9/26 15:07,4/9/26 15:07,NULL,Kuujjuarapik,Canada,YGW
+1676,4/9/26 15:07,4/9/26 15:07,NULL,Gillam,Canada,YGX
+1677,4/9/26 15:07,4/9/26 15:07,NULL,Hamilton,Canada,YHM
+1678,4/9/26 15:07,4/9/26 15:07,NULL,"Harrington Harbour, PQ",Canada,YHR
+1679,4/9/26 15:07,4/9/26 15:07,NULL,Halifax Int'l,Canada,YHZ
+1680,4/9/26 15:07,4/9/26 15:07,NULL,"St. Augustin, PQ",Canada,YIF
+1681,4/9/26 15:07,4/9/26 15:07,NULL,"Yakima, WA",USA,YKM
+1682,4/9/26 15:07,4/9/26 15:07,NULL,Yakutsk,Russian Federation,YKS
+1683,4/9/26 15:07,4/9/26 15:07,NULL,Leaf Rapids,Canada,YLR
+1684,4/9/26 15:07,4/9/26 15:07,NULL,"Kelowna, BC",Canada,YLW
+1685,4/9/26 15:07,4/9/26 15:07,NULL,Fort McMurray,Canada,YMM
+1686,4/9/26 15:07,4/9/26 15:07,NULL,Montreal,Canada,YMQ
+1687,4/9/26 15:07,4/9/26 15:07,NULL,Montreal - Mirabel,Canada,YMX
+1688,4/9/26 15:07,4/9/26 15:07,NULL,Yanbu,Saudi Arabia,YNB
+1689,4/9/26 15:07,4/9/26 15:07,NULL,Yokohama,Japan,YOK
+1690,4/9/26 15:07,4/9/26 15:07,NULL,"Rainbow Lake, AB",Canada,YOP
+1691,4/9/26 15:07,4/9/26 15:07,NULL,Ottawa - Hull,Canada,YOW
+1692,4/9/26 15:07,4/9/26 15:07,NULL,"Port Menier, PQ",Canada,YPN
+1693,4/9/26 15:07,4/9/26 15:07,NULL,Prince Rupert/Digby Island,Canada,YPR
+1694,4/9/26 15:07,4/9/26 15:07,NULL,Quebec - Quebec Int'l,Canada,YQB
+1695,4/9/26 15:07,4/9/26 15:07,NULL,The Pas,Canada,YQD
+1696,4/9/26 15:07,4/9/26 15:07,NULL,Windsor Ontario,Canada,YQG
+1697,4/9/26 15:07,4/9/26 15:07,NULL,Moncton,Canada,YQM
+1698,4/9/26 15:07,4/9/26 15:07,NULL,Regina,Canada,YQR
+1699,4/9/26 15:07,4/9/26 15:07,NULL,Thunder Bay,Canada,YQT
+1700,4/9/26 15:07,4/9/26 15:07,NULL,Gander,Canada,YQX
+1701,4/9/26 15:07,4/9/26 15:07,NULL,Resolute Bay,Canada,YRB
+1702,4/9/26 15:07,4/9/26 15:07,NULL,Saint John,Canada,YSJ
+1703,4/9/26 15:07,4/9/26 15:07,NULL,Fort Smith,Canada,YSM
+1704,4/9/26 15:07,4/9/26 15:07,NULL,Nanisivik,Canada,YSR
+1705,4/9/26 15:07,4/9/26 15:07,NULL,Thompson,Canada,YTH
+1706,4/9/26 15:07,4/9/26 15:07,NULL,Toronto,Canada,YTO
+1707,4/9/26 15:07,4/9/26 15:07,NULL,Toronto Island,Canada,YTZ
+1708,4/9/26 15:07,4/9/26 15:07,NULL,Montreal - Dorval (Montr?al-Trudeau),Canada,YUL
+1709,4/9/26 15:07,4/9/26 15:07,NULL,"Yuma, AZ",USA,YUM
+1710,4/9/26 15:07,4/9/26 15:07,NULL,Hall Beach,Canada,YUX
+1711,4/9/26 15:07,4/9/26 15:07,NULL,Moroni - Iconi,Comoros (Comores),YVA
+1712,4/9/26 15:07,4/9/26 15:07,NULL,"Bonaventure, PQ",Canada,YVB
+1713,4/9/26 15:07,4/9/26 15:07,NULL,Val d'Or,Canada,YVO
+1714,4/9/26 15:07,4/9/26 15:07,NULL,Kuujjuaq (FortChimo),Canada,YVP
+1715,4/9/26 15:07,4/9/26 15:07,NULL,Norman Wells,Canada,YVQ
+1716,4/9/26 15:07,4/9/26 15:07,NULL,Vancouver - Vancouver Int'l,Canada,YVR
+1717,4/9/26 15:07,4/9/26 15:07,NULL,Winnipeg Int'l,Canada,YWG
+1718,4/9/26 15:07,4/9/26 15:07,NULL,Wabush,Canada,YWK
+1719,4/9/26 15:07,4/9/26 15:07,NULL,"Edmonton, Municipal",Canada,YXD
+1720,4/9/26 15:07,4/9/26 15:07,NULL,Saskatoon,Canada,YXE
+1721,4/9/26 15:07,4/9/26 15:07,NULL,Fort St. John,Canada,YXJ
+1722,4/9/26 15:07,4/9/26 15:07,NULL,"Whale Cove, NT",Canada,YXN
+1723,4/9/26 15:07,4/9/26 15:07,NULL,Prince George,Canada,YXS
+1724,4/9/26 15:07,4/9/26 15:07,NULL,Terrace,Canada,YXT
+1725,4/9/26 15:07,4/9/26 15:07,NULL,London,Canada,YXU
+1726,4/9/26 15:07,4/9/26 15:07,NULL,Whitehorse,Canada,YXY
+1727,4/9/26 15:07,4/9/26 15:07,NULL,Calgary/Banff,Canada,YYC
+1728,4/9/26 15:07,4/9/26 15:07,NULL,Smithers,Canada,YYD
+1729,4/9/26 15:07,4/9/26 15:07,NULL,Victoria,Canada,YYJ
+1730,4/9/26 15:07,4/9/26 15:07,NULL,Churchill,Canada,YYQ
+1731,4/9/26 15:07,4/9/26 15:07,NULL,Goose Bay,Canada,YYR
+1732,4/9/26 15:07,4/9/26 15:07,NULL,St. John's,Canada,YYT
+1733,4/9/26 15:07,4/9/26 15:07,NULL,Toronto - Lester B. Pearson,Canada,YYZ
+1734,4/9/26 15:07,4/9/26 15:07,NULL,Yellowknife,Canada,YZF
+1735,4/9/26 15:07,4/9/26 15:07,NULL,Sandspit,Canada,YZP
+1736,4/9/26 15:07,4/9/26 15:07,NULL,Zadar,Croatia (Hrvatska),ZAD
+1737,4/9/26 15:07,4/9/26 15:07,NULL,Zagreb - Pleso,Croatia (Hrvatska),ZAG
+1738,4/9/26 15:07,4/9/26 15:07,NULL,Zaragoza,Spain,ZAZ
+1739,4/9/26 15:07,4/9/26 15:07,NULL,Bowen,Australia,ZBO
+1740,4/9/26 15:07,4/9/26 15:07,NULL,Zacatecas,Mexico,ZCL
+1741,4/9/26 15:07,4/9/26 15:07,NULL,Ixtapa/Zihuatenejo,Mexico,ZIH
+1742,4/9/26 15:07,4/9/26 15:07,NULL,Hong Kong - Chek Lap Kok,Hong Kong,ZJK
+1743,4/9/26 15:07,4/9/26 15:07,NULL,"Kaschechawan, PQ",Canada,ZKE
+1744,4/9/26 15:07,4/9/26 15:07,NULL,Manzanillo,Mexico,ZLO
+1745,4/9/26 15:07,4/9/26 15:07,NULL,Zinder,Niger,ZND
+1746,4/9/26 15:07,4/9/26 15:07,NULL,Newman,Australia,ZNE
+1747,4/9/26 15:07,4/9/26 15:07,NULL,Kempten,Germany,ZNS
+1748,4/9/26 15:07,4/9/26 15:07,NULL,Zanzibar - Zanzibar Island,Tanzania,ZNZ
+1749,4/9/26 15:07,4/9/26 15:07,NULL,Zurich (Z?rich) - Kloten,Switzerland,ZRH
+1750,4/9/26 15:07,4/9/26 15:07,NULL,San Salvador,Bahamas,ZSA
+1751,4/9/26 15:07,4/9/26 15:07,NULL,Sassandra,Ivory Coast,ZSS
+1752,4/9/26 15:07,4/9/26 15:07,NULL,Zakynthos,Greece,ZTH
+1753,4/9/26 15:07,4/9/26 15:07,NULL,"Shamattawa, MB",Canada,ZTM
+1754,4/9/26 15:07,4/9/26 15:07,NULL,Sylhet,Bangladesh,ZYL

@@ -51,13 +51,24 @@ def is_superadmin(user):
 def check_admin_auth(request):
     """
     Check if the request is from an authenticated admin user.
-    Tries session auth first, then falls back to basic auth for API testing.
+    Tries session auth first, then falls back to basic auth or X-User-ID for local development.
     """
-    # First check session authentication
+    # 1. Check standard session authentication
     if request.user.is_authenticated and request.user.is_staff:
         return True, request.user
     
-    # For development: check basic auth header as fallback
+    # 2. Local Dev Fallback: Check X-User-ID header
+    # This is useful when session cookies are blocked by browser SameSite policies on localhost
+    user_id = request.headers.get('X-User-ID')
+    if user_id:
+        try:
+            user = User.objects.get(pk=user_id)
+            if user.is_staff:
+                return True, user
+        except (User.DoesNotExist, ValueError, ValidationError):
+            pass
+
+    # 3. Development Fallback: Basic Auth
     import base64
     auth_header = request.META.get('HTTP_AUTHORIZATION', '')
     if auth_header.startswith('Basic '):
@@ -281,19 +292,28 @@ def login_api(request):
             status=400,
         )
 
-    username = body.get('username')
+    username_or_email = body.get('username')
     password = body.get('password')
 
-    if not username or not password:
+    if not username_or_email or not password:
         return JsonResponse(
             {
                 'success': False,
-                'message': 'Both username and password are required.',
+                'message': 'Both username/email and password are required.',
             },
             status=400,
         )
 
-    user = authenticate(request, username=username, password=password)
+    # Try standard authentication first (using it as a username)
+    user = authenticate(request, username=username_or_email, password=password)
+
+    # If it fails, try to see if it's an email
+    if user is None:
+        try:
+            user_obj = User.objects.get(email=username_or_email)
+            user = authenticate(request, username=user_obj.username, password=password)
+        except (User.DoesNotExist, User.MultipleObjectsReturned):
+            pass
 
     if user is None:
         return JsonResponse(

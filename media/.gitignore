@@ -1,0 +1,4 @@
+# Don't track uploaded images in git
+*
+!.gitkeep
+!.gitignore

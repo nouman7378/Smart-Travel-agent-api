@@ -10,6 +10,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
+# Create media directories for uploaded images
+RUN mkdir -p /app/media/hotels /app/media/rooms /app/media/packages /app/media/cars
+
 RUN python manage.py collectstatic --no-input
 
 EXPOSE 8080

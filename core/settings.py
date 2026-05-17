@@ -6,30 +6,12 @@ from pathlib import Path
 import environ
 import sys
 import dj_database_url
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
 from corsheaders.defaults import default_headers
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env()
 environ.Env.read_env(BASE_DIR / '.env')
-
-# Cloudinary
-CLOUDINARY_CLOUD_NAME = env('CLOUDINARY_CLOUD_NAME', default='drpi30orb')
-CLOUDINARY_API_KEY = env('CLOUDINARY_API_KEY', default='896978247751483')
-CLOUDINARY_API_SECRET = env('CLOUDINARY_API_SECRET', default='ZawwGBG9xRZwtqnY542imwdSDdo')
-
-cloudinary.config(
-    cloud_name=CLOUDINARY_CLOUD_NAME,
-    api_key=CLOUDINARY_API_KEY,
-    api_secret=CLOUDINARY_API_SECRET,
-    secure=True
-)
-
-print(f"Cloudinary Config - Cloud Name: {cloudinary.config().cloud_name}", file=sys.stderr)
-print(f"Cloudinary Config - API Key: {cloudinary.config().api_key[:6] if cloudinary.config().api_key else 'None'}...", file=sys.stderr)
 
 # Security
 SECRET_KEY = env('SECRET_KEY', default='django-insecure-mt5e=iuws1c!4xb)7zxvl1z#k*y_wpy9mqi6g*rgt_-sbtc+4+')
@@ -70,8 +52,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
-    'cloudinary',
-    'cloudinary_storage',
     'api',
 ]
 
@@ -147,6 +127,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Media files (user-uploaded images for hotels, rooms, cars, packages)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

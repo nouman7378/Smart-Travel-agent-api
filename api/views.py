@@ -1020,30 +1020,14 @@ def hotel_create_api(request):
         except ValueError:
             distance_from_center = 0
         
-        # Handle image upload to Cloudinary
+        # Handle image upload (local storage)
+        from api.utils.image_upload import save_uploaded_image
         image_url = ''
         upload_error = None
         if 'image' in request.FILES:
-            try:
-                # Import cloudinary here to ensure config is loaded
-                import cloudinary.uploader
-                # Debug info
-                print(f"Uploading image: {request.FILES['image'].name}, size: {request.FILES['image'].size}", file=sys.stderr)
-                upload_result = cloudinary.uploader.upload(
-                    request.FILES['image'],
-                    folder='hotels/',
-                    resource_type='image'
-                )
-                image_url = upload_result.get('secure_url', '')
-                print(f"Upload successful: {image_url}", file=sys.stderr)
-            except Exception as e:
-                # Log the error but don't fail - create hotel without image
-                import logging
-                logger = logging.getLogger(__name__)
-                logger.error(f'Cloudinary upload failed: {str(e)}')
-                print(f'Cloudinary upload error: {str(e)}', file=sys.stderr)
-                upload_error = str(e)
-                # Continue without image - hotel will be created without an image URL
+            image_url = save_uploaded_image(request.FILES['image'], subfolder='hotels')
+            if not image_url:
+                upload_error = 'Failed to save image locally'
         
         # Create hotel
         hotel = Hotel.objects.create(
@@ -1163,23 +1147,12 @@ def hotel_update_api(request, hotel_id):
         if is_active is not None:
             hotel.is_active = is_active.lower() in ('true', '1', 'yes')
         
-        # Handle image upload to Cloudinary
+        # Handle image upload (local storage)
         if 'image' in request.FILES:
-            try:
-                # Import cloudinary here to ensure config is loaded
-                import cloudinary.uploader
-                upload_result = cloudinary.uploader.upload(
-                    request.FILES['image'],
-                    folder='hotels/',
-                    resource_type='image'
-                )
-                hotel.image_url = upload_result.get('secure_url', '')
-            except Exception as e:
-                # Log the error but don't fail - update hotel without new image
-                import logging
-                logger = logging.getLogger(__name__)
-                logger.error(f'Cloudinary upload failed: {str(e)}')
-                # Continue without updating image
+            from api.utils.image_upload import save_uploaded_image
+            new_url = save_uploaded_image(request.FILES['image'], subfolder='hotels')
+            if new_url:
+                hotel.image_url = new_url
         
         hotel.save()
         
@@ -1317,30 +1290,14 @@ def room_create_api(request, hotel_id):
     try:
         hotel = Hotel.objects.get(id=hotel_id)
         
-        # Handle image upload to Cloudinary
+        # Handle image upload (local storage)
+        from api.utils.image_upload import save_uploaded_image
         room_image_url = ''
         upload_error = None
         if 'image' in request.FILES:
-            try:
-                # Import cloudinary here to ensure config is loaded
-                import cloudinary.uploader
-                # Debug info
-                print(f"Uploading room image: {request.FILES['image'].name}, size: {request.FILES['image'].size}", file=sys.stderr)
-                upload_result = cloudinary.uploader.upload(
-                    request.FILES['image'],
-                    folder='rooms/',
-                    resource_type='image'
-                )
-                room_image_url = upload_result.get('secure_url', '')
-                print(f"Room image upload successful: {room_image_url}", file=sys.stderr)
-            except Exception as e:
-                # Log the error but don't fail - create room without image
-                import logging
-                logger = logging.getLogger(__name__)
-                logger.error(f'Cloudinary room image upload failed: {str(e)}')
-                print(f'Cloudinary room image upload error: {str(e)}', file=sys.stderr)
-                upload_error = str(e)
-                # Continue without image - room will be created without an image URL
+            room_image_url = save_uploaded_image(request.FILES['image'], subfolder='rooms')
+            if not room_image_url:
+                upload_error = 'Failed to save room image locally'
         
         # Parse form data
         room_type = request.POST.get('room_type', '')
@@ -1435,27 +1392,12 @@ def room_update_api(request, room_id):
     try:
         room = Room.objects.get(id=room_id)
         
-        # Handle image upload to Cloudinary
+        # Handle image upload (local storage)
         if 'image' in request.FILES:
-            try:
-                # Import cloudinary here to ensure config is loaded
-                import cloudinary.uploader
-                # Debug info
-                print(f"Updating room image: {request.FILES['image'].name}, size: {request.FILES['image'].size}", file=sys.stderr)
-                upload_result = cloudinary.uploader.upload(
-                    request.FILES['image'],
-                    folder='rooms/',
-                    resource_type='image'
-                )
-                room.room_image_url = upload_result.get('secure_url', '')
-                print(f"Room image update successful: {room.room_image_url}", file=sys.stderr)
-            except Exception as e:
-                # Log the error but don't fail - continue with other updates
-                import logging
-                logger = logging.getLogger(__name__)
-                logger.error(f'Cloudinary room image update failed: {str(e)}')
-                print(f'Cloudinary room image update error: {str(e)}', file=sys.stderr)
-                # Continue without updating image
+            from api.utils.image_upload import save_uploaded_image
+            new_url = save_uploaded_image(request.FILES['image'], subfolder='rooms')
+            if new_url:
+                room.room_image_url = new_url
         
         # Parse form data (for non-file fields)
         # Note: For PUT requests with FormData, we need to handle it differently
@@ -1935,8 +1877,13 @@ def car_create_api(request):
             # Boolean conversion
             is_available = is_available_raw in ('true', '1', 'yes', 'on')
 
-            # Optional image URL coming from the form (we ignore uploaded file here)
-            car_image_url = request.POST.get('car_image_url', '').strip()
+            # Handle car image upload (local storage) or fallback to URL
+            from api.utils.image_upload import save_uploaded_image
+            car_image_url = ''
+            if 'image' in request.FILES:
+                car_image_url = save_uploaded_image(request.FILES['image'], subfolder='cars')
+            if not car_image_url:
+                car_image_url = request.POST.get('car_image_url', '').strip()
 
             car = Car.objects.create(
                 model=model,
@@ -2530,25 +2477,11 @@ def package_create_api(request):
                         status=400
                     )
                     
-                # Handle image upload to Cloudinary
+                # Handle image upload (local storage)
+                from api.utils.image_upload import save_uploaded_image
                 hotel_image_url = ''
                 if 'hotel_image' in request.FILES:
-                    try:
-                        # Import cloudinary here to ensure config is loaded
-                        import cloudinary.uploader
-                        upload_result = cloudinary.uploader.upload(
-                            request.FILES['hotel_image'],
-                            folder='packages/',
-                            resource_type='image'
-                        )
-                        hotel_image_url = upload_result.get('secure_url', '')
-                    except Exception as e:
-                        # Log the error but don't fail - create package without image
-                        import logging
-                        logger = logging.getLogger(__name__)
-                        logger.error(f'Cloudinary upload failed: {str(e)}')
-                        # Continue without image - package will be created without an image URL
-                        hotel_image_url = ''
+                    hotel_image_url = save_uploaded_image(request.FILES['hotel_image'], subfolder='packages')
                     
                 # Get other optional fields
                 description = request.POST.get('description', '')
@@ -2817,23 +2750,12 @@ def package_update_api(request, package_id):
                 nights = request.POST.get('nights', '')
                 package_type = request.POST.get('package_type', '').strip()
                     
-                # Handle image upload to Cloudinary
+                # Handle image upload (local storage)
                 if 'hotel_image' in request.FILES:
-                    try:
-                        # Import cloudinary here to ensure config is loaded
-                        import cloudinary.uploader
-                        upload_result = cloudinary.uploader.upload(
-                            request.FILES['hotel_image'],
-                            folder='packages/',
-                            resource_type='image'
-                        )
-                        package.hotel_image_url = upload_result.get('secure_url', '')
-                    except Exception as e:
-                        # Log the error but don't fail - update package without new image
-                        import logging
-                        logger = logging.getLogger(__name__)
-                        logger.error(f'Cloudinary upload failed: {str(e)}')
-                        # Continue without updating image
+                    from api.utils.image_upload import save_uploaded_image
+                    new_url = save_uploaded_image(request.FILES['hotel_image'], subfolder='packages')
+                    if new_url:
+                        package.hotel_image_url = new_url
                     
                 # Update fields if provided
                 if title:

@@ -15,6 +15,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 from core.admin_config import superadmin_site
 
@@ -22,3 +24,6 @@ urlpatterns = [
     path('admin/', superadmin_site.urls),
     path('api/', include('api.urls')),
 ]
+
+# Serve uploaded media files (images for hotels, rooms, packages, cars)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

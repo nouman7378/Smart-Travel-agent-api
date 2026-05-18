@@ -28,6 +28,12 @@ CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:5174',
     'http://localhost:5175',
     'http://127.0.0.1:5175',
+    'http://localhost:5176',
+    'http://127.0.0.1:5176',
+    'http://localhost:5177',
+    'http://127.0.0.1:5177',
+    'http://localhost:5178',
+    'http://127.0.0.1:5178',
 ]
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_HEADERS = list(default_headers) + ['x-user-id']

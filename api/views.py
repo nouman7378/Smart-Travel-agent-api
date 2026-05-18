@@ -1467,7 +1467,7 @@ def hotel_create_api(request):
             rating=rating,
             review_count=review_count,
             distance_from_center=distance_from_center,
-            image_url=image_url,
+            image=image_url,
             is_active=True
         )
         
@@ -1778,7 +1778,7 @@ def room_create_api(request, hotel_id):
             original_price=original_price if original_price else None,
             available_rooms=available_rooms,
             max_guests=max_guests,
-            room_image_url=room_image_url,
+            room_image=room_image_url,
             amenities=amenities,
             is_active=is_active.lower() == 'true'
         )
@@ -2330,7 +2330,7 @@ def car_create_api(request):
                 company=company,
                 price_per_day=price_per_day,
                 original_price=original_price or None,
-                car_image_url=car_image_url,
+                car_image=car_image_url,
                 transmission=transmission,
                 seats=seats,
                 luggage_capacity=luggage_capacity,
@@ -2386,7 +2386,7 @@ def car_create_api(request):
                 company=data['company'],
                 price_per_day=data['price_per_day'],
                 original_price=data.get('original_price'),
-                car_image_url=data.get('car_image_url', ''),
+                car_image=data.get('car_image_url', ''),
                 transmission=data['transmission'],
                 seats=data['seats'],
                 luggage_capacity=data.get('luggage_capacity', 2),
@@ -3043,7 +3043,7 @@ def package_create_api(request):
                     hotel_stars=hotel_stars,
                     hotel_rating=hotel_rating,
                     hotel_review_count=hotel_review_count,
-                    hotel_image_url=hotel_image_url,
+                    hotel_image=hotel_image_url,
                     airline=airline,
                     departure_airport=departure_airport,
                     arrival_airport=arrival_airport,
@@ -3117,7 +3117,7 @@ def package_create_api(request):
                     hotel_stars=data.get('hotel_stars', 3),
                     hotel_rating=data.get('hotel_rating', 0.00),
                     hotel_review_count=data.get('hotel_review_count', 0),
-                    hotel_image_url=data.get('hotel_image_url', ''),
+                    hotel_image=data.get('hotel_image_url', ''),
                     airline=data['airline'],
                     departure_airport=data['departure_airport'],
                     arrival_airport=data['arrival_airport'],

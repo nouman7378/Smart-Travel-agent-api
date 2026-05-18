@@ -1447,13 +1447,15 @@ def hotel_create_api(request):
         except ValueError:
             distance_from_center = 0
         
-        # Handle image upload (local storage)
+        # Handle image upload (local storage) or fallback to URL
         from api.utils.image_upload import save_uploaded_image
-        image_url = ''
+        image_url = request.POST.get('image_url', '').strip()
         upload_error = None
         if 'image' in request.FILES:
-            image_url = save_uploaded_image(request.FILES['image'], subfolder='hotels')
-            if not image_url:
+            saved_url = save_uploaded_image(request.FILES['image'], subfolder='hotels')
+            if saved_url:
+                image_url = saved_url
+            else:
                 upload_error = 'Failed to save image locally'
         
         # Create hotel
@@ -1574,7 +1576,11 @@ def hotel_update_api(request, hotel_id):
         if is_active is not None:
             hotel.is_active = is_active.lower() in ('true', '1', 'yes')
         
-        # Handle image upload (local storage)
+        # Handle image upload (local storage) or image URL text input
+        image_url_input = request.POST.get('image_url', '').strip()
+        if image_url_input:
+            hotel.image_url = image_url_input
+        
         if 'image' in request.FILES:
             from api.utils.image_upload import save_uploaded_image
             new_url = save_uploaded_image(request.FILES['image'], subfolder='hotels')
@@ -1717,13 +1723,15 @@ def room_create_api(request, hotel_id):
     try:
         hotel = Hotel.objects.get(id=hotel_id)
         
-        # Handle image upload (local storage)
+        # Handle image upload (local storage) or fallback to URL
         from api.utils.image_upload import save_uploaded_image
-        room_image_url = ''
+        room_image_url = request.POST.get('room_image_url', '').strip()
         upload_error = None
         if 'image' in request.FILES:
-            room_image_url = save_uploaded_image(request.FILES['image'], subfolder='rooms')
-            if not room_image_url:
+            saved_url = save_uploaded_image(request.FILES['image'], subfolder='rooms')
+            if saved_url:
+                room_image_url = saved_url
+            else:
                 upload_error = 'Failed to save room image locally'
         
         # Parse form data
@@ -1819,7 +1827,11 @@ def room_update_api(request, room_id):
     try:
         room = Room.objects.get(id=room_id)
         
-        # Handle image upload (local storage)
+        # Handle image upload (local storage) or room image URL text input
+        room_image_url_input = request.POST.get('room_image_url', '').strip()
+        if room_image_url_input:
+            room.room_image_url = room_image_url_input
+            
         if 'image' in request.FILES:
             from api.utils.image_upload import save_uploaded_image
             new_url = save_uploaded_image(request.FILES['image'], subfolder='rooms')
@@ -2496,6 +2508,11 @@ def car_update_api(request, car_id):
                 car.features = features
             if 'car_image_url' in request.POST:
                 car.car_image_url = request.POST.get('car_image_url', car.car_image_url).strip()
+            if 'image' in request.FILES:
+                from api.utils.image_upload import save_uploaded_image
+                new_url = save_uploaded_image(request.FILES['image'], subfolder='cars')
+                if new_url:
+                    car.car_image_url = new_url
             if 'is_available' in request.POST:
                 is_available_raw = request.POST.get('is_available', str(car.is_available)).strip().lower()
                 car.is_available = is_available_raw in ('true', '1', 'yes', 'on')

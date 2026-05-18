@@ -375,12 +375,13 @@ def login_api(request):
     # Try standard authentication first (using it as a username)
     user = authenticate(request, username=username_or_email, password=password)
 
-    # If it fails, try to see if it's an email
+    # If it fails, try to see if it's an email (prioritizing staff accounts if duplicates exist)
     if user is None:
         try:
-            user_obj = User.objects.get(email=username_or_email)
-            user = authenticate(request, username=user_obj.username, password=password)
-        except (User.DoesNotExist, User.MultipleObjectsReturned):
+            user_obj = User.objects.filter(email=username_or_email).order_by('-is_staff').first()
+            if user_obj:
+                user = authenticate(request, username=user_obj.username, password=password)
+        except Exception:
             pass
 
     if user is None:

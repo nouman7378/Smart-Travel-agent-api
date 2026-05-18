@@ -144,6 +144,10 @@ AVIATIONSTACK_API_KEY = env('AVIATIONSTACK_API_KEY', default='')
 OPENAI_API_KEY = env('OPENAI_API_KEY', default='')
 OPENAI_MODEL = env('OPENAI_MODEL', default='gpt-4o-mini')
 OPENAI_REQUEST_TIMEOUT = env.int('OPENAI_REQUEST_TIMEOUT', default=25)
+
+# Gemini API
+GEMINI_API_KEY = env('GEMINI_API_KEY', default=env('gen-lang-client-0987898960', default=''))
+
 CSRF_TRUSTED_ORIGINS = ['https://smart-travel.fly.dev']
 
 # Stripe Payment

@@ -3937,3 +3937,28 @@ def airport_search(request):
         return JsonResponse(response.json(), safe=False)
     except Exception as e:
         return JsonResponse({'success': False, 'message': str(e)}, status=500)
+
+
+from django.views import View
+from django.utils.decorators import method_decorator
+from api.services.rag import answer_question
+
+@method_decorator(csrf_exempt, name='dispatch')
+class ChatView(View):
+    """
+    RAG Chat endpoint to process user queries augmented with database context.
+    """
+    def post(self, request, *args, **kwargs):
+        try:
+            body = json.loads(request.body.decode('utf-8'))
+            question = body.get('question', '')
+            session_id = body.get('session_id')
+
+            if not question:
+                return JsonResponse({'success': False, 'message': 'question is required.'}, status=400)
+
+            result = answer_question(question, session_id=session_id)
+            return JsonResponse(result)
+        except Exception as e:
+            return JsonResponse({'success': False, 'message': str(e)}, status=500)
+

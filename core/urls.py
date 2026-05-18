@@ -19,9 +19,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from core.admin_config import superadmin_site
+from api.views import ChatView
 
 urlpatterns = [
     path('admin/', superadmin_site.urls),
+    path('api/chat/', ChatView.as_view()),
     path('api/', include('api.urls')),
 ]
 

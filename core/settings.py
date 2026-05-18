@@ -34,6 +34,10 @@ CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:5177',
     'http://localhost:5178',
     'http://127.0.0.1:5178',
+    'https://smart-travel-agent-zeta.vercel.app',
+]
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://.*\.vercel\.app$",
 ]
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_HEADERS = list(default_headers) + ['x-user-id']
@@ -154,7 +158,10 @@ OPENAI_REQUEST_TIMEOUT = env.int('OPENAI_REQUEST_TIMEOUT', default=25)
 # Gemini API
 GEMINI_API_KEY = env('GEMINI_API_KEY', default=env('gen-lang-client-0987898960', default=''))
 
-CSRF_TRUSTED_ORIGINS = ['https://smart-travel.fly.dev']
+CSRF_TRUSTED_ORIGINS = [
+    'https://smart-travel.fly.dev',
+    'https://smart-travel-agent-zeta.vercel.app',
+]
 
 # Stripe Payment
 STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY', default='')

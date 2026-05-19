@@ -57,6 +57,13 @@ class Hotel(models.Model):
         """Returns formatted distance display."""
         return f"{self.distance_from_center:.1f} km from center"
 
+    def save(self, *args, **kwargs):
+        from django.core.files.uploadedfile import UploadedFile
+        if self.image and isinstance(self.image, UploadedFile):
+            from api.utils.image_upload import save_uploaded_image
+            self.image = save_uploaded_image(self.image, subfolder='hotels')
+        super().save(*args, **kwargs)
+
 
 class Room(models.Model):
     """
@@ -120,6 +127,13 @@ class Room(models.Model):
         if self.original_price and self.original_price > self.price_per_night:
             return round(((self.original_price - self.price_per_night) / self.original_price) * 100)
         return 0
+
+    def save(self, *args, **kwargs):
+        from django.core.files.uploadedfile import UploadedFile
+        if self.room_image and isinstance(self.room_image, UploadedFile):
+            from api.utils.image_upload import save_uploaded_image
+            self.room_image = save_uploaded_image(self.room_image, subfolder='rooms')
+        super().save(*args, **kwargs)
 
 
 class City(models.Model):
@@ -253,6 +267,13 @@ class Car(models.Model):
         if self.original_price and self.original_price > self.price_per_day:
             return round(((self.original_price - self.price_per_day) / self.original_price) * 100)
         return 0
+
+    def save(self, *args, **kwargs):
+        from django.core.files.uploadedfile import UploadedFile
+        if self.car_image and isinstance(self.car_image, UploadedFile):
+            from api.utils.image_upload import save_uploaded_image
+            self.car_image = save_uploaded_image(self.car_image, subfolder='cars')
+        super().save(*args, **kwargs)
 
 
 class Package(models.Model):
@@ -396,6 +417,13 @@ class Package(models.Model):
     def remaining_availability(self):
         """Calculate remaining available slots."""
         return max(0, self.availability - self.bookings)
+
+    def save(self, *args, **kwargs):
+        from django.core.files.uploadedfile import UploadedFile
+        if self.hotel_image and isinstance(self.hotel_image, UploadedFile):
+            from api.utils.image_upload import save_uploaded_image
+            self.hotel_image = save_uploaded_image(self.hotel_image, subfolder='packages')
+        super().save(*args, **kwargs)
 
 
 class Booking(models.Model):

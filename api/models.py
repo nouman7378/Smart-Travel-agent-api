@@ -36,9 +36,11 @@ class Hotel(models.Model):
     @property
     def image_url(self):
         if self.image:
-            if hasattr(self.image, 'url'):
-                return self.image.url
-            return str(self.image)
+            url_str = self.image.url if hasattr(self.image, 'url') else str(self.image)
+            if '/media/' in url_str:
+                idx = url_str.find('/media/')
+                return url_str[idx:]
+            return url_str
         return ''
 
     @image_url.setter
@@ -89,9 +91,11 @@ class Room(models.Model):
     @property
     def room_image_url(self):
         if self.room_image:
-            if hasattr(self.room_image, 'url'):
-                return self.room_image.url
-            return str(self.room_image)
+            url_str = self.room_image.url if hasattr(self.room_image, 'url') else str(self.room_image)
+            if '/media/' in url_str:
+                idx = url_str.find('/media/')
+                return url_str[idx:]
+            return url_str
         return ''
 
     @room_image_url.setter
@@ -220,9 +224,11 @@ class Car(models.Model):
     @property
     def car_image_url(self):
         if self.car_image:
-            if hasattr(self.car_image, 'url'):
-                return self.car_image.url
-            return str(self.car_image)
+            url_str = self.car_image.url if hasattr(self.car_image, 'url') else str(self.car_image)
+            if '/media/' in url_str:
+                idx = url_str.find('/media/')
+                return url_str[idx:]
+            return url_str
         return ''
 
     @car_image_url.setter
@@ -356,9 +362,11 @@ class Package(models.Model):
     @property
     def hotel_image_url(self):
         if self.hotel_image:
-            if hasattr(self.hotel_image, 'url'):
-                return self.hotel_image.url
-            return str(self.hotel_image)
+            url_str = self.hotel_image.url if hasattr(self.hotel_image, 'url') else str(self.hotel_image)
+            if '/media/' in url_str:
+                idx = url_str.find('/media/')
+                return url_str[idx:]
+            return url_str
         return ''
 
     @hotel_image_url.setter

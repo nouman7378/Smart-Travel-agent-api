@@ -739,4 +739,4 @@ class CommunityPostLike(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ('user', 'post')
+        unique_together = ('user', 'post')

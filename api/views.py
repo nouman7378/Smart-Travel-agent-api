@@ -3017,7 +3017,6 @@ def package_create_api(request):
                     )
                     
                 # Parse JSON arrays
-                import json
                 try:
                     highlights = json.loads(highlights) if highlights.strip() else []
                     if not isinstance(highlights, list):
@@ -3342,7 +3341,6 @@ def package_update_api(request, package_id):
                 # Parse and update JSON arrays
                 if 'highlights' in request.POST:
                     highlights = request.POST.get('highlights', '[]')
-                    import json
                     try:
                         parsed_highlights = json.loads(highlights) if highlights.strip() else []
                         if isinstance(parsed_highlights, list):
@@ -3354,7 +3352,6 @@ def package_update_api(request, package_id):
                     
                 if 'includes' in request.POST:
                     includes = request.POST.get('includes', '[]')
-                    import json
                     try:
                         parsed_includes = json.loads(includes) if includes.strip() else []
                         if isinstance(parsed_includes, list):

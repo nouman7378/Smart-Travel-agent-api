@@ -11,12 +11,64 @@ if api_key:
 else:
     logger.warning("GEMINI_API_KEY is not set in Django settings.")
 
+def _is_casual_smalltalk(question_lower: str) -> bool:
+    """True when the message is general chat, not a catalog lookup."""
+    casual_phrases = (
+        'how are you', 'how r u', "what's up", 'whats up', 'good morning',
+        'good evening', 'good night', 'thank you', 'thanks', 'thx',
+        'bye', 'goodbye', 'see you', 'lol', 'haha', 'nice', 'cool',
+        'who are you', 'what can you do', 'help me', 'bored', 'joke',
+    )
+    if any(p in question_lower for p in casual_phrases):
+        return True
+    # Short greetings only
+    stripped = question_lower.strip('!?., ')
+    if stripped in ('hi', 'hey', 'hello', 'yo', 'sup', 'heey', 'hiya'):
+        return True
+    return False
+
+
+def _casual_smalltalk_reply(question_lower: str) -> str | None:
+    """Friendly replies that do not require database context."""
+    if any(w in question_lower for w in ('thank', 'thx', 'appreciate')):
+        return (
+            "You're very welcome! 😊 If anything else comes up for your trip — "
+            "hotels, flights, cars, packages — just ping me."
+        )
+    if any(w in question_lower for w in ('bye', 'goodbye', 'see you', 'good night')):
+        return "Take care! Safe travels whenever you head out. ✈️"
+    if 'how are you' in question_lower or 'how r u' in question_lower:
+        return (
+            "I'm doing great, thanks for asking! 😄 "
+            "What about you — got a trip in mind, or just browsing ideas?"
+        )
+    if any(w in question_lower for w in ("what's up", 'whats up', 'sup', 'yo')):
+        return "Not much — just here to help you plan something fun. Where's your head at, travel-wise?"
+    if any(w in question_lower for w in ('who are you', 'what can you do', 'what do you do')):
+        return (
+            "I'm your SmartTravel buddy — think friendly travel agent in chat form. "
+            "I can chat about trips, suggest ideas, and pull real listings from our site "
+            "(hotels, cars, packages) when we've got them. No pressure — what's on your mind?"
+        )
+    if 'joke' in question_lower:
+        return (
+            "Why did the passport blush? It saw the traveler's strip search at security. 😅 "
+            "Okay, I'm better at trip planning than stand-up — where would you actually like to go?"
+        )
+    if any(w in question_lower for w in ('hi', 'hello', 'hey', 'greetings', 'heey', 'hiya')):
+        return (
+            "Hey! 👋 Good to see you. I'm here for whatever — trip planning, random travel questions, "
+            "or just figuring out where to go next. What's up?"
+        )
+    return None
+
+
 def generate_local_fallback(question: str, context: str) -> str:
     """
     Generates an intelligent travel assistant response based on matched database context,
     used when the Gemini API key is a placeholder or invalid.
     """
-    question_lower = question.lower()
+    question_lower = question.lower().strip()
     
     # Parse retrieved context categories
     sections = {}
@@ -33,13 +85,22 @@ def generate_local_fallback(question: str, context: str) -> str:
             elif line_strip.startswith('-') and current_section:
                 sections[current_section].append(line_strip[1:].strip())
 
+    # Casual chat — always respond warmly, even with zero DB context
+    if _is_casual_smalltalk(question_lower):
+        smalltalk = _casual_smalltalk_reply(question_lower)
+        if smalltalk:
+            return smalltalk
+
     resp = []
     
-    # 1. Greeting
+    # 1. Greeting (broader patterns)
     if any(kw in question_lower for kw in ['hi', 'hello', 'hey', 'greetings', 'anyone there', 'heey']):
-        resp.append("Hello! I am your SmartTravel Assistant. How can I help you plan your perfect trip today?")
+        resp.append("Hey! 👋 I'm your SmartTravel assistant — happy to help you plan a trip or just chat travel.")
         if not sections:
-            resp.append("\nI can help you search for luxury hotels, find rental cars, explore budget packages, or check destination travel tips. Just ask me!")
+            resp.append(
+                "\nTell me a vibe (beach, city, mountains?) or a budget, and we'll figure something out — "
+                "or browse Hotels / Packages on the site whenever you're ready."
+            )
             
     # 2. Car Rentals
     elif any(kw in question_lower for kw in ['car', 'rent', 'rental', 'vehicle', 'drive', 'cab', 'suv', 'sedan']):
@@ -70,7 +131,11 @@ def generate_local_fallback(question: str, context: str) -> str:
                     resp.append(f"🛏️ *{r}*")
             resp.append("\nWould you like me to guide you on how to book any of these or show more details?")
         else:
-            resp.append("I couldn't find any active hotels or rooms matching that specific search in our catalog. Let me know if you would like me to list our top standard stays!")
+            resp.append(
+                "I don't have an exact match in our catalog for that right now — listings change as admins add them. "
+                "No worries though: try the Hotels page, or tell me a city + budget (e.g. \"Islamabad under 15k\") "
+                "and I'll search again when we've got data. Want general tips on picking a stay meanwhile?"
+            )
 
     # 4. Tour Packages
     elif any(kw in question_lower for kw in ['package', 'tour', 'deal', 'trip', 'vacation', 'holiday']):
@@ -81,7 +146,11 @@ def generate_local_fallback(question: str, context: str) -> str:
                 resp.append(f"✈️ *{p}*")
             resp.append("\nThese packages are inclusive of return flights, hotel accommodation, and airport transfers. Let me know if you want to book one!")
         else:
-            resp.append("I don't see any matching packages in that specific search, but we have amazing featured deals for Bali, Dubai, London, and the Maldives! Would you like to check one of those?")
+            resp.append(
+                "Nothing in our package catalog matches that search at the moment — still happy to brainstorm! "
+                "Packages on the site get updated regularly. What destination and rough budget are you thinking? "
+                "(Weekend getaway vs full week makes a big difference.)"
+            )
 
     # 5. Destination Guide / Travel FAQ
     elif any(kw in question_lower for kw in ['guide', 'tip', 'safe', 'weather', 'attraction', 'visit', 'places', 'faqs']):
@@ -103,11 +172,72 @@ def generate_local_fallback(question: str, context: str) -> str:
                     resp.append(f"- {item}")
         resp.append("\nHow would you like to proceed? I can help you secure a booking or customize your search!")
 
-    # 7. Complete generic default
+    # 7. Empty DB context — stay conversational, don't go blank
+    elif not sections and not context.strip():
+        if any(kw in question_lower for kw in ['hotel', 'stay', 'room', 'car', 'rent', 'package', 'flight', 'trip', 'travel', 'vacation']):
+            resp.append(
+                "Good question! I checked our live catalog and didn't pull up specific listings for that yet — "
+                "the database might be empty for that search, or we need a bit more detail."
+            )
+            resp.append(
+                "\nTry: a city name, your budget in PKR, and dates (even rough). "
+                "Or hop to Flights / Hotels / Packages in the menu — I'll sound smarter once listings are in. "
+                "Want to tell me where you're hoping to go?"
+            )
+        else:
+            resp.append(
+                "I'm here! 😊 Not everything needs a database answer — ask me travel stuff, say hi, "
+                "or tell me what kind of trip you're dreaming about (beach, city break, family, budget?)."
+            )
+
+    # 8. Complete generic default
     else:
-        resp.append("Hi! I am your AI Travel Assistant. I am ready to help you find hotels, rental cars, customized travel packages, and flight guides. Please let me know what destination or budget you are thinking of!")
+        resp.append(
+            "Got it! I'm your travel sidekick on SmartTravel — hotels, cars, packages, flights, random tips. "
+            "What's the plan, or should we start with where you'd like to go?"
+        )
 
     return "\n".join(resp)
+
+
+def _build_system_instruction(has_db_context: bool) -> str:
+    """System persona: warm and human; uses DB when available, never goes silent without it."""
+    base = (
+        "You are the SmartTravel (TravelHub) AI travel buddy — warm, casual, and human, "
+        "like a helpful friend at a travel desk, not a corporate FAQ bot.\n\n"
+        "WHAT YOU KNOW:\n"
+        "- SmartTravel is a travel site: hotels/rooms, flights, car hire, packages, deals, community, cart + Stripe checkout.\n"
+        "- PLATFORM CONTEXT in the prompt describes site sections and sample airports — use it to guide users to the right page.\n"
+        "- RECENT CONVERSATION HISTORY is the ongoing chat — refer back to what the user already said (budget, city, dates).\n"
+        "- DATABASE CONTEXT has live catalog rows when relevant; CATALOG SNAPSHOT / teasers summarize what else exists on the site.\n\n"
+        "STYLE:\n"
+        "- Use natural, conversational language. Short paragraphs are fine.\n"
+        "- Light emoji occasionally (e.g. one per message max), never spam them.\n"
+        "- Match the user's tone: casual if they're casual, a bit more structured if they're planning.\n"
+        "- Ask at most 1–2 friendly follow-up questions when useful (destination, budget in PKR, dates, travelers).\n"
+        "- For greetings, thanks, jokes, or off-topic chat: respond naturally first; gently tie back to travel only if it fits.\n"
+        "- When listing options from context, use bullet points or short numbered lists — easy to scan.\n\n"
+        "DATABASE / RAG RULES:\n"
+        "- When DATABASE CONTEXT lists real hotels, rooms, cars, or packages: quote them accurately (names, PKR prices, IDs if shown).\n"
+        "- NEVER invent specific listing names, prices, or availability that are not in the context.\n"
+    )
+    if has_db_context:
+        base += (
+            "- Prioritize the database context for booking-related answers.\n"
+        )
+    else:
+        base += (
+            "- DATABASE CONTEXT is empty or has no matching records. This is normal — do NOT reply with only "
+            "\"no data\", a blank answer, or refuse to chat.\n"
+            "- Still have a full, friendly conversation: general travel advice, destination ideas, packing tips, "
+            "visa basics (high-level only), best seasons, etc.\n"
+            "- For our catalog (hotels/cars/packages on this site): say you're not seeing exact matches in the "
+            "catalog right now, suggest they browse the site sections, and offer to help once they share city + budget.\n"
+            "- You may suggest popular destination types (beach, city, mountains) without claiming they're in our DB.\n"
+        )
+    base += "\nPrices on this platform are in PKR unless stated otherwise."
+    return base
+
 
 def ask_gemini(question: str, context: str, history=None) -> str:
     """
@@ -122,43 +252,68 @@ def ask_gemini(question: str, context: str, history=None) -> str:
         logger.info("Placeholder GEMINI_API_KEY detected. Using local RAG fallback generator.")
         return generate_local_fallback(question, context)
 
-    # System instruction and context setup
-    system_instruction = (
-        "You are an expert AI Travel Assistant for TravelHub (SmartTravel). "
-        "Use the retrieved database context below to answer the user's question accurately. "
-        "Be friendly, professional, concise, and helpful. If the context does not contain relevant "
-        "details for the question, answer based on your general knowledge but prioritize database context. "
-        "Prices are in PKR (Pakistani Rupees) unless stated otherwise."
+    ctx = (context or "").strip()
+    has_listings = bool(
+        ctx
+        and any(
+            marker in ctx
+            for marker in (
+                'AVAILABLE HOTELS',
+                'AVAILABLE HOTEL ROOMS',
+                'AVAILABLE RENTAL CARS',
+                'TRAVEL PACKAGES',
+                'TRAVEL GUIDES & TIPS',
+                'GENERAL KNOWLEDGE BASE',
+            )
+        )
     )
+    has_db_context = has_listings
+    system_instruction = _build_system_instruction(has_db_context)
 
-    # Format context retrieved from RAG Fetch
-    context_str = f"DATABASE CONTEXT:\n{context}\n" if context else "DATABASE CONTEXT: (No matching records found in database)\n"
+    if has_listings:
+        context_str = f"DATABASE CONTEXT (use for listings):\n{ctx}\n"
+    elif ctx:
+        context_str = f"{ctx}\n"
+    else:
+        context_str = (
+            "DATABASE CONTEXT: (empty — no catalog rows matched this message; "
+            "still reply in a warm, human way using general travel knowledge.)\n"
+        )
 
-    # Assemble conversation history if provided (keep last 5 messages)
     history_str = ""
     if history:
-        history_str = "RECENT CONVERSATION HISTORY:\n"
+        history_str = "RECENT CONVERSATION HISTORY (continue this thread naturally):\n"
         for msg in history:
             role = "User" if msg.sender == 'user' else "Assistant"
-            history_str += f"{role}: {msg.content}\n"
+            # Trim very long prior turns so the model keeps room for catalog context
+            content = msg.content if len(msg.content) <= 500 else msg.content[:500] + "…"
+            history_str += f"{role}: {content}\n"
         history_str += "\n"
 
-    # Build the final combined prompt
-    prompt = (
-        f"{system_instruction}\n\n"
-        f"{context_str}\n"
-        f"{history_str}"
-        f"User: {question}\n"
-        f"Assistant:"
-    )
-
     try:
-        # Use gemini-2.0-flash-exp as requested
-        model = genai.GenerativeModel('gemini-2.0-flash-exp')
-        response = model.generate_content(prompt)
+        model = genai.GenerativeModel(
+            'gemini-2.0-flash-exp',
+            system_instruction=system_instruction,
+        )
+        # User turn only in the prompt; system instruction sets persona
+        user_prompt = (
+            f"{context_str}\n"
+            f"{history_str}"
+            f"User: {question}\n"
+            f"Assistant:"
+        )
+        response = model.generate_content(
+            user_prompt,
+            generation_config=genai.types.GenerationConfig(
+                temperature=0.85,
+                max_output_tokens=1024,
+            ),
+        )
         if response and response.text:
-            return response.text.strip()
-        return "I'm sorry, I couldn't generate a response. Please try again."
+            text = response.text.strip()
+            if text:
+                return text
+        return generate_local_fallback(question, context)
     except Exception as e:
         logger.warning(f"Error calling Gemini API: {str(e)}. Falling back to local RAG generator.")
         return generate_local_fallback(question, context)

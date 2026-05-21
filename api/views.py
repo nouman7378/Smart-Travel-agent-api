@@ -1382,7 +1382,7 @@ def hotel_detail_api(request, hotel_id):
 def hotel_create_api(request):
     """
     Create a new hotel (Super Admin only).
-    Supports image upload to Cloudinary.
+    Supports image upload to S3.
     """
     # Check if user is super admin
     is_auth, user = check_admin_auth(request)
@@ -1508,7 +1508,7 @@ def hotel_create_api(request):
 def hotel_update_api(request, hotel_id):
     """
     Update an existing hotel (Super Admin only).
-    Supports image upload to Cloudinary.
+    Supports image upload to S3.
     """
     # Check if user is super admin
     is_auth, user = check_admin_auth(request)
@@ -1711,7 +1711,7 @@ def hotel_rooms_api(request, hotel_id):
 def room_create_api(request, hotel_id):
     """
     Create a new room for a hotel (Super Admin only).
-    Supports image upload to Cloudinary.
+    Supports image upload to S3.
     """
     # Check if user is super admin
     is_auth, user = check_admin_auth(request)
@@ -1815,7 +1815,7 @@ def room_create_api(request, hotel_id):
 def room_update_api(request, room_id):
     """
     Update a room (Super Admin only).
-    Supports image upload to Cloudinary.
+    Supports image upload to S3.
     """
     # Check if user is super admin
     is_auth, user = check_admin_auth(request)
@@ -2853,7 +2853,7 @@ def package_detail_api(request, package_id):
 def package_create_api(request):
         """Create a new package (admin only).
             
-        Supports image upload to Cloudinary.
+        Supports image upload to S3.
         """
         # Check if user is super admin
         is_auth, user = check_admin_auth(request)
@@ -3167,7 +3167,7 @@ def package_create_api(request):
 def package_update_api(request, package_id):
         """Update an existing package (admin only).
             
-        Supports image upload to Cloudinary.
+        Supports image upload to S3.
         """
         # Check if user is super admin
         is_auth, user = check_admin_auth(request)

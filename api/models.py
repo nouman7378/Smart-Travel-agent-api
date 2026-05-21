@@ -1,6 +1,5 @@
 from django.conf import settings
 from django.db import models
-from cloudinary.models import CloudinaryField
 
 
 class Hotel(models.Model):
@@ -15,7 +14,7 @@ class Hotel(models.Model):
     rating = models.DecimalField(max_digits=3, decimal_places=2, default=0.00)
     review_count = models.IntegerField(default=0)
     distance_from_center = models.DecimalField(max_digits=6, decimal_places=2, help_text='Distance in kilometers')
-    image = CloudinaryField('image', null=True, blank=True)
+    image = models.CharField(max_length=500, blank=True, default='')
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -35,13 +34,8 @@ class Hotel(models.Model):
 
     @property
     def image_url(self):
-        if self.image:
-            url_str = self.image.url if hasattr(self.image, 'url') else str(self.image)
-            if '/media/' in url_str:
-                idx = url_str.find('/media/')
-                return url_str[idx:]
-            return url_str
-        return ''
+        from api.utils.media_url import resolve_media_url
+        return resolve_media_url(self.image)
 
     @image_url.setter
     def image_url(self, value):
@@ -77,7 +71,7 @@ class Room(models.Model):
     original_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, help_text='Original price for discount display')
     available_rooms = models.IntegerField(default=0, help_text='Number of available rooms of this type')
     max_guests = models.IntegerField(default=2, help_text='Maximum number of guests allowed')
-    room_image = CloudinaryField('image', null=True, blank=True)
+    room_image = models.CharField(max_length=500, blank=True, default='')
     amenities = models.JSONField(default=list, blank=True, help_text='List of amenities as strings')
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -97,13 +91,8 @@ class Room(models.Model):
 
     @property
     def room_image_url(self):
-        if self.room_image:
-            url_str = self.room_image.url if hasattr(self.room_image, 'url') else str(self.room_image)
-            if '/media/' in url_str:
-                idx = url_str.find('/media/')
-                return url_str[idx:]
-            return url_str
-        return ''
+        from api.utils.media_url import resolve_media_url
+        return resolve_media_url(self.room_image)
 
     @room_image_url.setter
     def room_image_url(self, value):
@@ -209,7 +198,7 @@ class Car(models.Model):
     company = models.CharField(max_length=100, help_text='Rental company name')
     price_per_day = models.DecimalField(max_digits=10, decimal_places=2, help_text='Price per day in PKR')
     original_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, help_text='Original price for discount display')
-    car_image = CloudinaryField('image', null=True, blank=True)
+    car_image = models.CharField(max_length=500, blank=True, default='')
     transmission = models.CharField(max_length=10, choices=TRANSMISSION_TYPES, default='automatic')
     seats = models.IntegerField(default=5, help_text='Number of seats')
     luggage_capacity = models.IntegerField(default=2, help_text='Luggage capacity in bags')
@@ -237,13 +226,8 @@ class Car(models.Model):
 
     @property
     def car_image_url(self):
-        if self.car_image:
-            url_str = self.car_image.url if hasattr(self.car_image, 'url') else str(self.car_image)
-            if '/media/' in url_str:
-                idx = url_str.find('/media/')
-                return url_str[idx:]
-            return url_str
-        return ''
+        from api.utils.media_url import resolve_media_url
+        return resolve_media_url(self.car_image)
 
     @car_image_url.setter
     def car_image_url(self, value):
@@ -328,7 +312,7 @@ class Package(models.Model):
     hotel_stars = models.IntegerField(choices=[(i, f'{i} Star') for i in range(1, 6)], default=3)
     hotel_rating = models.DecimalField(max_digits=3, decimal_places=2, default=0.00)
     hotel_review_count = models.IntegerField(default=0)
-    hotel_image = CloudinaryField('image', null=True, blank=True)
+    hotel_image = models.CharField(max_length=500, blank=True, default='')
     
     # Flight information
     airline = models.CharField(max_length=100, help_text='Airline name')
@@ -382,13 +366,8 @@ class Package(models.Model):
 
     @property
     def hotel_image_url(self):
-        if self.hotel_image:
-            url_str = self.hotel_image.url if hasattr(self.hotel_image, 'url') else str(self.hotel_image)
-            if '/media/' in url_str:
-                idx = url_str.find('/media/')
-                return url_str[idx:]
-            return url_str
-        return ''
+        from api.utils.media_url import resolve_media_url
+        return resolve_media_url(self.hotel_image)
 
     @hotel_image_url.setter
     def hotel_image_url(self, value):

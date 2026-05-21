@@ -9,8 +9,8 @@ class HotelAdmin(admin.ModelAdmin):
     readonly_fields = ('image_preview',)
 
     def image_preview(self, obj):
-        if obj.image:
-            return format_html('<img src="{}" style="max-height: 80px; max-width: 120px; border-radius: 4px; object-fit: cover;" />', obj.image.url)
+        if obj.image_url:
+            return format_html('<img src="{}" style="max-height: 80px; max-width: 120px; border-radius: 4px; object-fit: cover;" />', obj.image_url)
         return "No Image"
     image_preview.short_description = 'Preview'
 
@@ -21,8 +21,8 @@ class RoomAdmin(admin.ModelAdmin):
     readonly_fields = ('room_image_preview',)
 
     def room_image_preview(self, obj):
-        if obj.room_image:
-            return format_html('<img src="{}" style="max-height: 80px; max-width: 120px; border-radius: 4px; object-fit: cover;" />', obj.room_image.url)
+        if obj.room_image_url:
+            return format_html('<img src="{}" style="max-height: 80px; max-width: 120px; border-radius: 4px; object-fit: cover;" />', obj.room_image_url)
         return "No Image"
     room_image_preview.short_description = 'Preview'
 
@@ -33,8 +33,8 @@ class CarAdmin(admin.ModelAdmin):
     readonly_fields = ('car_image_preview',)
 
     def car_image_preview(self, obj):
-        if obj.car_image:
-            return format_html('<img src="{}" style="max-height: 80px; max-width: 120px; border-radius: 4px; object-fit: cover;" />', obj.car_image.url)
+        if obj.car_image_url:
+            return format_html('<img src="{}" style="max-height: 80px; max-width: 120px; border-radius: 4px; object-fit: cover;" />', obj.car_image_url)
         return "No Image"
     car_image_preview.short_description = 'Preview'
 
@@ -45,8 +45,8 @@ class PackageAdmin(admin.ModelAdmin):
     readonly_fields = ('hotel_image_preview',)
 
     def hotel_image_preview(self, obj):
-        if obj.hotel_image:
-            return format_html('<img src="{}" style="max-height: 80px; max-width: 120px; border-radius: 4px; object-fit: cover;" />', obj.hotel_image.url)
+        if obj.hotel_image_url:
+            return format_html('<img src="{}" style="max-height: 80px; max-width: 120px; border-radius: 4px; object-fit: cover;" />', obj.hotel_image_url)
         return "No Image"
     hotel_image_preview.short_description = 'Preview'
 

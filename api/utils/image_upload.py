@@ -1,63 +1,55 @@
 """
-Cloudinary image upload utility.
+S3 image upload utility (via django-storages).
 
-Saves uploaded images to Cloudinary and returns the secure URL path.
-Falls back to local file storage if Cloudinary upload fails.
+Saves uploaded images to AWS S3 and returns the public URL.
+Falls back to local file storage when S3 is not configured.
 """
 
 import os
 import sys
 import uuid
-import cloudinary
-import cloudinary.uploader
+
 from django.conf import settings
-from django.core.files.storage import FileSystemStorage
+from django.core.files.storage import default_storage, FileSystemStorage
 
 
 def save_uploaded_image(uploaded_file, subfolder='uploads'):
     """
-    Save an uploaded file to Cloudinary with a local storage fallback.
+    Save an uploaded file to S3 (or local media as fallback).
 
     Args:
         uploaded_file: Django UploadedFile (from request.FILES)
-        subfolder: subdirectory/folder (e.g. 'hotels', 'rooms', 'packages', 'cars')
+        subfolder: S3 key prefix (e.g. 'hotels', 'rooms', 'packages', 'cars')
 
     Returns:
-        str: The full secure Cloudinary URL or local relative media path.
-             Returns '' if both upload and local save fail.
+        str: Public HTTPS URL, or '' if save fails.
     """
-    # 1. Attempt Cloudinary Upload
-    try:
-        # Explicitly configure cloudinary SDK using settings dictionary
-        cloudinary.config(
-            cloud_name=settings.CLOUDINARY_STORAGE.get('CLOUD_NAME', ''),
-            api_key=settings.CLOUDINARY_STORAGE.get('API_KEY', ''),
-            api_secret=settings.CLOUDINARY_STORAGE.get('API_SECRET', ''),
-            secure=True
-        )
-        
-        result = cloudinary.uploader.upload(
-            uploaded_file,
-            folder=subfolder
-        )
-        url = result.get('secure_url', '')
-        if url:
-            print(f"Image uploaded to Cloudinary: {url}", file=sys.stderr)
-            return url
-    except Exception as e:
-        print(f"Cloudinary upload failed: {str(e)}. Falling back to local storage...", file=sys.stderr)
+    ext = os.path.splitext(uploaded_file.name)[1] or '.jpg'
+    filename = f'{uuid.uuid4().hex}{ext}'
+    path = f'{subfolder}/{filename}'
 
-    # 2. Local Storage Fallback
     try:
-        fs = FileSystemStorage()
-        ext = os.path.splitext(uploaded_file.name)[1]
-        filename = f"{uuid.uuid4().hex}{ext}"
-        filepath = os.path.join(subfolder, filename)
-        
-        saved_name = fs.save(filepath, uploaded_file)
+        saved_path = default_storage.save(path, uploaded_file)
+        url = default_storage.url(saved_path)
+        if url.startswith('http://'):
+            url = url.replace('http://', 'https://', 1)
+        print(f'Image uploaded: {url}', file=sys.stderr)
+        return url
+    except Exception as e:
+        print(f'S3/default storage upload failed: {e}. Trying local fallback...', file=sys.stderr)
+
+    if getattr(settings, 'USE_S3', False):
+        return ''
+
+    try:
+        fs = FileSystemStorage(location=settings.MEDIA_ROOT, base_url=settings.MEDIA_URL)
+        saved_name = fs.save(path, uploaded_file)
         local_url = fs.url(saved_name)
-        print(f"Image saved locally: {local_url}", file=sys.stderr)
+        if local_url.startswith('/'):
+            base = getattr(settings, 'SITE_BASE_URL', '').rstrip('/')
+            local_url = f'{base}{local_url}' if base else local_url
+        print(f'Image saved locally: {local_url}', file=sys.stderr)
         return local_url
     except Exception as local_err:
-        print(f"Local storage fallback also failed: {str(local_err)}", file=sys.stderr)
+        print(f'Local storage fallback failed: {local_err}', file=sys.stderr)
         return ''

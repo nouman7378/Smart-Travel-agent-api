@@ -163,7 +163,8 @@ USE_S3 = env.bool(
 
 if USE_S3:
     AWS_S3_FILE_OVERWRITE = False
-    AWS_DEFAULT_ACL = 'public-read'
+    # Many buckets use "Bucket owner enforced" (ACLs disabled); omit ACL on upload
+    AWS_DEFAULT_ACL = None
     AWS_QUERYSTRING_AUTH = False
     AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
     AWS_S3_SIGNATURE_VERSION = 's3v4'

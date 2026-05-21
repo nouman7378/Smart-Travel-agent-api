@@ -13,6 +13,14 @@ from django.conf import settings
 from django.core.files.storage import default_storage, FileSystemStorage
 
 
+def _reset_file_pointer(uploaded_file) -> None:
+    if hasattr(uploaded_file, 'seek'):
+        try:
+            uploaded_file.seek(0)
+        except Exception:
+            pass
+
+
 def save_uploaded_image(uploaded_file, subfolder='uploads'):
     """
     Save an uploaded file to S3 (or local media as fallback).
@@ -28,6 +36,7 @@ def save_uploaded_image(uploaded_file, subfolder='uploads'):
     filename = f'{uuid.uuid4().hex}{ext}'
     path = f'{subfolder}/{filename}'
 
+    _reset_file_pointer(uploaded_file)
     try:
         saved_path = default_storage.save(path, uploaded_file)
         url = default_storage.url(saved_path)
@@ -41,6 +50,7 @@ def save_uploaded_image(uploaded_file, subfolder='uploads'):
     if getattr(settings, 'USE_S3', False):
         return ''
 
+    _reset_file_pointer(uploaded_file)
     try:
         fs = FileSystemStorage(location=settings.MEDIA_ROOT, base_url=settings.MEDIA_URL)
         saved_name = fs.save(path, uploaded_file)

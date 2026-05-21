@@ -2233,7 +2233,9 @@ def car_create_api(request):
     try:
         # If the request is coming from an HTML form (multipart/form-data),
         # read fields from request.POST instead of assuming raw JSON.
-        if request.content_type and request.content_type.startswith('multipart/form-data'):
+        from api.utils.request_helpers import is_multipart_form_request
+
+        if is_multipart_form_request(request):
             model = request.POST.get('model', '').strip()
             company = request.POST.get('company', '').strip()
             car_type = request.POST.get('type', '').strip()
@@ -2317,11 +2319,18 @@ def car_create_api(request):
             # Boolean conversion
             is_available = is_available_raw in ('true', '1', 'yes', 'on')
 
-            # Handle car image upload (local storage) or fallback to URL
             from api.utils.image_upload import save_uploaded_image
             car_image_url = ''
             if 'image' in request.FILES:
                 car_image_url = save_uploaded_image(request.FILES['image'], subfolder='cars')
+                if not car_image_url:
+                    return JsonResponse(
+                        {
+                            'success': False,
+                            'message': 'Image upload failed. Please check S3 bucket permissions and try again.',
+                        },
+                        status=500,
+                    )
             if not car_image_url:
                 car_image_url = request.POST.get('car_image_url', '').strip()
 
@@ -2404,6 +2413,7 @@ def car_create_api(request):
                 'success': True,
                 'message': 'Car created successfully',
                 'car_id': car.id,
+                'car_image_url': car.car_image_url,
             },
             status=201
         )
@@ -2435,7 +2445,9 @@ def car_update_api(request, car_id):
     try:
         car = Car.objects.get(id=car_id)
 
-        if request.content_type and request.content_type.startswith('multipart/form-data'):
+        from api.utils.request_helpers import is_multipart_form_request
+
+        if is_multipart_form_request(request):
             # Read updates from form data
             if 'model' in request.POST:
                 car.model = request.POST.get('model', car.model).strip()
@@ -2512,8 +2524,15 @@ def car_update_api(request, car_id):
             if 'image' in request.FILES:
                 from api.utils.image_upload import save_uploaded_image
                 new_url = save_uploaded_image(request.FILES['image'], subfolder='cars')
-                if new_url:
-                    car.car_image_url = new_url
+                if not new_url:
+                    return JsonResponse(
+                        {
+                            'success': False,
+                            'message': 'Image upload failed. Please check S3 bucket permissions and try again.',
+                        },
+                        status=500,
+                    )
+                car.car_image_url = new_url
             if 'is_available' in request.POST:
                 is_available_raw = request.POST.get('is_available', str(car.is_available)).strip().lower()
                 car.is_available = is_available_raw in ('true', '1', 'yes', 'on')
@@ -2539,6 +2558,7 @@ def car_update_api(request, car_id):
             {
                 'success': True,
                 'message': 'Car updated successfully',
+                'car_image_url': car.car_image_url,
             },
             status=200
         )

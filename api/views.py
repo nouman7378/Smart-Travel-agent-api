@@ -2231,6 +2231,7 @@ def car_create_api(request):
         )
 
     try:
+        upload_warning = None
         # If the request is coming from an HTML form (multipart/form-data),
         # read fields from request.POST instead of assuming raw JSON.
         from api.utils.request_helpers import is_multipart_form_request
@@ -2322,7 +2323,6 @@ def car_create_api(request):
             from api.utils.image_upload import resolve_image_url_after_upload
             post_image_url = request.POST.get('car_image_url', '').strip()
             car_image_url = post_image_url
-            upload_warning = None
             if 'image' in request.FILES:
                 car_image_url, upload_warning = resolve_image_url_after_upload(
                     request.FILES['image'], 'cars', post_image_url

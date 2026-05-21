@@ -2319,20 +2319,19 @@ def car_create_api(request):
             # Boolean conversion
             is_available = is_available_raw in ('true', '1', 'yes', 'on')
 
-            from api.utils.image_upload import save_uploaded_image
-            car_image_url = ''
+            from api.utils.image_upload import resolve_image_url_after_upload
+            post_image_url = request.POST.get('car_image_url', '').strip()
+            car_image_url = post_image_url
+            upload_warning = None
             if 'image' in request.FILES:
-                car_image_url = save_uploaded_image(request.FILES['image'], subfolder='cars')
+                car_image_url, upload_warning = resolve_image_url_after_upload(
+                    request.FILES['image'], 'cars', post_image_url
+                )
                 if not car_image_url:
                     return JsonResponse(
-                        {
-                            'success': False,
-                            'message': 'Image upload failed. Please check S3 bucket permissions and try again.',
-                        },
-                        status=500,
+                        {'success': False, 'message': upload_warning or 'Image upload failed.'},
+                        status=400,
                     )
-            if not car_image_url:
-                car_image_url = request.POST.get('car_image_url', '').strip()
 
             car = Car.objects.create(
                 model=model,
@@ -2408,10 +2407,14 @@ def car_create_api(request):
                 is_available=data.get('is_available', True),
             )
 
+        create_message = 'Car created successfully'
+        if upload_warning:
+            create_message = f'{create_message} {upload_warning}'
+
         return JsonResponse(
             {
                 'success': True,
-                'message': 'Car created successfully',
+                'message': create_message,
                 'car_id': car.id,
                 'car_image_url': car.car_image_url,
             },
@@ -2444,6 +2447,7 @@ def car_update_api(request, car_id):
 
     try:
         car = Car.objects.get(id=car_id)
+        upload_warning = None
 
         from api.utils.request_helpers import is_multipart_form_request
 
@@ -2519,20 +2523,17 @@ def car_update_api(request, car_id):
                     except json.JSONDecodeError:
                         features = [item.strip() for item in features_raw.split(',') if item.strip()]
                 car.features = features
-            if 'car_image_url' in request.POST:
-                car.car_image_url = request.POST.get('car_image_url', car.car_image_url).strip()
+            upload_warning = None
+            post_image_url = request.POST.get('car_image_url', '').strip()
             if 'image' in request.FILES:
-                from api.utils.image_upload import save_uploaded_image
-                new_url = save_uploaded_image(request.FILES['image'], subfolder='cars')
-                if not new_url:
-                    return JsonResponse(
-                        {
-                            'success': False,
-                            'message': 'Image upload failed. Please check S3 bucket permissions and try again.',
-                        },
-                        status=500,
-                    )
-                car.car_image_url = new_url
+                from api.utils.image_upload import resolve_image_url_after_upload
+                new_url, upload_warning = resolve_image_url_after_upload(
+                    request.FILES['image'], 'cars', post_image_url
+                )
+                if new_url:
+                    car.car_image_url = new_url
+            elif post_image_url:
+                car.car_image_url = post_image_url
             if 'is_available' in request.POST:
                 is_available_raw = request.POST.get('is_available', str(car.is_available)).strip().lower()
                 car.is_available = is_available_raw in ('true', '1', 'yes', 'on')
@@ -2554,10 +2555,14 @@ def car_update_api(request, car_id):
 
         car.save()
 
+        update_message = 'Car updated successfully'
+        if upload_warning:
+            update_message = f'{update_message}. {upload_warning}'
+
         return JsonResponse(
             {
                 'success': True,
-                'message': 'Car updated successfully',
+                'message': update_message,
                 'car_image_url': car.car_image_url,
             },
             status=200

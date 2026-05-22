@@ -1681,8 +1681,7 @@ def hotel_rooms_api(request, hotel_id):
         rooms = Room.objects.filter(hotel=hotel, is_active=True, available_rooms__gt=0)
         if featured in ('true', '1', 'yes'):
             rooms = rooms.filter(is_featured=True)
-        else:
-            rooms = rooms.order_by('-is_featured', 'price_per_night')
+        rooms = rooms.order_by('-created_at')
         
         results = []
         for room in rooms:

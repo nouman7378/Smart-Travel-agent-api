@@ -16,6 +16,7 @@ class Hotel(models.Model):
     distance_from_center = models.DecimalField(max_digits=6, decimal_places=2, help_text='Distance in kilometers')
     image = models.CharField(max_length=500, blank=True, default='')
     is_active = models.BooleanField(default=True)
+    is_featured = models.BooleanField(default=False, help_text='Is this a featured hotel?')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -74,6 +75,7 @@ class Room(models.Model):
     room_image = models.CharField(max_length=500, blank=True, default='')
     amenities = models.JSONField(default=list, blank=True, help_text='List of amenities as strings')
     is_active = models.BooleanField(default=True)
+    is_featured = models.BooleanField(default=False, help_text='Is this a featured room?')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

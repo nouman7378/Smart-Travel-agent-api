@@ -1291,9 +1291,13 @@ def hotel_list_api(request):
     location = request.GET.get('location', '').strip()
     search = request.GET.get('search', '').strip()
     min_stars = request.GET.get('min_stars', '')
+    featured = request.GET.get('featured', '').strip().lower()
     
     # Base queryset - only active hotels
     hotels = Hotel.objects.filter(is_active=True)
+
+    if featured in ('true', '1', 'yes'):
+        hotels = hotels.filter(is_featured=True)
     
     # Filter by location
     if location:
@@ -1332,6 +1336,7 @@ def hotel_list_api(request):
             'distance_from_center': float(hotel.distance_from_center),
             'image_url': hotel.image_url,
             'display_distance': hotel.display_distance,
+            'is_featured': hotel.is_featured,
         })
     
     return JsonResponse(
@@ -1403,6 +1408,7 @@ def hotel_create_api(request):
         rating = request.POST.get('rating', '0')
         review_count = request.POST.get('review_count', '0')
         distance_from_center = request.POST.get('distance_from_center', '0')
+        is_featured = request.POST.get('is_featured', 'false').lower() in ('true', '1', 'yes')
         
         # Validation
         if not name:
@@ -1471,7 +1477,8 @@ def hotel_create_api(request):
             review_count=review_count,
             distance_from_center=distance_from_center,
             image=image_url,
-            is_active=True
+            is_active=True,
+            is_featured=is_featured,
         )
         
         # Build response message
@@ -1493,6 +1500,7 @@ def hotel_create_api(request):
                     'review_count': hotel.review_count,
                     'distance_from_center': float(hotel.distance_from_center),
                     'image_url': hotel.image_url,
+                    'is_featured': hotel.is_featured,
                 },
             },
             status=201
@@ -1538,6 +1546,7 @@ def hotel_update_api(request, hotel_id):
         review_count = request.POST.get('review_count', str(hotel.review_count))
         distance_from_center = request.POST.get('distance_from_center', str(hotel.distance_from_center))
         is_active = request.POST.get('is_active')
+        is_featured = request.POST.get('is_featured')
         
         # Update fields if provided
         if name:
@@ -1578,6 +1587,8 @@ def hotel_update_api(request, hotel_id):
         
         if is_active is not None:
             hotel.is_active = is_active.lower() in ('true', '1', 'yes')
+        if is_featured is not None:
+            hotel.is_featured = is_featured.lower() in ('true', '1', 'yes')
         
         # Handle image upload (local storage) or image URL text input
         image_url_input = request.POST.get('image_url', '').strip()
@@ -1607,6 +1618,7 @@ def hotel_update_api(request, hotel_id):
                     'distance_from_center': float(hotel.distance_from_center),
                     'image_url': hotel.image_url,
                     'is_active': hotel.is_active,
+                    'is_featured': hotel.is_featured,
                 },
             },
             status=200
@@ -1665,7 +1677,12 @@ def hotel_rooms_api(request, hotel_id):
     """
     try:
         hotel = Hotel.objects.get(id=hotel_id, is_active=True)
+        featured = request.GET.get('featured', '').strip().lower()
         rooms = Room.objects.filter(hotel=hotel, is_active=True, available_rooms__gt=0)
+        if featured in ('true', '1', 'yes'):
+            rooms = rooms.filter(is_featured=True)
+        else:
+            rooms = rooms.order_by('-is_featured', 'price_per_night')
         
         results = []
         for room in rooms:
@@ -1680,6 +1697,7 @@ def hotel_rooms_api(request, hotel_id):
                 'room_image_url': room.room_image_url,
                 'amenities': room.amenities,
                 'discount_percentage': room.discount_percentage,
+                'is_featured': room.is_featured,
             })
         
         return JsonResponse(
@@ -1746,6 +1764,7 @@ def room_create_api(request, hotel_id):
         max_guests = request.POST.get('max_guests', '2')
         amenities_json = request.POST.get('amenities', '[]')
         is_active = request.POST.get('is_active', 'True')
+        is_featured = request.POST.get('is_featured', 'false').lower() in ('true', '1', 'yes')
         
         # Validate required fields
         if not room_type:
@@ -1783,7 +1802,8 @@ def room_create_api(request, hotel_id):
             max_guests=max_guests,
             room_image=room_image_url,
             amenities=amenities,
-            is_active=is_active.lower() == 'true'
+            is_active=is_active.lower() == 'true',
+            is_featured=is_featured,
         )
         
         return JsonResponse(
@@ -1795,6 +1815,7 @@ def room_create_api(request, hotel_id):
                     'room_type': room.room_type,
                     'price_per_night': float(room.price_per_night),
                     'available_rooms': room.available_rooms,
+                    'is_featured': room.is_featured,
                 }
             },
             status=201
@@ -1865,6 +1886,8 @@ def room_update_api(request, room_id):
                 pass  # Keep existing amenities
         if 'is_active' in request.POST:
             room.is_active = request.POST['is_active'].lower() == 'true'
+        if 'is_featured' in request.POST:
+            room.is_featured = request.POST['is_featured'].lower() == 'true'
         
         room.save()
         
@@ -1878,6 +1901,7 @@ def room_update_api(request, room_id):
                     'price_per_night': float(room.price_per_night),
                     'available_rooms': room.available_rooms,
                     'is_active': room.is_active,
+                    'is_featured': room.is_featured,
                 }
             },
             status=200
@@ -1964,6 +1988,7 @@ def room_admin_list_api(request, hotel_id):
                 'room_image_url': room.room_image_url,
                 'amenities': room.amenities,
                 'is_active': room.is_active,
+                'is_featured': room.is_featured,
                 'discount_percentage': room.discount_percentage,
                 'created_at': room.created_at.isoformat(),
                 'updated_at': room.updated_at.isoformat(),
@@ -2022,6 +2047,7 @@ def hotel_admin_list_api(request):
             'distance_from_center': float(hotel.distance_from_center),
             'image_url': hotel.image_url,
             'is_active': hotel.is_active,
+            'is_featured': hotel.is_featured,
             'created_at': hotel.created_at.isoformat(),
             'updated_at': hotel.updated_at.isoformat(),
         })

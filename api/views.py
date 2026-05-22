@@ -699,6 +699,47 @@ def booking_cart_add_api(request):
 
 
 @csrf_exempt
+@require_http_methods(['DELETE'])
+def booking_cart_item_delete_api(request, item_id):
+    """Delete an item from the authenticated user's booking cart."""
+    user = _get_authenticated_user(request)
+    if not user:
+        return JsonResponse(
+            {'success': False, 'message': 'Authentication required.'},
+            status=401,
+        )
+
+    try:
+        item = BookingItem.objects.select_related('cart').get(id=item_id, cart__user=user)
+    except BookingItem.DoesNotExist:
+        return JsonResponse(
+            {'success': False, 'message': 'Booking item not found.'},
+            status=404,
+        )
+
+    item.delete()
+
+    cart = BookingCart.objects.filter(user=user).first()
+    item_count = 0
+    subtotal = 0.0
+    if cart:
+        item_count = cart.items.count()
+        subtotal = sum(float(cart_item.line_total) for cart_item in cart.items.all())
+
+    return JsonResponse(
+        {
+            'success': True,
+            'message': 'Booking item removed successfully.',
+            'cart': {
+                'item_count': item_count,
+                'subtotal': subtotal,
+            },
+        },
+        status=200,
+    )
+
+
+@csrf_exempt
 @require_http_methods(['POST'])
 def booking_confirm_api(request):
     """

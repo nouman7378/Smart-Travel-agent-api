@@ -12,6 +12,7 @@ urlpatterns = [
     path('signup/', views.signup_api, name='signup'),
     path('bookings/cart/', views.booking_cart_api, name='booking_cart'),
     path('bookings/cart/add/', views.booking_cart_add_api, name='booking_cart_add'),
+    path('bookings/cart/items/<int:item_id>/delete/', views.booking_cart_item_delete_api, name='booking_cart_item_delete'),
     path('bookings/confirm/', views.booking_confirm_api, name='booking_confirm'),
     path('bookings/user/', views.user_bookings_api, name='user_bookings'),
     path('payments/create-intent/', views.stripe_create_payment_intent, name='stripe_create_payment_intent'),

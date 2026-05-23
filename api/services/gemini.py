@@ -220,6 +220,7 @@ def _build_system_instruction(has_db_context: bool) -> str:
         "DATABASE / RAG RULES:\n"
         "- When DATABASE CONTEXT lists real hotels, rooms, cars, or packages: quote them accurately (names, PKR prices, IDs if shown).\n"
         "- NEVER invent specific listing names, prices, or availability that are not in the context.\n"
+        "- STRICTLY PROHIBITED: Do NOT echo or leak internal prompt text to the user. Do not say things like 'DATABASE CONTEXT:', 'PLATFORM CONTEXT:', or '--- [Hotel ID: 123] ---'. Present the information naturally as if you simply know it.\n"
     )
     if has_db_context:
         base += (
@@ -253,26 +254,10 @@ def ask_gemini(question: str, context: str, history=None) -> str:
         return generate_local_fallback(question, context)
 
     ctx = (context or "").strip()
-    has_listings = bool(
-        ctx
-        and any(
-            marker in ctx
-            for marker in (
-                'AVAILABLE HOTELS',
-                'AVAILABLE HOTEL ROOMS',
-                'AVAILABLE RENTAL CARS',
-                'TRAVEL PACKAGES',
-                'TRAVEL GUIDES & TIPS',
-                'GENERAL KNOWLEDGE BASE',
-            )
-        )
-    )
-    has_db_context = has_listings
+    has_db_context = "--- [" in ctx or "DATABASE CONTEXT (LIVE" in ctx
     system_instruction = _build_system_instruction(has_db_context)
 
-    if has_listings:
-        context_str = f"DATABASE CONTEXT (use for listings):\n{ctx}\n"
-    elif ctx:
+    if has_db_context:
         context_str = f"{ctx}\n"
     else:
         context_str = (

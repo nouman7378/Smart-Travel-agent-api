@@ -43,8 +43,8 @@ def fetch_context(question: str) -> str:
         context_parts.append("DATABASE CONTEXT (LIVE CATALOG & GUIDES):")
         for res in results:
             # We enforce a distance threshold to avoid pulling completely unrelated data
-            # Cosine distance: lower is better. Typically < 0.8 means it's reasonably related.
-            if res['distance'] < 0.8:
+            # Cosine distance: lower is better (0.0 is perfect). < 1.5 allows broader semantic matches.
+            if res['distance'] < 1.5:
                 doc_text = res['document']
                 # Adding the document ID in brackets so the LLM can reference it
                 model_id = res['metadata'].get('model_id', '?')

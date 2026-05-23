@@ -198,6 +198,9 @@ else:
 # Default primary key
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# ChromaDB
+CHROMADB_PERSIST_DIR = BASE_DIR / 'chroma_db'
+
 # Amadeus API
 AMADEUS_API_KEY = env('AMADEUS_API_KEY', default='')
 AMADEUS_API_SECRET = env('AMADEUS_API_SECRET', default='')

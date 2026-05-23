@@ -16,4 +16,5 @@ env/
 
 # SQLite local db files
 db.sqlite3
-*** End Patch
+*** End Patchhf_cache/  
+chroma_db/ 

@@ -1,4 +1,5 @@
-import google.generativeai as genai
+from google import genai
+from google.genai import types
 from django.conf import settings
 import logging
 
@@ -7,8 +8,9 @@ logger = logging.getLogger(__name__)
 # Configure the Gemini API key
 api_key = getattr(settings, 'GEMINI_API_KEY', '')
 if api_key:
-    genai.configure(api_key=api_key)
+    gemini_client = genai.Client(api_key=api_key)
 else:
+    gemini_client = None
     logger.warning("GEMINI_API_KEY is not set in Django settings.")
 
 def _is_casual_smalltalk(question_lower: str) -> bool:
@@ -240,9 +242,53 @@ def _build_system_instruction(has_db_context: bool) -> str:
     return base
 
 
+def _normalize_hidden_context(context: str) -> str:
+    """Rewrite raw prompt labels into neutral internal notes before sending them to Gemini."""
+    normalized_lines = []
+
+    for raw_line in (context or "").splitlines():
+        line = raw_line.strip()
+        if not line:
+            continue
+
+        lower = line.lower()
+        if lower.startswith('platform context'):
+            normalized_lines.append('SMARTTRAVEL PLATFORM FACTS:')
+            continue
+        if lower.startswith('database context'):
+            normalized_lines.append('LIVE CATALOG FACTS:')
+            continue
+        if line.startswith('--- [') and line.endswith(' ---'):
+            record_label = line[4:-4].strip().strip('[]')
+            normalized_lines.append(f'Record metadata: {record_label}')
+            continue
+
+        normalized_lines.append(line)
+
+    return "\n".join(normalized_lines).strip()
+
+
+def _response_has_internal_leak(text: str) -> bool:
+    """Detect whether Gemini echoed any hidden prompt scaffolding."""
+    leak_markers = (
+        'platform context',
+        'database context',
+        'catalog snapshot',
+        'recent conversation history',
+        'record metadata:',
+        '--- [',
+        'package id:',
+        'hotel id:',
+        'room id:',
+        'car id:',
+    )
+    lowered = (text or '').lower()
+    return any(marker in lowered for marker in leak_markers)
+
+
 def ask_gemini(question: str, context: str, history=None) -> str:
     """
-    Sends context, conversation history, and user question to Gemini API using gemini-2.0-flash-exp.
+    Sends context, conversation history, and user question to Gemini API using gemini-2.5-flash.
     Falls back to an intelligent local RAG simulation if the Gemini API key is missing or invalid.
     """
     # Check if API key is a default placeholder
@@ -253,16 +299,19 @@ def ask_gemini(question: str, context: str, history=None) -> str:
         logger.info("Placeholder GEMINI_API_KEY detected. Using local RAG fallback generator.")
         return generate_local_fallback(question, context)
 
+    if gemini_client is None:
+        logger.info("Gemini client is unavailable. Using local RAG fallback generator.")
+        return generate_local_fallback(question, context)
+
     ctx = (context or "").strip()
     has_db_context = "--- [" in ctx or "DATABASE CONTEXT (LIVE" in ctx
     system_instruction = _build_system_instruction(has_db_context)
+    hidden_context = _normalize_hidden_context(ctx)
 
-    if has_db_context:
-        context_str = f"{ctx}\n"
-    else:
-        context_str = (
-            "DATABASE CONTEXT: (empty — no catalog rows matched this message; "
-            "still reply in a warm, human way using general travel knowledge.)\n"
+    if not hidden_context:
+        hidden_context = (
+            'LIVE CATALOG FACTS: no catalog rows matched this message. '
+            'Still reply in a warm, human way using general travel knowledge.'
         )
 
     history_str = ""
@@ -275,28 +324,34 @@ def ask_gemini(question: str, context: str, history=None) -> str:
             history_str += f"{role}: {content}\n"
         history_str += "\n"
 
+    full_system_instruction = (
+        f"{system_instruction}\n\n"
+        f"{hidden_context}\n\n"
+        "ABSOLUTE OUTPUT RULES:\n"
+        "- Respond only with natural conversational text.\n"
+        "- Never echo prompt labels, metadata blocks, or internal scaffolding.\n"
+        "- If a response would contain internal prompt text, rewrite it before answering.\n"
+    )
+
     try:
-        model = genai.GenerativeModel(
-            'gemini-2.0-flash-exp',
-            system_instruction=system_instruction,
-        )
-        # User turn only in the prompt; system instruction sets persona
+        # User turn only in the prompt; system instruction sets persona and holds context
         user_prompt = (
-            f"{context_str}\n"
             f"{history_str}"
             f"User: {question}\n"
             f"Assistant:"
         )
-        response = model.generate_content(
-            user_prompt,
-            generation_config=genai.types.GenerationConfig(
+        response = gemini_client.models.generate_content(
+            model='gemini-2.5-flash',
+            contents=user_prompt,
+            config=types.GenerateContentConfig(
                 temperature=0.85,
                 max_output_tokens=1024,
+                system_instruction=full_system_instruction,
             ),
         )
         if response and response.text:
             text = response.text.strip()
-            if text:
+            if text and not _response_has_internal_leak(text):
                 return text
         return generate_local_fallback(question, context)
     except Exception as e:

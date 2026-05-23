@@ -1,8 +1,13 @@
 import os
 import logging
 from django.conf import settings
-import chromadb
-from chromadb.utils import embedding_functions
+
+try:
+    import chromadb
+    from chromadb.utils import embedding_functions
+except ImportError:
+    chromadb = None
+    embedding_functions = None
 
 logger = logging.getLogger(__name__)
 
@@ -11,6 +16,14 @@ EMBEDDING_MODEL_NAME = 'all-MiniLM-L6-v2'
 
 class ChromaService:
     def __init__(self):
+        if chromadb is None or embedding_functions is None:
+            logger.warning("chromadb is not installed; vector search is disabled and chat will use fallback context only.")
+            self.client = None
+            self.collection = None
+            self.collection_name = "travel_catalog"
+            self.embedding_fn = None
+            return
+
         # Fallback to local directory if settings doesn't have it
         base_dir = getattr(settings, 'BASE_DIR', os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
         

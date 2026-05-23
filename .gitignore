@@ -18,3 +18,5 @@ env/
 db.sqlite3
 *** End Patchhf_cache/  
 chroma_db/ 
+hf_cache/  
+chroma_db/ 

@@ -1437,6 +1437,7 @@ def hotel_list_api(request):
     hotels = hotels.order_by('-rating', '-created_at')
     
     results = []
+    has_hotel_featured = _db_table_has_column(Hotel, 'is_featured')
     for hotel in hotels:
         results.append({
             'id': hotel.id,
@@ -1449,7 +1450,7 @@ def hotel_list_api(request):
             'distance_from_center': float(hotel.distance_from_center),
             'image_url': hotel.image_url,
             'display_distance': hotel.display_distance,
-            'is_featured': hotel.is_featured,
+            'is_featured': hotel.is_featured if has_hotel_featured else False,
         })
     
     return JsonResponse(
@@ -1797,6 +1798,7 @@ def hotel_rooms_api(request, hotel_id):
         rooms = rooms.order_by('-created_at')
         
         results = []
+        has_room_featured = _db_table_has_column(Room, 'is_featured')
         for room in rooms:
             results.append({
                 'id': room.id,
@@ -1809,7 +1811,7 @@ def hotel_rooms_api(request, hotel_id):
                 'room_image_url': room.room_image_url,
                 'amenities': room.amenities,
                 'discount_percentage': room.discount_percentage,
-                'is_featured': room.is_featured,
+                'is_featured': room.is_featured if has_room_featured else False,
             })
         
         return JsonResponse(

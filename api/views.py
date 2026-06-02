@@ -54,6 +54,20 @@ def _db_table_has_column(model, column_name: str) -> bool:
         return False
 
 
+def _safe_float(value, default=0.0) -> float:
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return default
+
+
+def _safe_int(value, default=0) -> int:
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return default
+
+
 def is_superadmin(user):
     """Check if user is a super admin."""
     return user.is_authenticated and user.is_staff
@@ -1439,19 +1453,23 @@ def hotel_list_api(request):
     results = []
     has_hotel_featured = _db_table_has_column(Hotel, 'is_featured')
     for hotel in hotels:
-        results.append({
-            'id': hotel.id,
-            'name': hotel.name,
-            'location': hotel.location,
-            'address': hotel.address,
-            'stars': hotel.stars,
-            'rating': float(hotel.rating),
-            'review_count': hotel.review_count,
-            'distance_from_center': float(hotel.distance_from_center),
-            'image_url': hotel.image_url,
-            'display_distance': hotel.display_distance,
-            'is_featured': hotel.is_featured if has_hotel_featured else False,
-        })
+        try:
+            results.append({
+                'id': hotel.id,
+                'name': hotel.name,
+                'location': hotel.location,
+                'address': hotel.address,
+                'stars': _safe_int(hotel.stars, 3),
+                'rating': _safe_float(hotel.rating, 0.0),
+                'review_count': _safe_int(hotel.review_count, 0),
+                'distance_from_center': _safe_float(hotel.distance_from_center, 0.0),
+                'image_url': hotel.image_url,
+                'display_distance': hotel.display_distance if hotel.distance_from_center is not None else '0.0 km from center',
+                'is_featured': hotel.is_featured if has_hotel_featured else False,
+            })
+        except Exception:
+            # Skip malformed rows in production instead of failing the whole endpoint.
+            continue
     
     return JsonResponse(
         {
@@ -1800,19 +1818,22 @@ def hotel_rooms_api(request, hotel_id):
         results = []
         has_room_featured = _db_table_has_column(Room, 'is_featured')
         for room in rooms:
-            results.append({
-                'id': room.id,
-                'room_type': room.room_type,
-                'description': room.description,
-                'price_per_night': float(room.price_per_night),
-                'original_price': float(room.original_price) if room.original_price else None,
-                'available_rooms': room.available_rooms,
-                'max_guests': room.max_guests,
-                'room_image_url': room.room_image_url,
-                'amenities': room.amenities,
-                'discount_percentage': room.discount_percentage,
-                'is_featured': room.is_featured if has_room_featured else False,
-            })
+            try:
+                results.append({
+                    'id': room.id,
+                    'room_type': room.room_type,
+                    'description': room.description,
+                    'price_per_night': _safe_float(room.price_per_night, 0.0),
+                    'original_price': _safe_float(room.original_price, 0.0) if room.original_price else None,
+                    'available_rooms': _safe_int(room.available_rooms, 0),
+                    'max_guests': _safe_int(room.max_guests, 2),
+                    'room_image_url': room.room_image_url,
+                    'amenities': room.amenities,
+                    'discount_percentage': _safe_int(room.discount_percentage, 0),
+                    'is_featured': room.is_featured if has_room_featured else False,
+                })
+            except Exception:
+                continue
         
         return JsonResponse(
             {

@@ -12,7 +12,7 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         self.stdout.write("Starting ChromaDB synchronization...")
         
-        if not chroma_client.client or not chroma_client.collection:
+        if not chroma_client.ensure_initialized():
             self.stdout.write(self.style.ERROR("ChromaDB client failed to initialize. Check your settings and dependencies."))
             return
             

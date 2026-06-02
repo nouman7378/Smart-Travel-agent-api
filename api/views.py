@@ -1182,14 +1182,75 @@ def flight_search_api(request):
             status=400,
         )
 
-    origin = (
-        body.get('departure_airport_code') or body.get('origin') or ''
-    ).strip().upper()
-    destination = (
-        body.get('destination_airport_code') or body.get('destination') or ''
-    ).strip().upper()
+    # Accept multiple incoming field names from the frontend and normalize
+    origin_raw = (
+        body.get('departure_airport_code')
+        or body.get('origin')
+        or body.get('from')
+        or body.get('fromIataCode')
+        or body.get('fromIata')
+        or ''
+    )
+    destination_raw = (
+        body.get('destination_airport_code')
+        or body.get('destination')
+        or body.get('to')
+        or body.get('toIataCode')
+        or body.get('toIata')
+        or ''
+    )
+
+    origin = str(origin_raw).strip().upper()
+    destination = str(destination_raw).strip().upper()
+
+    # If input contains something like "City (IATA)" or ends with a 3-letter code, try to extract it
+    def _extract_iata(value: str) -> str:
+        if not value:
+            return ''
+        m = re.search(r"\(([A-Z]{3})\)", value, re.I)
+        if m:
+            return m.group(1).upper()
+        m2 = re.search(r"(?:-|\s)([A-Z]{3})$", value, re.I)
+        if m2:
+            return m2.group(1).upper()
+        if re.match(r'^[A-Z]{3}$', value.strip(), re.I):
+            return value.strip().upper()
+        return ''
+
+    if not re.match(r'^[A-Z]{3}$', origin):
+        extracted = _extract_iata(origin)
+        if extracted:
+            origin = extracted
+
+    if not re.match(r'^[A-Z]{3}$', destination):
+        extracted = _extract_iata(destination)
+        if extracted:
+            destination = extracted
+
+    # As a last resort, try to resolve city names to an IATA code from DB
+    from django.db.models import Q
+
+    if not re.match(r'^[A-Z]{3}$', origin) and origin:
+        try:
+            city_qs = City.objects.filter(
+                Q(iata_code__iexact=origin) | Q(name__icontains=origin) | Q(display_name__icontains=origin)
+            ).order_by('name')[:1]
+            if city_qs:
+                origin = city_qs[0].iata_code.upper()
+        except Exception:
+            pass
+
+    if not re.match(r'^[A-Z]{3}$', destination) and destination:
+        try:
+            city_qs = City.objects.filter(
+                Q(iata_code__iexact=destination) | Q(name__icontains=destination) | Q(display_name__icontains=destination)
+            ).order_by('name')[:1]
+            if city_qs:
+                destination = city_qs[0].iata_code.upper()
+        except Exception:
+            pass
     travel_date = (
-        body.get('travel_date') or body.get('departure_date') or ''
+        body.get('travel_date') or body.get('departure_date') or body.get('departDate') or ''
     ).strip()
     adults_raw = body.get('number_of_passengers') or body.get('adults') or body.get('passengers')
     adults = 1

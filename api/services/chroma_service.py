@@ -16,47 +16,56 @@ EMBEDDING_MODEL_NAME = 'all-MiniLM-L6-v2'
 
 class ChromaService:
     def __init__(self):
+        self.client = None
+        self.collection = None
+        self.collection_name = "travel_catalog"
+        self.embedding_fn = None
+        self._initialized = False
+        self._init_error = None
+
+        base_dir = getattr(settings, 'BASE_DIR', os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
+        self.persist_dir = getattr(settings, 'CHROMADB_PERSIST_DIR', os.path.join(base_dir, 'chroma_db'))
+        self.hf_home = os.path.join(base_dir, 'hf_cache')
+
+    def ensure_initialized(self) -> bool:
+        if self._initialized:
+            return self.client is not None and self.collection is not None
+
+        self._initialized = True
+
         if chromadb is None or embedding_functions is None:
             logger.warning("chromadb is not installed; vector search is disabled and chat will use fallback context only.")
-            self.client = None
-            self.collection = None
-            self.collection_name = "travel_catalog"
-            self.embedding_fn = None
-            return
+            return False
 
-        # Fallback to local directory if settings doesn't have it
-        base_dir = getattr(settings, 'BASE_DIR', os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
-        
         # Override HuggingFace cache directory to avoid Windows "Access Denied" on ~/.cache/huggingface
-        os.environ['HF_HOME'] = os.path.join(base_dir, 'hf_cache')
-        
-        self.persist_dir = getattr(settings, 'CHROMADB_PERSIST_DIR', os.path.join(base_dir, 'chroma_db'))
-        
+        os.environ['HF_HOME'] = self.hf_home
+
         os.makedirs(self.persist_dir, exist_ok=True)
-        os.makedirs(os.environ['HF_HOME'], exist_ok=True)
-        
+        os.makedirs(self.hf_home, exist_ok=True)
+
         try:
-            # Initialize persistent client
+            # Initialize persistent client only when vector search is actually needed.
             self.client = chromadb.PersistentClient(path=str(self.persist_dir))
-            
-            # SentenceTransformer is great for creating fast document/query vectors
             self.embedding_fn = embedding_functions.SentenceTransformerEmbeddingFunction(model_name=EMBEDDING_MODEL_NAME)
-            
-            # Using a single unified collection for travel context
-            self.collection_name = "travel_catalog"
             self.collection = self.client.get_or_create_collection(
                 name=self.collection_name,
                 embedding_function=self.embedding_fn,
-                metadata={"hnsw:space": "cosine"} # Cosine similarity usually works best for embeddings
+                metadata={"hnsw:space": "cosine"}
             )
             logger.info(f"ChromaDB initialized successfully at {self.persist_dir}")
+            return True
         except Exception as e:
+            self._init_error = e
             logger.error(f"Failed to initialize ChromaDB: {e}")
             self.client = None
             self.collection = None
+            return False
 
     def upsert_document(self, doc_id: str, text: str, metadata: dict = None):
         """Add or update a document in the vector store."""
+        if not self.ensure_initialized():
+            return
+
         if not self.collection:
             return
             
@@ -71,6 +80,9 @@ class ChromaService:
 
     def delete_document(self, doc_id: str):
         """Remove a document from the vector store."""
+        if not self.ensure_initialized():
+            return
+
         if not self.collection:
             return
             
@@ -84,6 +96,9 @@ class ChromaService:
         Retrieve the most semantically relevant documents for a query.
         Returns a list of dicts: [{'id': str, 'document': str, 'metadata': dict, 'distance': float}]
         """
+        if not self.ensure_initialized():
+            return []
+
         if not self.collection:
             return []
             

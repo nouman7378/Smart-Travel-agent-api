@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.db import transaction
+from django.db import connection
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
@@ -41,6 +42,16 @@ from .services.ai import (
 from .services.amadeus import AmadeusError, search_flights
 
 User = get_user_model()
+
+
+def _db_table_has_column(model, column_name: str) -> bool:
+    """Return True when the database table for a model has the requested column."""
+    try:
+        with connection.cursor() as cursor:
+            columns = [col.name for col in connection.introspection.get_table_description(cursor, model._meta.db_table)]
+        return column_name in columns
+    except Exception:
+        return False
 
 
 def is_superadmin(user):
@@ -1398,7 +1409,7 @@ def hotel_list_api(request):
     # Base queryset - only active hotels
     hotels = Hotel.objects.filter(is_active=True)
 
-    if featured in ('true', '1', 'yes'):
+    if featured in ('true', '1', 'yes') and _db_table_has_column(Hotel, 'is_featured'):
         hotels = hotels.filter(is_featured=True)
     
     # Filter by location
@@ -1781,7 +1792,7 @@ def hotel_rooms_api(request, hotel_id):
         hotel = Hotel.objects.get(id=hotel_id, is_active=True)
         featured = request.GET.get('featured', '').strip().lower()
         rooms = Room.objects.filter(hotel=hotel, is_active=True, available_rooms__gt=0)
-        if featured in ('true', '1', 'yes'):
+        if featured in ('true', '1', 'yes') and _db_table_has_column(Room, 'is_featured'):
             rooms = rooms.filter(is_featured=True)
         rooms = rooms.order_by('-created_at')
         

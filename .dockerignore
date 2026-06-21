@@ -1,4 +1,15 @@
 fly.toml
 .git/
+.github/
 *.sqlite3
-venv
+venv/
+.venv/
+chroma_db/
+hf_cache/
+media/
+staticfiles/
+.env
+__pycache__/
+*.pyc
+*.pyo
+*.pyd

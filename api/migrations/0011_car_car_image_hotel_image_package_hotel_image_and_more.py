@@ -10,24 +10,20 @@ def copy_existing_images(apps, schema_editor):
     Package = apps.get_model('api', 'Package')
 
     for hotel in Hotel.objects.all():
-        if hotel.image_url:
-            hotel.image = hotel.image_url
-            hotel.save(update_fields=['image'])
+        hotel.image = getattr(hotel, 'image_url', '') or ''
+        hotel.save(update_fields=['image'])
 
     for room in Room.objects.all():
-        if room.room_image_url:
-            room.room_image = room.room_image_url
-            room.save(update_fields=['room_image'])
+        room.room_image = getattr(room, 'room_image_url', '') or ''
+        room.save(update_fields=['room_image'])
 
     for car in Car.objects.all():
-        if car.car_image_url:
-            car.car_image = car.car_image_url
-            car.save(update_fields=['car_image'])
+        car.car_image = getattr(car, 'car_image_url', '') or ''
+        car.save(update_fields=['car_image'])
 
     for package in Package.objects.all():
-        if package.hotel_image_url:
-            package.hotel_image = package.hotel_image_url
-            package.save(update_fields=['hotel_image'])
+        package.hotel_image = getattr(package, 'hotel_image_url', '') or ''
+        package.save(update_fields=['hotel_image'])
 
 
 def reverse_copy_existing_images(apps, schema_editor):

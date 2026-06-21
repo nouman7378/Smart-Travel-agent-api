@@ -44,14 +44,7 @@ from .services.amadeus import AmadeusError, search_flights
 User = get_user_model()
 
 
-def _db_table_has_column(model, column_name: str) -> bool:
-    """Return True when the database table for a model has the requested column."""
-    try:
-        with connection.cursor() as cursor:
-            columns = [col.name for col in connection.introspection.get_table_description(cursor, model._meta.db_table)]
-        return column_name in columns
-    except Exception:
-        return False
+
 
 
 def _safe_float(value, default=0.0) -> float:
@@ -1423,7 +1416,7 @@ def hotel_list_api(request):
     # Base queryset - only active hotels
     hotels = Hotel.objects.filter(is_active=True)
 
-    if featured in ('true', '1', 'yes') and _db_table_has_column(Hotel, 'is_featured'):
+    if featured in ('true', '1', 'yes'):
         hotels = hotels.filter(is_featured=True)
     
     # Filter by location
@@ -1451,7 +1444,6 @@ def hotel_list_api(request):
     hotels = hotels.order_by('-rating', '-created_at')
     
     results = []
-    has_hotel_featured = _db_table_has_column(Hotel, 'is_featured')
     for hotel in hotels:
         try:
             results.append({
@@ -1465,7 +1457,7 @@ def hotel_list_api(request):
                 'distance_from_center': _safe_float(hotel.distance_from_center, 0.0),
                 'image_url': hotel.image_url,
                 'display_distance': hotel.display_distance if hotel.distance_from_center is not None else '0.0 km from center',
-                'is_featured': hotel.is_featured if has_hotel_featured else False,
+                'is_featured': hotel.is_featured,
             })
         except Exception:
             # Skip malformed rows in production instead of failing the whole endpoint.
@@ -1811,12 +1803,11 @@ def hotel_rooms_api(request, hotel_id):
         hotel = Hotel.objects.get(id=hotel_id, is_active=True)
         featured = request.GET.get('featured', '').strip().lower()
         rooms = Room.objects.filter(hotel=hotel, is_active=True, available_rooms__gt=0)
-        if featured in ('true', '1', 'yes') and _db_table_has_column(Room, 'is_featured'):
+        if featured in ('true', '1', 'yes'):
             rooms = rooms.filter(is_featured=True)
         rooms = rooms.order_by('-created_at')
         
         results = []
-        has_room_featured = _db_table_has_column(Room, 'is_featured')
         for room in rooms:
             try:
                 results.append({
@@ -1830,7 +1821,7 @@ def hotel_rooms_api(request, hotel_id):
                     'room_image_url': room.room_image_url,
                     'amenities': room.amenities,
                     'discount_percentage': _safe_int(room.discount_percentage, 0),
-                    'is_featured': room.is_featured if has_room_featured else False,
+                    'is_featured': room.is_featured,
                 })
             except Exception:
                 continue
